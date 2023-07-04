@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float _speed = 4.0f;
+    private float _speed = 3.0f;
     [SerializeField]
     private GameObject _flashlight;
     private bool _isFlashlightActive = false;
