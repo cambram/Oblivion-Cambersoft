@@ -6,11 +6,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Text _initialInstructionText;
-    [SerializeField]
-    private Text _controlsText;
-    private bool _isControlsTextOn;
-    [SerializeField]
     private Text _deathText;
     private bool _isDead;
 
@@ -23,33 +18,16 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        _initialInstructionText.gameObject.SetActive(true);
-        _controlsText.gameObject.SetActive(false);
         _deathText.gameObject.SetActive(false);
         _batteryImage.sprite = _batterySprites[4];
         _isDead = false;
-        _isControlsTextOn = false;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
-        StartCoroutine(InitialInstructionTextRoutine());
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Backspace) && !_isControlsTextOn) {
-            _controlsText.gameObject.SetActive(true);
-            _isControlsTextOn = true;
-        } else if(Input.GetKeyDown(KeyCode.Backspace) && _isControlsTextOn) {
-            _controlsText.gameObject.SetActive(false);
-            _isControlsTextOn = false;
-        }
-
         if(_isDead && Input.GetKeyDown(KeyCode.R)) {
             _gameManager.RestartGame();
         }
-    }
-
-    IEnumerator InitialInstructionTextRoutine() {
-        yield return new WaitForSeconds(4f);
-        _initialInstructionText.gameObject.SetActive(false);
     }
 
     public void DisplayDeath() {
