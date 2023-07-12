@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Player _player;
-    private float _speed = 5f, _distance;
+    private float _speed = 4f, _distance;
 
     private SpriteRenderer _spriteRenderer;
 
