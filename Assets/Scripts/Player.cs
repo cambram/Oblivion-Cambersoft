@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     private void Start() {
         _camera = Camera.main;
-        transform.position = new Vector3(-67, -7, 0);
+        transform.position = new Vector3(-24, -5, 0);
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 40 units
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     }
 
     private void Update() {
-        _camera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        _camera.transform.position = new Vector3(transform.position.x, 0, -10);
         CalculateMovement();
         if (Input.GetMouseButtonDown(0)) {
             if(_isFlashlightActive) { // flashlight gets turned off
