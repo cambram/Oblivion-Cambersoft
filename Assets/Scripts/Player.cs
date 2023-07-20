@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float _speed = 3.0f;
+    private float _speed = 10.0f;
     [SerializeField]
     private GameObject _flashlight;
     private bool _isFlashlightActive = false;
@@ -102,11 +102,11 @@ public class Player : MonoBehaviour
         transform.Translate(direction * _speed * Time.deltaTime);
 
         //must not be able to travel further than x = -68.3 and x = 70.4
-        if (transform.position.x > 70.4f) {
+        /*if (transform.position.x > 70.4f) {
             transform.position = new Vector3(70.4f, transform.position.y, 0);
         } else if (transform.position.x < -68.3f) {
             transform.position = new Vector3(-68.3f, transform.position.y, 0);
-        }
+        }*/
     }
 
     private void Flashlight(bool x) { // on = true; off = false

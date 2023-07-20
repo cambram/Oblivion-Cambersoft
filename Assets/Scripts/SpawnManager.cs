@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        enemiesInit();
+        //enemiesInit();
         collectablesInit();        
     }
     private void enemiesInit() {
