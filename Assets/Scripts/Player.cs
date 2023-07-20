@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float _speed = 10.0f;
+    private float _speed = 3.0f;
     [SerializeField]
     private GameObject _flashlight;
     private bool _isFlashlightActive = false;
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     private void Start() {
         _camera = Camera.main;
-        transform.position = new Vector3(-24, -5, 0);
+        transform.position = new Vector3(-77, -2.3f, 0);
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 40 units
@@ -90,23 +90,20 @@ public class Player : MonoBehaviour
         // player controlled light sources change direction depending on players direction of movement
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.A)) {
             _direction = false; // facing left
-            transform.localScale = new Vector3(-0.13096f, 0.13096f, 0.13096f);
+            transform.localScale = new Vector3(-0.15f, 0.15f, 0.15f);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.D)) {
             _direction = true; // facing right
-            transform.localScale = new Vector3(0.13096f, 0.13096f, 0.13096f);
+            transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInput, 0, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
 
-        //must not be able to travel further than x = -68.3 and x = 70.4
-        /*if (transform.position.x > 70.4f) {
-            transform.position = new Vector3(70.4f, transform.position.y, 0);
-        } else if (transform.position.x < -68.3f) {
-            transform.position = new Vector3(-68.3f, transform.position.y, 0);
-        }*/
+        //camera must not be able to travel further than x = -66
+        if (_camera.transform.position.x < -66)
+            _camera.transform.position = new Vector3(-66, 0, -10);
     }
 
     private void Flashlight(bool x) { // on = true; off = false
