@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
     /// Updates the battery UI element.
     /// </summary>
     /// <param name="percent">Index for battery sprite. 0 = 0%; 1 = 25%; 2 = 50%; 3 = 75%; 4 = 100%</param>
-    public void UpdateBattery(int percent) {
+    /*public void UpdateBattery(int percent) {
         _batteryImage.sprite = _batterySprites[percent];
-    }
+    }*/
 }

@@ -46,8 +46,9 @@ public class Player : MonoBehaviour
         _camera.transform.position = new Vector3(transform.position.x, 0, -10);
         CalculateMovement();
 
-        //Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-        //_flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);
+        //Mouse follow action
+        /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
 
         if (Input.GetMouseButtonDown(0)) {
             if(_isFlashlightActive) { // flashlight gets turned off
@@ -64,15 +65,15 @@ public class Player : MonoBehaviour
         }
 
         if(_batteryCount > 300) {
-            _uiManager.UpdateBattery(4);
+            //flicker battery;
         } else if(_batteryCount > 200 && _batteryCount < 300) {
-            _uiManager.UpdateBattery(3);
+            //flicker battery;
         } else if(_batteryCount > 100 && _batteryCount < 200) {
-            _uiManager.UpdateBattery(2);
+            //flicker battery;
         } else if(_batteryCount > 0 && _batteryCount < 100) {
-            _uiManager.UpdateBattery(1);
+            //flicker battery;
         } else if(_batteryCount == 0) {
-            _uiManager.UpdateBattery(0);
+            //flicker battery;
         }
     }
 
