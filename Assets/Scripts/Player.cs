@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -44,8 +46,8 @@ public class Player : MonoBehaviour
         _camera.transform.position = new Vector3(transform.position.x, 0, -10);
         CalculateMovement();
 
-        Vector3 mousePosition = Input.mousePosition;
-        //Debug.Log(mousePosition);
+        //Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        //_flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);
 
         if (Input.GetMouseButtonDown(0)) {
             if(_isFlashlightActive) { // flashlight gets turned off
