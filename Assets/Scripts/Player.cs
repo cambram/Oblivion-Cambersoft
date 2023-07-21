@@ -43,6 +43,10 @@ public class Player : MonoBehaviour
     private void Update() {
         _camera.transform.position = new Vector3(transform.position.x, 0, -10);
         CalculateMovement();
+
+        Vector3 mousePosition = Input.mousePosition;
+        //Debug.Log(mousePosition);
+
         if (Input.GetMouseButtonDown(0)) {
             if(_isFlashlightActive) { // flashlight gets turned off
                 Flashlight(false);
