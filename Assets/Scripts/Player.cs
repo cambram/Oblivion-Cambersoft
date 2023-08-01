@@ -6,15 +6,15 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    private float _speed = 3.0f;
+    private float _speed = 3.5f;
     [SerializeField]
     private GameObject _flashlight;
-    private bool _isFlashlightActive = false;
+    private bool _isFlashlightActive = false, _isJumpActive = false, _isFlashCameraActive = false;
     [SerializeField]
     private GameObject _flashCamera;
     private int _flashChargeCount = 0;
-    private bool _isFlashCameraActive = false;
     private bool _direction = true; //true is facing right and false is facing left
+    private Rigidbody2D _rigidbody;
 
     private int _batteryCount;
     private const int _BATTERY = 400;
@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(-77, -2.3f, 0);
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
-        _batteryCount = _BATTERY; // 1 battery = 40 units
-
+        _batteryCount = _BATTERY; // 1 battery = 400 units
+        _rigidbody = GetComponent<Rigidbody2D>();
         _audioSource = GetComponent<AudioSource>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
@@ -76,12 +76,18 @@ public class Player : MonoBehaviour
             //flicker battery;
         }
 
-        /*if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
+        if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
             _isJumpActive = true;
             StartCoroutine(JumpCooldown());
-            _playerAnimator.SetTrigger("isSpaceClick");
+            //_playerAnimator.SetTrigger("isSpaceClick");
             _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
-        }*/
+        }
+    }
+
+    IEnumerator JumpCooldown() {
+        yield return new WaitForSeconds(1.3f);
+        _isJumpActive = false;
+        //_playerAnimator.ResetTrigger("isSpaceClick");
     }
 
     public bool GetIsFlashlightActive() {
@@ -115,7 +121,7 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, 0, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
 
-        //camera must not be able to travel further than x = -66
+        //camera must not be able to travel left of x = -66
         if (_camera.transform.position.x < -66)
             _camera.transform.position = new Vector3(-66, 0, -10);
     }
@@ -123,7 +129,6 @@ public class Player : MonoBehaviour
     private void Flashlight(bool x) { // on = true; off = false
         _isFlashlightActive = x;
         _flashlight.SetActive(x);
-
         if (x) StartCoroutine(BatteryCountdownRoutine());
     }
 
@@ -172,10 +177,4 @@ public class Player : MonoBehaviour
         _uiManager.DisplayDeath();
         Destroy(this.gameObject);
     }
-
-    /*IEnumerator JumpCooldown() {
-        yield return new WaitForSeconds(0.8f);
-        _isJumpActive = false;
-        _playerAnimator.ResetTrigger("isSpaceClick");
-    }*/
 }

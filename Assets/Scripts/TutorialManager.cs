@@ -20,6 +20,8 @@ public class TutorialManager : MonoBehaviour
     //space vars
     [SerializeField]
     private GameObject _space;
+    [SerializeField]
+    private Animator _spaceAnim;
     //Right Click vars
     [SerializeField]
     private GameObject _rightClick;
@@ -38,7 +40,7 @@ public class TutorialManager : MonoBehaviour
         _A.SetActive(false);
         _E.SetActive(false);
         _D.SetActive(false);
-        _space.SetActive(true);
+        _space.SetActive(false);
         _rightClick.SetActive(false);
         _leftClick.SetActive(false);
         StartCoroutine(FlashlightInstruction());
@@ -57,10 +59,13 @@ public class TutorialManager : MonoBehaviour
             _DAnim.SetTrigger("FadeOut");
         }
 
+        if (_player.transform.position.x > -20) {
+            _space.SetActive(true);
+        }
+
         if (_player.transform.position.x > 1 && !_jumpInstructionComplete) {
             _jumpInstructionComplete = true;
-            //_AAnim.SetTrigger("FadeOut");
-            //_DAnim.SetTrigger("FadeOut");
+            _spaceAnim.SetTrigger("FadeOut");
         }
     }
     
@@ -70,7 +75,7 @@ public class TutorialManager : MonoBehaviour
     }
 
     IEnumerator MovementInstruction() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1);
         _A.SetActive(true);
         _D.SetActive(true);
     }
