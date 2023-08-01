@@ -29,7 +29,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _leftClickAnim;
 
-    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false;
+    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionComplete = false;
 
     private Player _player;
 
@@ -38,7 +38,7 @@ public class TutorialManager : MonoBehaviour
         _A.SetActive(false);
         _E.SetActive(false);
         _D.SetActive(false);
-        _space.SetActive(false);
+        _space.SetActive(true);
         _rightClick.SetActive(false);
         _leftClick.SetActive(false);
         StartCoroutine(FlashlightInstruction());
@@ -55,6 +55,12 @@ public class TutorialManager : MonoBehaviour
             _movementInstructionComplete = true;
             _AAnim.SetTrigger("FadeOut");
             _DAnim.SetTrigger("FadeOut");
+        }
+
+        if (_player.transform.position.x > 1 && !_jumpInstructionComplete) {
+            _jumpInstructionComplete = true;
+            //_AAnim.SetTrigger("FadeOut");
+            //_DAnim.SetTrigger("FadeOut");
         }
     }
     

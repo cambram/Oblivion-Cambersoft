@@ -75,6 +75,13 @@ public class Player : MonoBehaviour
         } else if(_batteryCount == 0) {
             //flicker battery;
         }
+
+        /*if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
+            _isJumpActive = true;
+            StartCoroutine(JumpCooldown());
+            _playerAnimator.SetTrigger("isSpaceClick");
+            _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
+        }*/
     }
 
     public bool GetIsFlashlightActive() {
@@ -165,4 +172,10 @@ public class Player : MonoBehaviour
         _uiManager.DisplayDeath();
         Destroy(this.gameObject);
     }
+
+    /*IEnumerator JumpCooldown() {
+        yield return new WaitForSeconds(0.8f);
+        _isJumpActive = false;
+        _playerAnimator.ResetTrigger("isSpaceClick");
+    }*/
 }
