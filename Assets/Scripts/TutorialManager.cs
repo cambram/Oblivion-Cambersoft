@@ -25,13 +25,15 @@ public class TutorialManager : MonoBehaviour
     //Right Click vars
     [SerializeField]
     private GameObject _rightClick;
+    [SerializeField]
+    private Animator _rightClickAnim;
     //Left Click vars
     [SerializeField]
     private GameObject _leftClick;
     [SerializeField]
     private Animator _leftClickAnim;
 
-    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionComplete = false;
+    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionStart = false, _jumpInstructionComplete = false;
 
     private Player _player;
 
@@ -47,6 +49,10 @@ public class TutorialManager : MonoBehaviour
     }
 
     void Update() {
+        if(_player.transform.position.y < -12) {
+            _player.transform.position = new Vector3(-10.4f, 2.7f, 0);
+        }
+
         if (Input.GetMouseButtonDown(0) && !_flashlightInstructionComplete) {
             _flashlightInstructionComplete = true;
             _leftClickAnim.SetTrigger("FadeOut");
@@ -59,7 +65,8 @@ public class TutorialManager : MonoBehaviour
             _DAnim.SetTrigger("FadeOut");
         }
 
-        if (_player.transform.position.x > -20) {
+        if (_player.transform.position.x > -20 && !_jumpInstructionStart) {
+            _jumpInstructionStart = true;
             _space.SetActive(true);
         }
 

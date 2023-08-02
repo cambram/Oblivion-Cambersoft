@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     private void Start() {
         _camera = Camera.main;
-        transform.position = new Vector3(-77, -2.3f, 0);
+        transform.position = new Vector3(-77, -1.7f, 0);
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
@@ -43,7 +43,11 @@ public class Player : MonoBehaviour
     }
 
     private void Update() {
-        _camera.transform.position = new Vector3(transform.position.x, 0, -10);
+        //camera must not be able to travel left of x = -66
+        if (this.transform.position.x < -71)
+            _camera.transform.position = new Vector3(-66, 0, -10);
+        else
+            _camera.transform.position = new Vector3(transform.position.x + 5, 0, -10);
         CalculateMovement();
 
         //Mouse follow action
@@ -120,10 +124,6 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInput, 0, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
-
-        //camera must not be able to travel left of x = -66
-        if (_camera.transform.position.x < -66)
-            _camera.transform.position = new Vector3(-66, 0, -10);
     }
 
     private void Flashlight(bool x) { // on = true; off = false

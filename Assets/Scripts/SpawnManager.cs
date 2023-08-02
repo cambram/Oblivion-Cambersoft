@@ -18,7 +18,7 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         //enemiesInit();
-        collectablesInit();        
+        //collectablesInit();        
     }
     private void enemiesInit() {
         GameObject enemy1 = Instantiate(_enemyPrefab, new Vector3(-44.6f, -6, 0), Quaternion.identity);
