@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
     }
 
     IEnumerator JumpCooldown() {
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSeconds(0.9f);
         _isJumpActive = false;
         //_playerAnimator.ResetTrigger("isSpaceClick");
     }

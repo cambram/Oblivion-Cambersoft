@@ -99,6 +99,18 @@ public class TutorialManager : MonoBehaviour
             _firstPickupComplete = true;
             _EAnim.SetTrigger("FadeOut");
         }
+
+        //show right click instruction
+        if (_player.transform.position.x > -20 && !_jumpInstructionStart) {
+            _jumpInstructionStart = true;
+            _space.SetActive(true);
+        }
+
+        //Get rid of right click instruction
+        if (_player.transform.position.x > 1 && !_jumpInstructionComplete) {
+            _jumpInstructionComplete = true;
+            _spaceAnim.SetTrigger("FadeOut");
+        }
     }
     
     IEnumerator FlashlightInstruction() {

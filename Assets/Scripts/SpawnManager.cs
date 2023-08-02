@@ -18,31 +18,28 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         //enemiesInit();
-        //collectablesInit();        
+        collectablesInit();        
     }
     private void enemiesInit() {
-        GameObject enemy1 = Instantiate(_enemyPrefab, new Vector3(-44.6f, -6, 0), Quaternion.identity);
-        enemy1.transform.parent = _enemyContainer.transform;
-        GameObject enemy2 = Instantiate(_enemyPrefab, new Vector3(-42.4f, -5.4f, 0), Quaternion.identity);
-        enemy2.transform.parent = _enemyContainer.transform;
-        GameObject enemy3 = Instantiate(_enemyPrefab, new Vector3(17, -6, 0), Quaternion.identity);
-        enemy3.transform.parent = _enemyContainer.transform;
-        GameObject enemy4 = Instantiate(_enemyPrefab, new Vector3(19, -6, 0), Quaternion.identity);
-        enemy4.transform.parent = _enemyContainer.transform;
-        GameObject enemy5 = Instantiate(_enemyPrefab, new Vector3(50, -2.5f, 0), Quaternion.identity);
-        enemy5.transform.parent = _enemyContainer.transform;
-        GameObject enemy6 = Instantiate(_enemyPrefab, new Vector3(52, -2.5f, 0), Quaternion.identity);
-        enemy6.transform.parent = _enemyContainer.transform;
+        SpawnUmbra(0,0);
     }
 
     private void collectablesInit() {
-        GameObject flashCharge1 = Instantiate(_flashChargePrefab, new Vector3(-59, -9, 0), Quaternion.identity);
-        flashCharge1.transform.parent = _collectablesContainer.transform;
-        GameObject flashCharge2 = Instantiate(_flashChargePrefab, new Vector3(0.6f, -5.8f, 0), Quaternion.identity);
-        flashCharge2.transform.parent = _collectablesContainer.transform;
-        GameObject flashCharge3 = Instantiate(_flashChargePrefab, new Vector3(52, -5.5f, 0), Quaternion.identity);
-        flashCharge3.transform.parent = _collectablesContainer.transform;
-        GameObject battery1 = Instantiate(_batteryPrefab, new Vector3(34.4f, -6.2f, 0), Quaternion.identity);
-        battery1.transform.parent = _collectablesContainer.transform;
+        SpawnFlashCharge(7.8f, -1.1f);
+        SpawnFlashCharge(46.4f, -0.4f);
+        SpawnBattery(-30.1f, -0.7f);
+    }
+    private void SpawnUmbra(float x, float y) {
+        GameObject enemy = Instantiate(_enemyPrefab, new Vector3(x, y, 0), Quaternion.identity);
+        enemy.transform.parent = _enemyContainer.transform;
+    }
+
+    private void SpawnFlashCharge(float x, float y) {
+        GameObject flashCharge = Instantiate(_flashChargePrefab, new Vector3(x, y, 0), Quaternion.identity);
+        flashCharge.transform.parent = _collectablesContainer.transform;
+    }
+    private void SpawnBattery(float x, float y) {
+        GameObject battery = Instantiate(_batteryPrefab, new Vector3(x, y, 0), Quaternion.identity);
+        battery.transform.parent = _collectablesContainer.transform;
     }
 }
