@@ -43,9 +43,11 @@ public class Player : MonoBehaviour
     }
 
     private void Update() {
-        //camera must not be able to travel left of x = -66
+        //camera must not be able to travel left of x = -66 or right of x = 60.3
         if (this.transform.position.x < -71)
             _camera.transform.position = new Vector3(-66, 0, -10);
+        else if(this.transform.position.x > 60.3f)
+            _camera.transform.position = new Vector3(65.3f, 0, -10);
         else
             _camera.transform.position = new Vector3(transform.position.x + 5, 0, -10);
         CalculateMovement();
