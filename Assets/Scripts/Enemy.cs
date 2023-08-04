@@ -22,20 +22,23 @@ public class Enemy : MonoBehaviour
         if(_player != null) {
             _distance = Vector3.Distance(this.transform.position, _player.transform.position);
             Vector3 _direction = _player.transform.position - this.transform.position; 
-            if (_distance < 15) {
+            if (_distance < 22) {
                 if (!_player.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
+                    _speed = 4f;
                     this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                     _spriteRenderer.flipX = true;
                 } else { // if player flashlight is on, enemy runs away...
                     if(_direction.x < 0 && _player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
+                        _speed = 2f;
                         this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position + new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
                         _spriteRenderer.flipX = true;
                     } else {
+                        _speed = 4f;
                         _spriteRenderer.flipX = false;
                         this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                     }
                 }
-                if (_distance < 7 && _player.GetIsFlashCameraActive()) {
+                if (_distance < 13 && _player.GetIsFlashCameraActive()) { // change to 7
                     if (_direction.x < 0 && _player.GetDirection())
                         Destroy(this.gameObject);
                 }

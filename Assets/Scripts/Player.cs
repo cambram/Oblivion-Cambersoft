@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    private float _speed = 10f; //3.5f
+    private float _speed = 3f; //3.5f
     [SerializeField]
     private GameObject _flashlight;
     private bool _isFlashlightActive = false, _isJumpActive = false, _isFlashCameraActive = false;

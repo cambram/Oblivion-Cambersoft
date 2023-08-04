@@ -118,7 +118,7 @@ public class TutorialManager : MonoBehaviour
             StartCoroutine(FlashChargeInstcn2());
         }
 
-        if(_player.transform.position.x > 23f && Input.GetKeyDown(KeyCode.E) && !_secondPickupComplete) {
+        if(_player.transform.position.x > 23.3f && Input.GetKeyDown(KeyCode.E) && !_secondPickupComplete) {
             _secondPickupComplete = true;
             _EAnim.SetTrigger("FadeOut");
             _flashChargeIntrcn2.SetActive(false); //anim fade out

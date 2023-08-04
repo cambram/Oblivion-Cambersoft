@@ -17,11 +17,11 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        //enemiesInit();
+        enemiesInit();
         collectablesInit();        
     }
     private void enemiesInit() {
-        SpawnUmbra(0,0);
+        SpawnUmbra(22.23f, 0.78f);
     }
 
     private void collectablesInit() {
