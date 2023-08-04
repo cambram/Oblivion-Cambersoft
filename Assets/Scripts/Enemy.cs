@@ -14,20 +14,25 @@ public class Enemy : MonoBehaviour
     private AudioClip _enemySoundClip;
     [SerializeField]
     private AudioClip _enemyDeathClip;
+    bool _isDead = false, _disableNoise = false;
 
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
-    {
+    void Update(){
         if(_player != null) {
             _distance = Vector3.Distance(this.transform.position, _player.transform.position);
             Vector3 _direction = _player.transform.position - this.transform.position; 
-            if (_distance < 22) {
+            if(!_disableNoise && _distance <= 30) {
+                _disableNoise = true;
+                PlayEnemyNoise();
+            }
+            if (_distance < 22 && !_isDead) {
                 if (!_player.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
                     _speed = 4f;
                     this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -44,13 +49,34 @@ public class Enemy : MonoBehaviour
                     }
                 }
                 if (_distance < 13 && _player.GetIsFlashCameraActive()) { // change to 7
-                    if (_direction.x < 0 && _player.GetDirection())
-                        Destroy(this.gameObject);
+                    if (_direction.x < 0 && _player.GetDirection()) {
+                        KillEnemy();
+                    }
                 }
-                if (_distance < 2) {
+                if (_distance < 2 && !_isDead) {
                     _player.KillPlayer();
                 }
             }
         }
+    }
+
+    private void KillEnemy() {
+        _audioSource.clip = _enemyDeathClip;
+        _audioSource.Play();
+        _isDead = true;
+        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        this.gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        StartCoroutine(DestroyGameObject(5.8f));
+    }
+
+    private void PlayEnemyNoise() {
+        _audioSource.clip = _enemySoundClip;
+        _audioSource.Play();
+    }
+
+    IEnumerator DestroyGameObject(float seconds) {
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        yield return new WaitForSeconds(seconds);
+        Destroy(this.gameObject);
     }
 }

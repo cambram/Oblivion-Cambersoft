@@ -32,7 +32,6 @@ public class Collectables : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E) && _isInProximity) {
                     _player.CollectFlashCharge();
                     _audioSource.Play();
-                    this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     StartCoroutine(DestroyGameObject(0.37f));
                 }
                 break;
@@ -40,6 +39,7 @@ public class Collectables : MonoBehaviour
     }
 
     IEnumerator DestroyGameObject(float seconds) {
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(seconds);
         Destroy(this.gameObject);
     }

@@ -15,8 +15,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _collectablesContainer;
 
-    void Start()
-    {
+    void Start(){
         enemiesInit();
         collectablesInit();        
     }

@@ -11,8 +11,7 @@ public class UIManager : MonoBehaviour
 
     private GameManager _gameManager;
 
-    void Start()
-    {
+    void Start(){
         _deathText.gameObject.SetActive(false);
         _isDead = false;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -21,6 +20,9 @@ public class UIManager : MonoBehaviour
     private void Update() {
         if(_isDead && Input.GetKeyDown(KeyCode.R)) {
             _gameManager.RestartGame();
+        }
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            _gameManager.BackToMainMenu();
         }
     }
 

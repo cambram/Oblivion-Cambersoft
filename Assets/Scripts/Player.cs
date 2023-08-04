@@ -27,7 +27,14 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private AudioClip _flashlightOnClip;
-    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioSource _flashlightSource;
+
+    [SerializeField]
+    private AudioSource _footstepSource;
+
+    [SerializeField]
+    private AudioSource _batterySource;
 
     private Camera _camera;
 
@@ -38,12 +45,7 @@ public class Player : MonoBehaviour
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
         _rigidbody = GetComponent<Rigidbody2D>();
-        _audioSource = GetComponent<AudioSource>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-
-        if (_audioSource != null) {
-            _audioSource.clip = _flashlightOnClip;
-        }
     }
 
     private void Update() {
@@ -65,7 +67,8 @@ public class Player : MonoBehaviour
                 Flashlight(false);
             } else { // flashlight gets turned on
                 if(_batteryCount > 0) { //this prevents light turning on when battery is flat
-                    _audioSource.Play();
+                    _flashlightSource.clip = _flashlightOnClip;
+                    _flashlightSource.Play();
                     Flashlight(true);
                 }
             }
@@ -88,14 +91,17 @@ public class Player : MonoBehaviour
         if (_batteryCount > 200 && _batteryCount < 300 && !_battP1) {
             _battP1 = true;
             _flickerAnim.SetTrigger("Flicker");
+            _batterySource.Play();
             StartCoroutine(BatteryFlickerTriggerReset());
         } else if (_batteryCount > 100 && _batteryCount < 200 && !_battP2) {
             _battP2 = true;
             _flickerAnim.SetTrigger("Flicker");
+            _batterySource.Play();
             StartCoroutine(BatteryFlickerTriggerReset());
         } else if (_batteryCount > 0 && _batteryCount < 100 && !_battP3) {
             _battP3 = true;
             _flickerAnim.SetTrigger("Flicker");
+            _batterySource.Play();
             StartCoroutine(BatteryFlickerTriggerReset());
         }
     }
@@ -130,12 +136,22 @@ public class Player : MonoBehaviour
     private void CalculateMovement() {
         // player controlled light sources change direction depending on players direction of movement
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.A)) {
+            if (!_footstepSource.isPlaying) {
+                _footstepSource.Play();
+            }
             _direction = false; // facing left
             transform.localScale = new Vector3(-0.15f, 0.15f, 0.15f);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.D)) {
+            if(!_footstepSource.isPlaying) {
+                _footstepSource.Play();
+            }
             _direction = true; // facing right
             transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+        }
+
+        if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
+            _footstepSource.Pause();
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
