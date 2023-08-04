@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     private void collectablesInit() {
-        SpawnFlashCharge(7.8f, -1.1f);
+        SpawnFlashCharge(24.3f, -1.87f);
         SpawnFlashCharge(46.4f, -0.4f);
         SpawnBattery(-30.1f, -0.7f);
     }

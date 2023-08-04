@@ -28,21 +28,29 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _spaceAnim;
 
-    //Right Click vars
-    [SerializeField]
-    private GameObject _rightClick;
-    [SerializeField]
-    private Animator _rightClickAnim;
-
     //Left Click vars
     [SerializeField]
     private GameObject _leftClick;
     [SerializeField]
     private Animator _leftClickAnim;
 
+    //Flash charge instructions
+    [SerializeField]
+    private GameObject _flashChargeIntrcn1;
+    //[SerializeField]
+    //private Animator _flashChargeIntrcn1Anim;
+    [SerializeField]
+    private GameObject _flashChargeIntrcn2;
+    //[SerializeField]
+    //private Animator _flashChargeIntrcn1Anim;
+    [SerializeField]
+    private GameObject _flashChargeIntrcn3;
+    //[SerializeField]
+    //private Animator _flashChargeIntrcn1Anim;
+
     private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, 
         _jumpInstructionStart = false, _jumpInstructionComplete = false, _firstPickup = false,
-        _firstPickupComplete = false;
+        _firstPickupComplete = false, _flash1 = false, _secondPickupComplete = false, _flash2 = false;
 
     private Player _player;
 
@@ -52,8 +60,10 @@ public class TutorialManager : MonoBehaviour
         _E.SetActive(false);
         _D.SetActive(false);
         _space.SetActive(false);
-        _rightClick.SetActive(false);
         _leftClick.SetActive(false);
+        _flashChargeIntrcn1.SetActive(false);
+        _flashChargeIntrcn2.SetActive(false);
+        _flashChargeIntrcn3.SetActive(false);
         StartCoroutine(FlashlightInstruction());
     }
 
@@ -70,23 +80,11 @@ public class TutorialManager : MonoBehaviour
             StartCoroutine(MovementInstruction());
         }
 
-        //Get rid of movement instructions
-        if(_player.transform.position.x > -58 && !_movementInstructionComplete) {
+        //Fade out movement instructions
+        if(_player.transform.position.x > -59 && !_movementInstructionComplete) {
             _movementInstructionComplete = true;
             _AAnim.SetTrigger("FadeOut");
             _DAnim.SetTrigger("FadeOut");
-        }
-
-        //show jump instruction
-        if (_player.transform.position.x > -20 && !_jumpInstructionStart) {
-            _jumpInstructionStart = true;
-            _space.SetActive(true);
-        }
-
-        //Get rid of jump instruction
-        if (_player.transform.position.x > 1 && !_jumpInstructionComplete) {
-            _jumpInstructionComplete = true;
-            _spaceAnim.SetTrigger("FadeOut");
         }
 
         //First pick up show instruction for battery
@@ -100,21 +98,47 @@ public class TutorialManager : MonoBehaviour
             _EAnim.SetTrigger("FadeOut");
         }
 
-        //show right click instruction
+        //show jump instruction
         if (_player.transform.position.x > -20 && !_jumpInstructionStart) {
             _jumpInstructionStart = true;
             _space.SetActive(true);
         }
 
-        //Get rid of right click instruction
-        if (_player.transform.position.x > 1 && !_jumpInstructionComplete) {
+        //Get rid of jump instruction
+        if (_player.transform.position.x > -1 && !_jumpInstructionComplete) {
             _jumpInstructionComplete = true;
             _spaceAnim.SetTrigger("FadeOut");
+            _flashChargeIntrcn1.SetActive(true);
+        }
+
+        if(_player.transform.position.x > 10 && !_flash1) {
+            _flash1 = true;
+            _flashChargeIntrcn1.SetActive(false); //anim fade out
+            _flashChargeIntrcn2.SetActive(true);
+            StartCoroutine(FlashChargeInstcn2());
+        }
+
+        if(_player.transform.position.x > 23f && Input.GetKeyDown(KeyCode.E) && !_secondPickupComplete) {
+            _secondPickupComplete = true;
+            _EAnim.SetTrigger("FadeOut");
+            _flashChargeIntrcn2.SetActive(false); //anim fade out
+            _flashChargeIntrcn3.SetActive(true);
+        }
+
+        if (_secondPickupComplete && Input.GetMouseButtonDown(1) && !_flash2) { //add bool to prevent if going through twice
+            _flash2 = true;
+            _flashChargeIntrcn3.SetActive(false); //anim fade out
         }
     }
-    
+    IEnumerator FlashChargeInstcn2() {
+        yield return new WaitForSeconds(1f);
+        _E.SetActive(false);
+        _E.transform.position = new Vector3(24.3f, -3.64f, 0);
+        _E.SetActive(true);
+    }
+
     IEnumerator FlashlightInstruction() {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         _leftClick.SetActive(true);
     }
 
