@@ -191,7 +191,6 @@ public class Player : MonoBehaviour
         _battP1 = false;
         _battP2 = false;
         _battP3 = false;
-        _flickerAnim.SetTrigger("Flicker");
     }
 
     public void KillPlayer() {
