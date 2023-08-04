@@ -3329,6 +3329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _flashlight: {fileID: 2116669719}
   _flashCamera: {fileID: 576151744}
+  _flickerAnim: {fileID: 2116669722}
   _flashlightOnClip: {fileID: 8300000, guid: 9aa4453183c955449b2bfda8b4f815e1, type: 3}
 --- !u!82 &1457214566
 AudioSource:

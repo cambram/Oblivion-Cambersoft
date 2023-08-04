@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    private float _speed = 3f; //3.5f
+    private float _speed = 10f; //3.5f
     [SerializeField]
     private GameObject _flashlight;
     private bool _isFlashlightActive = false, _isJumpActive = false, _isFlashCameraActive = false;
@@ -15,9 +16,12 @@ public class Player : MonoBehaviour
     private int _flashChargeCount = 0;
     private bool _direction = true; //true is facing right and false is facing left
     private Rigidbody2D _rigidbody;
+    [SerializeField]
+    private Animator _flickerAnim;
 
     private int _batteryCount;
     private const int _BATTERY = 400;
+    private bool _battP1 = false, _battP2 = false, _battP3 = false;
 
     private UIManager _uiManager;
 
@@ -60,7 +64,7 @@ public class Player : MonoBehaviour
             if(_isFlashlightActive) { // flashlight gets turned off
                 Flashlight(false);
             } else { // flashlight gets turned on
-                if(_batteryCount > 0) {
+                if(_batteryCount > 0) { //this prevents light turning on when battery is flat
                     _audioSource.Play();
                     Flashlight(true);
                 }
@@ -70,17 +74,7 @@ public class Player : MonoBehaviour
             FlashCamera();
         }
 
-        if(_batteryCount > 300) {
-            //flicker battery;
-        } else if(_batteryCount > 200 && _batteryCount < 300) {
-            //flicker battery;
-        } else if(_batteryCount > 100 && _batteryCount < 200) {
-            //flicker battery;
-        } else if(_batteryCount > 0 && _batteryCount < 100) {
-            //flicker battery;
-        } else if(_batteryCount == 0) {
-            //flicker battery;
-        }
+        BatteryChecker();
 
         if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
             _isJumpActive = true;
@@ -88,6 +82,27 @@ public class Player : MonoBehaviour
             //_playerAnimator.SetTrigger("isSpaceClick");
             _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
         }
+    }
+
+    private void BatteryChecker() {
+        if (_batteryCount > 200 && _batteryCount < 300 && !_battP1) {
+            _battP1 = true;
+            _flickerAnim.SetTrigger("Flicker");
+            StartCoroutine(BatteryFlickerTriggerReset());
+        } else if (_batteryCount > 100 && _batteryCount < 200 && !_battP2) {
+            _battP2 = true;
+            _flickerAnim.SetTrigger("Flicker");
+            StartCoroutine(BatteryFlickerTriggerReset());
+        } else if (_batteryCount > 0 && _batteryCount < 100 && !_battP3) {
+            _battP3 = true;
+            _flickerAnim.SetTrigger("Flicker");
+            StartCoroutine(BatteryFlickerTriggerReset());
+        }
+    }
+
+    IEnumerator BatteryFlickerTriggerReset() {
+        yield return new WaitForSeconds(0.8f);
+        _flickerAnim.ResetTrigger("Flicker");
     }
 
     IEnumerator JumpCooldown() {
@@ -139,7 +154,7 @@ public class Player : MonoBehaviour
             if(_isFlashlightActive) {
                 yield return new WaitForSeconds(0.1f);
                 _batteryCount--;
-                if (_batteryCount <= 0) {
+                if (_batteryCount <= 0) { // this is where the flashlight is turned off when battery is flat
                     Flashlight(false);
                     yield break;
                 }
@@ -173,6 +188,10 @@ public class Player : MonoBehaviour
 
     public void CollectBattery() {
         _batteryCount = _BATTERY;
+        _battP1 = false;
+        _battP2 = false;
+        _battP3 = false;
+        _flickerAnim.SetTrigger("Flicker");
     }
 
     public void KillPlayer() {

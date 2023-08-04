@@ -9,12 +9,17 @@ public class Enemy : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
 
+    private AudioSource _audioSource;
+    [SerializeField]
+    private AudioClip _enemySoundClip;
+    [SerializeField]
+    private AudioClip _enemyDeathClip;
+
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
 
     void Update()

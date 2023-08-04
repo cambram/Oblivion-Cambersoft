@@ -9,24 +9,39 @@ public class Collectables : MonoBehaviour
     private int _collectableID; //0 = battery; 1 = flash charge
     private bool _isInProximity;
     private Player _player;
+    private AudioSource _audioSource;
     private void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _audioSource = GetComponent<AudioSource>();
     }
     private void Update() {
+        if (Input.GetKeyUp(KeyCode.L) && _collectableID == 1) {
+            _audioSource.Play();
+        }
+
         switch (_collectableID) {
             case 0:
                 if (Input.GetKeyDown(KeyCode.E) && _isInProximity) {
                     _player.CollectBattery();
-                    Destroy(this.gameObject);
+                    _audioSource.Play();
+                    this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    StartCoroutine(DestroyGameObject(0.46f));
                 }
                 break;
             case 1:
                 if (Input.GetKeyDown(KeyCode.E) && _isInProximity) {
                     _player.CollectFlashCharge();
-                    Destroy(this.gameObject);
+                    _audioSource.Play();
+                    this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    StartCoroutine(DestroyGameObject(0.37f));
                 }
                 break;
         }
+    }
+
+    IEnumerator DestroyGameObject(float seconds) {
+        yield return new WaitForSeconds(seconds);
+        Destroy(this.gameObject);
     }
 
     private void SetIsInProximity(bool x) {
