@@ -17,6 +17,8 @@ public class Player : MonoBehaviour{
     private Rigidbody2D _rigidbody;
     [SerializeField]
     private Animator _flickerAnim;
+    [SerializeField]
+    private Animator _playerAnim;
 
     private int _batteryCount;
     private const int _BATTERY = 400;
@@ -81,9 +83,17 @@ public class Player : MonoBehaviour{
 
         if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
             _isJumpActive = true;
-            StartCoroutine(JumpCooldown());
-            //_playerAnimator.SetTrigger("isSpaceClick");
+            _playerAnim.SetTrigger("Jumping");
             _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.tag == "Ground") {
+            if(_isJumpActive) {
+                _isJumpActive = false;
+                _playerAnim.ResetTrigger("Jumping");
+            }
         }
     }
 
@@ -111,12 +121,6 @@ public class Player : MonoBehaviour{
         _flickerAnim.ResetTrigger("Flicker");
     }
 
-    IEnumerator JumpCooldown() {
-        yield return new WaitForSeconds(0.9f);
-        _isJumpActive = false;
-        //_playerAnimator.ResetTrigger("isSpaceClick");
-    }
-
     public bool GetIsFlashlightActive() {
         return _isFlashlightActive;
     }
@@ -138,6 +142,7 @@ public class Player : MonoBehaviour{
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.A)) {
             if (!_footstepSource.isPlaying) {
                 _footstepSource.Play();
+                _playerAnim.SetTrigger("Walking");
             }
             _direction = false; // facing left
             transform.localScale = new Vector3(-0.17f, 0.17f, 0.17f);
@@ -145,6 +150,7 @@ public class Player : MonoBehaviour{
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.D)) {
             if(!_footstepSource.isPlaying) {
                 _footstepSource.Play();
+                _playerAnim.SetTrigger("Walking");
             }
             _direction = true; // facing right
             transform.localScale = new Vector3(0.17f, 0.17f, 0.17f);
@@ -152,6 +158,7 @@ public class Player : MonoBehaviour{
 
         if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
             _footstepSource.Pause();
+            _playerAnim.ResetTrigger("Walking");
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
