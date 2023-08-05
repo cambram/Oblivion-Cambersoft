@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
         _isDead = true;
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
         this.gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
-        StartCoroutine(DestroyGameObject(5.8f));
+        StartCoroutine(DestroyGameObject(7.1f));
     }
 
     private void PlayEnemyNoise() {

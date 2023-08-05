@@ -27,6 +27,8 @@ public class Player : MonoBehaviour{
     private UIManager _uiManager;
 
     [SerializeField]
+    private AudioClip _flashChargeClip;
+    [SerializeField]
     private AudioClip _flashlightOnClip;
     [SerializeField]
     private AudioSource _flashlightSource;
@@ -194,6 +196,8 @@ public class Player : MonoBehaviour{
                 Flashlight(false);
             }
             _flashCamera.SetActive(true);
+            _flashlightSource.clip = _flashChargeClip;
+            _flashlightSource.Play();
             StartCoroutine(FlashCameraOffRoutine());
             _isFlashCameraActive = true;
         }
