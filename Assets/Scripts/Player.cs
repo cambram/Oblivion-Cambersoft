@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour{
     private float _speed = 3f; //3.5f
     [SerializeField]
     private GameObject _flashlight;
@@ -56,7 +55,8 @@ public class Player : MonoBehaviour
             _camera.transform.position = new Vector3(65.3f, 0, -10);
         else
             _camera.transform.position = new Vector3(transform.position.x + 5, 0, -10);
-        CalculateMovement();
+
+            CalculateMovement();
 
         //Mouse follow action
         /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
@@ -140,14 +140,14 @@ public class Player : MonoBehaviour
                 _footstepSource.Play();
             }
             _direction = false; // facing left
-            transform.localScale = new Vector3(-0.15f, 0.15f, 0.15f);
+            transform.localScale = new Vector3(-0.17f, 0.17f, 0.17f);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.D)) {
             if(!_footstepSource.isPlaying) {
                 _footstepSource.Play();
             }
             _direction = true; // facing right
-            transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+            transform.localScale = new Vector3(0.17f, 0.17f, 0.17f);
         }
 
         if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {

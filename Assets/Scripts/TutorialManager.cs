@@ -53,9 +53,11 @@ public class TutorialManager : MonoBehaviour
         _firstPickupComplete = false, _flash1 = false, _secondPickupComplete = false, _flash2 = false;
 
     private Player _player;
+    private GameManager _gameManager;
 
     void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _A.SetActive(false);
         _E.SetActive(false);
         _D.SetActive(false);
@@ -69,6 +71,11 @@ public class TutorialManager : MonoBehaviour
 
     void Update() {
         if (_player != null) {
+            // level complete
+            if(_player.transform.position.x > 83) {
+                _gameManager.BackToMainMenu();
+            }
+
             //respawn player if they fall
             if (_player.transform.position.y < -12) {
                 _player.transform.position = new Vector3(-10.4f, 2.7f, 0);
