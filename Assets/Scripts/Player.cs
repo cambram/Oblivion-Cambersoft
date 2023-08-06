@@ -40,7 +40,6 @@ public class Player : MonoBehaviour{
     private AudioSource _batterySource;
 
     private Camera _camera;
-    private GameManager _gameManager;
 
     private void Start() {
         _camera = Camera.main;
@@ -50,7 +49,6 @@ public class Player : MonoBehaviour{
         _batteryCount = _BATTERY; // 1 battery = 400 units
         _rigidbody = GetComponent<Rigidbody2D>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
     }
 
     private void Update() {
@@ -98,12 +96,12 @@ public class Player : MonoBehaviour{
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.tag == "Ground") {
             if(_isJumpActive) {
-                _footstepSource.Play();
+                //_footstepSource.Play();
                 _isJumpActive = false;
                 _playerAnim.ResetTrigger("Jumping");
             }
         } else if(collision.tag == "Finish") {
-            _gameManager.BackToMainMenu();
+            _uiManager.FadeOut();
         }
     }
 
@@ -168,7 +166,7 @@ public class Player : MonoBehaviour{
 
         if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
             _footstepSource.Pause();
-            _playerAnim.ResetTrigger("Walking");
+            _playerAnim.ResetTrigger("Walking");        
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
