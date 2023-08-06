@@ -40,6 +40,7 @@ public class Player : MonoBehaviour{
     private AudioSource _batterySource;
 
     private Camera _camera;
+    private GameManager _gameManager;
 
     private void Start() {
         _camera = Camera.main;
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour{
         _batteryCount = _BATTERY; // 1 battery = 400 units
         _rigidbody = GetComponent<Rigidbody2D>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
     }
 
     private void Update() {
@@ -84,6 +86,9 @@ public class Player : MonoBehaviour{
         BatteryChecker();
 
         if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
+            if (_footstepSource.isPlaying) {
+                _footstepSource.Pause();
+            }
             _isJumpActive = true;
             _playerAnim.SetTrigger("Jumping");
             _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
@@ -93,9 +98,12 @@ public class Player : MonoBehaviour{
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.tag == "Ground") {
             if(_isJumpActive) {
+                _footstepSource.Play();
                 _isJumpActive = false;
                 _playerAnim.ResetTrigger("Jumping");
             }
+        } else if(collision.tag == "Finish") {
+            _gameManager.BackToMainMenu();
         }
     }
 
@@ -142,7 +150,7 @@ public class Player : MonoBehaviour{
     private void CalculateMovement() {
         // player controlled light sources change direction depending on players direction of movement
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.A)) {
-            if (!_footstepSource.isPlaying) {
+            if (!_footstepSource.isPlaying && !_isJumpActive) {
                 _footstepSource.Play();
                 _playerAnim.SetTrigger("Walking");
             }
@@ -150,7 +158,7 @@ public class Player : MonoBehaviour{
             transform.localScale = new Vector3(-0.17f, 0.17f, 0.17f);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.D)) {
-            if(!_footstepSource.isPlaying) {
+            if(!_footstepSource.isPlaying && !_isJumpActive) {
                 _footstepSource.Play();
                 _playerAnim.SetTrigger("Walking");
             }

@@ -37,27 +37,25 @@ public class TutorialManager : MonoBehaviour
     //Flash charge instructions
     [SerializeField]
     private GameObject _flashChargeIntrcn1;
-    //[SerializeField]
-    //private Animator _flashChargeIntrcn1Anim;
+    [SerializeField]
+    private Animator _flashChargeIntrcn1Anim;
     [SerializeField]
     private GameObject _flashChargeIntrcn2;
-    //[SerializeField]
-    //private Animator _flashChargeIntrcn1Anim;
+    [SerializeField]
+    private Animator _flashChargeIntrcn2Anim;
     [SerializeField]
     private GameObject _flashChargeIntrcn3;
-    //[SerializeField]
-    //private Animator _flashChargeIntrcn1Anim;
+    [SerializeField]
+    private Animator _flashChargeIntrcn3Anim;
 
     private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, 
         _jumpInstructionStart = false, _jumpInstructionComplete = false, _firstPickup = false,
         _firstPickupComplete = false, _flash1 = false, _secondPickupComplete = false, _flash2 = false;
 
     private Player _player;
-    private GameManager _gameManager;
 
     void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _A.SetActive(false);
         _E.SetActive(false);
         _D.SetActive(false);
@@ -71,10 +69,6 @@ public class TutorialManager : MonoBehaviour
 
     void Update() {
         if (_player != null) {
-            // level complete
-            if(_player.transform.position.x > 83) {
-                _gameManager.BackToMainMenu();
-            }
 
             //respawn player if they fall
             if (_player.transform.position.y < -12) {
@@ -121,7 +115,7 @@ public class TutorialManager : MonoBehaviour
 
             if (_player.transform.position.x > 10 && !_flash1) {
                 _flash1 = true;
-                _flashChargeIntrcn1.SetActive(false); //anim fade out
+                _flashChargeIntrcn1Anim.SetTrigger("FadeOut");
                 _flashChargeIntrcn2.SetActive(true);
                 StartCoroutine(FlashChargeInstcn2());
             }
@@ -129,13 +123,13 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > 23.3f && Input.GetKeyDown(KeyCode.E) && !_secondPickupComplete) {
                 _secondPickupComplete = true;
                 _EAnim.SetTrigger("FadeOut");
-                _flashChargeIntrcn2.SetActive(false); //anim fade out
+                _flashChargeIntrcn2Anim.SetTrigger("FadeOut");
                 _flashChargeIntrcn3.SetActive(true);
             }
 
-            if (_secondPickupComplete && Input.GetMouseButtonDown(1) && !_flash2) { //add bool to prevent if going through twice
+            if (_secondPickupComplete && Input.GetMouseButtonDown(1) && !_flash2) { 
                 _flash2 = true;
-                _flashChargeIntrcn3.SetActive(false); //anim fade out
+                _flashChargeIntrcn3Anim.SetTrigger("FadeOut");
             }
         }
     }

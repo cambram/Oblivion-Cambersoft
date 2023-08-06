@@ -559,8 +559,11 @@ MonoBehaviour:
   _leftClick: {fileID: 1263009987}
   _leftClickAnim: {fileID: 1263009990}
   _flashChargeIntrcn1: {fileID: 1797036465}
+  _flashChargeIntrcn1Anim: {fileID: 1797036468}
   _flashChargeIntrcn2: {fileID: 521653881}
+  _flashChargeIntrcn2Anim: {fileID: 521653884}
   _flashChargeIntrcn3: {fileID: 989017418}
+  _flashChargeIntrcn3Anim: {fileID: 989017421}
 --- !u!1 &516120126
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 521653883}
   - component: {fileID: 521653882}
+  - component: {fileID: 521653884}
   m_Layer: 0
   m_Name: flash_charge_intrcn_2
   m_TagString: Untagged
@@ -676,6 +680,27 @@ Transform:
   m_Father: {fileID: 352699243}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &521653884
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521653881}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: afdf7e696700ae941a5a9e480488acb7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &561202936
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,6 +743,7 @@ Transform:
   - {fileID: 1255317991}
   - {fileID: 7183354}
   - {fileID: 693187551}
+  - {fileID: 1262949544}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1186,7 +1212,8 @@ EdgeCollider2D:
   - {x: 79.16693, y: -2.605117}
   - {x: 79.75397, y: -2.5508492}
   - {x: 80.73672, y: -2.5650134}
-  - {x: 87.070854, y: -2.6629457}
+  - {x: 81.906204, y: -2.8718767}
+  - {x: 82.30689, y: -4.169669}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -1509,6 +1536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 989017420}
   - component: {fileID: 989017419}
+  - component: {fileID: 989017421}
   m_Layer: 0
   m_Name: flash_charge_intrcn_3
   m_TagString: Untagged
@@ -1583,6 +1611,27 @@ Transform:
   m_Father: {fileID: 352699243}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &989017421
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989017418}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 898829b96b98388469afb33ffa5b116c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1186193392
 GameObject:
   m_ObjectHideFlags: 0
@@ -2846,6 +2895,64 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1262949543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1262949544}
+  - component: {fileID: 1262949545}
+  m_Layer: 0
+  m_Name: Finish
+  m_TagString: Finish
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1262949544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262949543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 82.67, y: -3.43, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 561202937}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1262949545
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262949543}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 3.0402145, y: 2.6277242}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.080429, y: 9.005391}
+  m_EdgeRadius: 0
 --- !u!1 &1263009987
 GameObject:
   m_ObjectHideFlags: 0
@@ -4243,6 +4350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1797036467}
   - component: {fileID: 1797036466}
+  - component: {fileID: 1797036468}
   m_Layer: 0
   m_Name: flash_charge_intrcn_1
   m_TagString: Untagged
@@ -4317,6 +4425,27 @@ Transform:
   m_Father: {fileID: 352699243}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1797036468
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797036465}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5bb6f37a821e4243a57ec104334fa0a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1798463212
 GameObject:
   m_ObjectHideFlags: 0
