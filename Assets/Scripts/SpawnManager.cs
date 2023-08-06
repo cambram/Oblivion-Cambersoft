@@ -19,13 +19,13 @@ public class SpawnManager : MonoBehaviour
         EnemiesInit();
         CollectablesInit();        
     }
-    private void EnemiesInit() {
+    public void EnemiesInit() {
         SpawnUmbra(22.23f, 0.78f);
         SpawnUmbra(74f, 0.5f);
         SpawnUmbra(69f, 1f);
     }
 
-    private void CollectablesInit() {
+    public void CollectablesInit() {
         SpawnFlashCharge(24.3f, -1.87f);
         SpawnFlashCharge(46.4f, -0.4f);
         SpawnBattery(-30.1f, -0.7f);

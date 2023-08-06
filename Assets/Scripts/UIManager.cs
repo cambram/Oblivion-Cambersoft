@@ -10,20 +10,22 @@ public class UIManager : MonoBehaviour
     private bool _isDead;
     private Animator _fadeOutAnim;
     private GameManager _gameManager;
+    private TutorialManager _tutorialManager;
 
     void Start(){
         _deathText.gameObject.SetActive(false);
         _isDead = false;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _tutorialManager = GameObject.Find("Tutorial_Manager").GetComponent<TutorialManager>();
         _fadeOutAnim = GetComponent<Animator>();
     }
 
     private void Update() {
         if(_isDead && Input.GetKeyDown(KeyCode.R)) {
-            _gameManager.RestartGame();
+            FadeOut(2);        
         }
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            FadeOut();
+            FadeOut(1);
         }
     }
 
@@ -32,12 +34,26 @@ public class UIManager : MonoBehaviour
         _isDead = true;
     }
 
-    public void FadeOut() {
-        _fadeOutAnim.SetTrigger("FadeOut");
-        StartCoroutine(FadeOutRoutine());
+    public void FadeOut(int x) {
+        switch (x) {
+            case 1:
+                _fadeOutAnim.SetTrigger("FadeOut");
+                StartCoroutine(BackToMainRoutine());
+                break;
+            case 2:
+                _fadeOutAnim.SetTrigger("FadeOut");
+                StartCoroutine(RespawnRoutine());
+                break;
+            default: break;
+        }
     }
-    IEnumerator FadeOutRoutine() {
+    IEnumerator BackToMainRoutine() {
         yield return new WaitForSeconds(1);
         _gameManager.BackToMainMenu();
+    }
+
+    IEnumerator RespawnRoutine() {
+        yield return new WaitForSeconds(1);
+        _gameManager.RestartGame();
     }
 }

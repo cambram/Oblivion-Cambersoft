@@ -111,27 +111,27 @@ public class Player : MonoBehaviour{
                 _playerAnim.ResetTrigger("Jumping");
             }
         } else if(collision.tag == "Finish") {
-            _uiManager.FadeOut();
+            _uiManager.FadeOut(1);
         }
     }
 
     private void BatteryChecker() {
         if (_batteryCount > 200 && _batteryCount < 300 && !_battP1) {
             _battP1 = true;
-            _flickerAnim.SetTrigger("Flicker");
-            _batterySource.Play();
-            StartCoroutine(BatteryFlickerTriggerReset());
+            FlickerFlashlight();
         } else if (_batteryCount > 100 && _batteryCount < 200 && !_battP2) {
             _battP2 = true;
-            _flickerAnim.SetTrigger("Flicker");
-            _batterySource.Play();
-            StartCoroutine(BatteryFlickerTriggerReset());
+            FlickerFlashlight();
         } else if (_batteryCount > 0 && _batteryCount < 100 && !_battP3) {
             _battP3 = true;
-            _flickerAnim.SetTrigger("Flicker");
-            _batterySource.Play();
-            StartCoroutine(BatteryFlickerTriggerReset());
+            FlickerFlashlight();
         }
+    }
+
+    public void FlickerFlashlight() {
+        _flickerAnim.SetTrigger("Flicker");
+        _batterySource.Play();
+        StartCoroutine(BatteryFlickerTriggerReset());
     }
 
     IEnumerator BatteryFlickerTriggerReset() {

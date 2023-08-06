@@ -48,11 +48,19 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _flashChargeIntrcn3Anim;
 
+    //battery instructions
+    private bool _batteryBypass = true;
+    [SerializeField]
+    private GameObject _batteryDying;
+    [SerializeField]
+    private Animator _batteryDyingAnim;
+
     private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, 
         _jumpInstructionStart = false, _jumpInstructionComplete = false, _firstPickup = false,
         _firstPickupComplete = false, _flash1 = false, _secondPickupComplete = false, _flash2 = false;
 
     private Player _player;
+    private Vector3 _checkpoint1, _checkpoint2;
 
     void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -64,15 +72,21 @@ public class TutorialManager : MonoBehaviour
         _flashChargeIntrcn1.SetActive(false);
         _flashChargeIntrcn2.SetActive(false);
         _flashChargeIntrcn3.SetActive(false);
+        _batteryDying.SetActive(false);
+        _checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
+        _checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
         StartCoroutine(FlashlightInstruction());
     }
 
     void Update() {
         if (_player != null) {
+            if(_player.transform.position.x < -48 && _batteryBypass) {
+                _player.CollectBattery();
+            }
 
             //respawn player if they fall
             if (_player.transform.position.y < -12) {
-                _player.transform.position = new Vector3(-10.4f, 2.7f, 0);
+                RespawnPlayer(_checkpoint1);
             }
 
             //remove flashlight instruction
@@ -91,6 +105,9 @@ public class TutorialManager : MonoBehaviour
 
             //First pick up show instruction for battery
             if (_player.transform.position.x > -48 && !_firstPickup) {
+                _batteryBypass = false;
+                _batteryDying.SetActive(true);
+                _player.FlickerFlashlight();
                 _firstPickup = true;
                 _E.SetActive(true);
             }
@@ -98,6 +115,7 @@ public class TutorialManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && _firstPickup && !_firstPickupComplete) {
                 _firstPickupComplete = true;
                 _EAnim.SetTrigger("FadeOut");
+                _batteryDyingAnim.SetTrigger("FadeOut");
             }
 
             //show jump instruction
@@ -133,6 +151,19 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
+
+    public Vector3 GetCheckpoint(int x) {
+        switch(x) {
+            case 1: return _checkpoint1;
+            case 2: return _checkpoint2;
+            default: return new Vector3(0,0,0);
+        }
+    }
+
+    public void RespawnPlayer(Vector3 s) {
+        _player.transform.position = s;
+    }
+
     IEnumerator FlashChargeInstcn2() {
         yield return new WaitForSeconds(1f);
         _E.SetActive(false);
