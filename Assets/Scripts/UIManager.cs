@@ -10,13 +10,13 @@ public class UIManager : MonoBehaviour
     private bool _isDead;
     private Animator _fadeOutAnim;
     private GameManager _gameManager;
-    private TutorialManager _tutorialManager;
+    private GameObject _environment;
 
     void Start(){
         _deathText.gameObject.SetActive(false);
         _isDead = false;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
-        _tutorialManager = GameObject.Find("Tutorial_Manager").GetComponent<TutorialManager>();
+        _environment = GameObject.Find("Environment");
         _fadeOutAnim = GetComponent<Animator>();
     }
 
@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
         switch (x) {
             case 1:
                 _fadeOutAnim.SetTrigger("FadeOut");
+                _environment.GetComponent<Animator>().SetTrigger("FadeOut");
                 StartCoroutine(BackToMainRoutine());
                 break;
             case 2:
