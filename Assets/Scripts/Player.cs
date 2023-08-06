@@ -37,6 +37,13 @@ public class Player : MonoBehaviour{
     private AudioSource _footstepSource;
 
     [SerializeField]
+    private AudioSource _jumpAudioSource;
+    [SerializeField]
+    private AudioClip _jumpLandClip;
+    [SerializeField]
+    private AudioClip _jumpTakeoffClip;
+
+    [SerializeField]
     private AudioSource _batterySource;
 
     private Camera _camera;
@@ -87,6 +94,8 @@ public class Player : MonoBehaviour{
             if (_footstepSource.isPlaying) {
                 _footstepSource.Pause();
             }
+            _jumpAudioSource.clip = _jumpTakeoffClip;
+            _jumpAudioSource.Play();
             _isJumpActive = true;
             _playerAnim.SetTrigger("Jumping");
             _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
@@ -96,7 +105,8 @@ public class Player : MonoBehaviour{
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.tag == "Ground") {
             if(_isJumpActive) {
-                //_footstepSource.Play();
+                _jumpAudioSource.clip = _jumpLandClip;
+                _jumpAudioSource.Play();
                 _isJumpActive = false;
                 _playerAnim.ResetTrigger("Jumping");
             }
