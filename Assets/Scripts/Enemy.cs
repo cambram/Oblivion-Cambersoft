@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private float _speed = 4f, _distance;
 
     private SpriteRenderer _spriteRenderer;
+    private Animator _enemyAnim;
 
     private AudioSource _audioSource;
     [SerializeField]
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
+        _enemyAnim = GetComponent<Animator>();
     }
 
     void Update(){
@@ -33,18 +35,22 @@ public class Enemy : MonoBehaviour
                 PlayEnemyNoise();
             }
             if (_distance < 22 && !_isDead) {
+                _enemyAnim.SetTrigger("Walking");
                 if (!_player.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
+                    _enemyAnim.ResetTrigger("Afraid");
                     _speed = 4f;
                     this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
-                    _spriteRenderer.flipX = true;
+                    transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
                 } else { // if player flashlight is on, enemy runs away...
                     if(_direction.x < 0 && _player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
+                        _enemyAnim.SetTrigger("Afraid");
                         _speed = 2f;
                         this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position + new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
-                        _spriteRenderer.flipX = true;
+                        checkIfEnemyIsMovingCorrectly();
                     } else {
+                        _enemyAnim.ResetTrigger("Afraid");
                         _speed = 4f;
-                        _spriteRenderer.flipX = false;
+                        transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
                         this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                     }
                 }
@@ -57,6 +63,16 @@ public class Enemy : MonoBehaviour
                     _player.KillPlayer();
                 }
             }
+        }
+    }
+
+    public void checkIfEnemyIsMovingCorrectly() {
+        if(this.transform.position.x > _player.transform.position.x + 12 && this.transform.position.x < _player.transform.position.x + 14) {
+            transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
+        } else if(this.transform.position.x < _player.transform.position.x + 12) {
+            transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
+        } else if(this.transform.position.x > _player.transform.position.x + 14) {
+            transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
         }
     }
 

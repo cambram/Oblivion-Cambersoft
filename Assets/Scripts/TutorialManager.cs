@@ -63,6 +63,7 @@ public class TutorialManager : MonoBehaviour
     private Vector3 _checkpoint1, _checkpoint2;
 
     void Start() {
+        Cursor.visible = false;
         _player = GameObject.Find("Player").GetComponent<Player>();
         _A.SetActive(false);
         _E.SetActive(false);

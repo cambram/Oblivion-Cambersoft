@@ -7,6 +7,9 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField]
     private Animator animator;
+    public void Start() {
+        Cursor.visible = true;
+    }
 
     public void LoadGame() {
         animator.SetTrigger("FadeOut");
