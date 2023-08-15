@@ -20,22 +20,28 @@ public class Player : MonoBehaviour{
     [SerializeField]
     private Animator _playerAnim;
 
+    //Battery Percentage Variables
     private int _batteryCount;
     private const int _BATTERY = 400;
     private bool _battP1 = false, _battP2 = false, _battP3 = false;
 
     private UIManager _uiManager;
 
+    // Flashlight/Charge Audio Variables
     [SerializeField]
     private AudioClip _flashChargeClip;
+    [SerializeField]
+    private AudioSource _batterySource;
     [SerializeField]
     private AudioClip _flashlightOnClip;
     [SerializeField]
     private AudioSource _flashlightSource;
 
+    // Footsteps Audio Variables
     [SerializeField]
     private AudioSource _footstepSource;
 
+    // Jump Audio Variables
     [SerializeField]
     private AudioSource _jumpAudioSource;
     [SerializeField]
@@ -43,13 +49,7 @@ public class Player : MonoBehaviour{
     [SerializeField]
     private AudioClip _jumpTakeoffClip;
 
-    [SerializeField]
-    private AudioSource _batterySource;
-
-    private Camera _camera;
-
     private void Start() {
-        _camera = Camera.main;
         transform.position = new Vector3(-77, -1.7f, 0);
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
@@ -59,20 +59,8 @@ public class Player : MonoBehaviour{
     }
 
     private void Update() {
-        //camera must not be able to travel left of x = -66 or right of x = 60.3
-        if (this.transform.position.x < -71)
-            _camera.transform.position = new Vector3(-66, 0, -10);
-        else if(this.transform.position.x > 60.3f)
-            _camera.transform.position = new Vector3(65.3f, 0, -10);
-        else
-            _camera.transform.position = new Vector3(transform.position.x + 5, 0, -10);
-
-            CalculateMovement();
-
-        //Mouse follow action
-        /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-        _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
-
+        CalculateMovement();
+        BatteryChecker();
         if (Input.GetMouseButtonDown(0)) {
             if(_isFlashlightActive) { // flashlight gets turned off
                 Flashlight(false);
@@ -87,21 +75,17 @@ public class Player : MonoBehaviour{
         if (Input.GetMouseButtonDown(1)) {
             FlashCamera();
         }
-
-        BatteryChecker();
-
         if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
-            if (_footstepSource.isPlaying) {
-                _footstepSource.Pause();
-            }
-            _jumpAudioSource.clip = _jumpTakeoffClip;
-            _jumpAudioSource.Play();
-            _isJumpActive = true;
-            _playerAnim.SetTrigger("Jumping");
-            _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
+            JumpSequence();
         }
+
+        //Mouse follow action
+        /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
     }
 
+    /* Play jump landing animation correctly with ground edge collider
+     and end the level when player finishes the level */
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.tag == "Ground") {
             if(_isJumpActive) {
@@ -115,6 +99,9 @@ public class Player : MonoBehaviour{
         }
     }
 
+    /// <summary>
+    /// Checks the players battery count and flickers the battery based on the battery level.
+    /// </summary>
     private void BatteryChecker() {
         if (_batteryCount > 200 && _batteryCount < 300 && !_battP1) {
             _battP1 = true;
@@ -128,15 +115,20 @@ public class Player : MonoBehaviour{
         }
     }
 
+    /// <summary>
+    /// Resets the players battery level to full.
+    /// </summary>
+    public void CollectBattery() {
+        _batteryCount = _BATTERY;
+        _battP1 = false;
+        _battP2 = false;
+        _battP3 = false;
+    }
+
     public void FlickerFlashlight() {
         _flickerAnim.SetTrigger("Flicker");
         _batterySource.Play();
         StartCoroutine(BatteryFlickerTriggerReset());
-    }
-
-    IEnumerator BatteryFlickerTriggerReset() {
-        yield return new WaitForSeconds(0.8f);
-        _flickerAnim.ResetTrigger("Flicker");
     }
 
     public bool GetIsFlashlightActive() {
@@ -147,6 +139,17 @@ public class Player : MonoBehaviour{
         return _isFlashCameraActive;
     }
 
+    public void JumpSequence() {
+        if (_footstepSource.isPlaying) {
+            _footstepSource.Pause();
+        }
+        _jumpAudioSource.clip = _jumpTakeoffClip;
+        _jumpAudioSource.Play();
+        _isJumpActive = true;
+        _playerAnim.SetTrigger("Jumping");
+        _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
+    }
+
     /// <summary>
     /// Determines which direction the player is facing.
     /// </summary>
@@ -155,6 +158,9 @@ public class Player : MonoBehaviour{
         return _direction;
     }
 
+    /// <summary>
+    /// Calculates the players movement based on input. Audio clips and animations relating to the player are also played here.
+    /// </summary>
     private void CalculateMovement() {
         // player controlled light sources change direction depending on players direction of movement
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKey(KeyCode.A)) {
@@ -173,7 +179,6 @@ public class Player : MonoBehaviour{
             _direction = true; // facing right
             transform.localScale = new Vector3(0.17f, 0.17f, 0.17f);
         }
-
         if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
             _footstepSource.Pause();
             _playerAnim.ResetTrigger("Walking");        
@@ -184,25 +189,14 @@ public class Player : MonoBehaviour{
         transform.Translate(direction * _speed * Time.deltaTime);
     }
 
-    private void Flashlight(bool x) { // on = true; off = false
+    /// <summary>
+    /// Turns the players flashlight on or off. 
+    /// </summary>
+    /// <param name="x">true = on; false = off</param>
+    private void Flashlight(bool x) {
         _isFlashlightActive = x;
         _flashlight.SetActive(x);
         if (x) StartCoroutine(BatteryCountdownRoutine());
-    }
-
-    IEnumerator BatteryCountdownRoutine() {
-        while(true) {
-            if(_isFlashlightActive) {
-                yield return new WaitForSeconds(0.1f);
-                _batteryCount--;
-                if (_batteryCount <= 0) { // this is where the flashlight is turned off when battery is flat
-                    Flashlight(false);
-                    yield break;
-                }
-            } else {     
-                yield break;                
-            }
-        }
     }
 
     private void FlashCamera() {
@@ -219,25 +213,39 @@ public class Player : MonoBehaviour{
         }
     }
 
+    public void CollectFlashCharge() {
+        _flashChargeCount++;
+    }
+
+    public void KillPlayer() {
+        _uiManager.DisplayDeath();
+        Destroy(this.gameObject);
+    }
+
+    //IEnumerators
+    IEnumerator BatteryFlickerTriggerReset() {
+        yield return new WaitForSeconds(0.8f);
+        _flickerAnim.ResetTrigger("Flicker");
+    }
+
     IEnumerator FlashCameraOffRoutine() {
         yield return new WaitForSeconds(0.2f);
         _flashCamera.SetActive(false);
         _isFlashCameraActive = false;
     }
 
-    public void CollectFlashCharge() {
-        _flashChargeCount++;
-    }
-
-    public void CollectBattery() {
-        _batteryCount = _BATTERY;
-        _battP1 = false;
-        _battP2 = false;
-        _battP3 = false;
-    }
-
-    public void KillPlayer() {
-        _uiManager.DisplayDeath();
-        Destroy(this.gameObject);
+    IEnumerator BatteryCountdownRoutine() {
+        while (true) {
+            if (_isFlashlightActive) {
+                yield return new WaitForSeconds(0.1f);
+                _batteryCount--;
+                if (_batteryCount <= 0) { // this is where the flashlight is turned off when battery is flat
+                    Flashlight(false);
+                    yield break;
+                }
+            } else {
+                yield break;
+            }
+        }
     }
 }

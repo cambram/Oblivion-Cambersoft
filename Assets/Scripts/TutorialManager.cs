@@ -4,37 +4,37 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    //A vars
+    //A Instruction Variables
     [SerializeField]
     private GameObject _A;
     [SerializeField]
     private Animator _AAnim;
 
-    //D vars
+    //D Instruction Variables
     [SerializeField]
     private GameObject _D;
     [SerializeField]
     private Animator _DAnim;
 
-    //E vars
+    //E Instruction Variables
     [SerializeField]
     private GameObject _E;
     [SerializeField]
     private Animator _EAnim;
 
-    //space vars
+    //Space Instruction Variables
     [SerializeField]
     private GameObject _space;
     [SerializeField]
     private Animator _spaceAnim;
 
-    //Left Click vars
+    //Left Click Instruction Variables
     [SerializeField]
     private GameObject _leftClick;
     [SerializeField]
     private Animator _leftClickAnim;
 
-    //Flash charge instructions
+    //Flash Charge Instruction Variables
     [SerializeField]
     private GameObject _flashChargeIntrcn1;
     [SerializeField]
@@ -48,40 +48,37 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _flashChargeIntrcn3Anim;
 
-    //battery instructions
+    //Battery Instruction Variables
     private bool _batteryBypass = true;
     [SerializeField]
     private GameObject _batteryDying;
     [SerializeField]
     private Animator _batteryDyingAnim;
 
-    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, 
-        _jumpInstructionStart = false, _jumpInstructionComplete = false, _firstPickup = false,
-        _firstPickupComplete = false, _flash1 = false, _secondPickupComplete = false, _flash2 = false;
+    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionStart = false, _jumpInstructionComplete = false, _firstPickup = false, _firstPickupComplete = false, _flash1 = false, _secondPickupComplete = false, _flash2 = false;
 
     private Player _player;
+    private Camera _camera;
+    private SpawnManager _spawnManager;
     private Vector3 _checkpoint1, _checkpoint2;
 
     void Start() {
         Cursor.visible = false;
+        _camera = Camera.main;
+        _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _A.SetActive(false);
-        _E.SetActive(false);
-        _D.SetActive(false);
-        _space.SetActive(false);
-        _leftClick.SetActive(false);
-        _flashChargeIntrcn1.SetActive(false);
-        _flashChargeIntrcn2.SetActive(false);
-        _flashChargeIntrcn3.SetActive(false);
-        _batteryDying.SetActive(false);
         _checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
         _checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
+        InitialisePrefabsForLevel();
+        SetAllInstructionsActiveFalse();
         StartCoroutine(FlashlightInstruction());
     }
 
     void Update() {
         if (_player != null) {
-            if(_player.transform.position.x < -48 && _batteryBypass) {
+            ConstrainCamera();
+            //battery bypass at beginning for battery dying instruction
+            if (_player.transform.position.x < -48 && _batteryBypass) {
                 _player.CollectBattery();
             }
 
@@ -153,6 +150,29 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    private void InitialisePrefabsForLevel() {
+        /* Enemies */
+        _spawnManager.SpawnUmbra(22.23f, 0.78f);
+        _spawnManager.SpawnUmbra(74f, 0.5f);
+        _spawnManager.SpawnUmbra(69f, 1f);
+        /* Collectables */
+        _spawnManager.SpawnFlashCharge(24.3f, -1.87f);
+        _spawnManager.SpawnFlashCharge(46.4f, -0.4f);
+        _spawnManager.SpawnBattery(-30.1f, -0.7f);
+    }
+
+    private void SetAllInstructionsActiveFalse() {
+        _A.SetActive(false);
+        _E.SetActive(false);
+        _D.SetActive(false);
+        _space.SetActive(false);
+        _leftClick.SetActive(false);
+        _flashChargeIntrcn1.SetActive(false);
+        _flashChargeIntrcn2.SetActive(false);
+        _flashChargeIntrcn3.SetActive(false);
+        _batteryDying.SetActive(false);
+    }
+
     public Vector3 GetCheckpoint(int x) {
         switch(x) {
             case 1: return _checkpoint1;
@@ -181,5 +201,15 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         _A.SetActive(true);
         _D.SetActive(true);
+    }
+
+    private void ConstrainCamera() {
+        if (_player.transform.position.x < -71) {
+            _camera.transform.position = new Vector3(-66, 0, -10);
+        } else if (_player.transform.position.x > 60.3f) {
+            _camera.transform.position = new Vector3(65.3f, 0, -10);
+        } else {
+            _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
+        }
     }
 }

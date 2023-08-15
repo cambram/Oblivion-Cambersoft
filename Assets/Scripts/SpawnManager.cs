@@ -15,31 +15,32 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _collectablesContainer;
 
-    void Start(){
-        EnemiesInit();
-        CollectablesInit();        
-    }
-    public void EnemiesInit() {
-        SpawnUmbra(22.23f, 0.78f);
-        SpawnUmbra(74f, 0.5f);
-        SpawnUmbra(69f, 1f);
-    }
-
-    public void CollectablesInit() {
-        SpawnFlashCharge(24.3f, -1.87f);
-        SpawnFlashCharge(46.4f, -0.4f);
-        SpawnBattery(-30.1f, -0.7f);
-    }
-    private void SpawnUmbra(float x, float y) {
+    /// <summary>
+    /// Spawns an umbra at the specified coordinates 
+    /// </summary>
+    /// <param name="x">x coordinate for umbra</param>
+    /// <param name="y">y coordinate for umbra</param>
+    public void SpawnUmbra(float x, float y) {
         GameObject enemy = Instantiate(_enemyPrefab, new Vector3(x, y, 0), Quaternion.identity);
         enemy.transform.parent = _enemyContainer.transform;
     }
 
-    private void SpawnFlashCharge(float x, float y) {
+    /// <summary>
+    /// Spawns a flash charge at the specified coordinates 
+    /// </summary>
+    /// <param name="x">x coordinate for flash charge</param>
+    /// <param name="y">y coordinate for flash charge</param>
+    public void SpawnFlashCharge(float x, float y) {
         GameObject flashCharge = Instantiate(_flashChargePrefab, new Vector3(x, y, 0), Quaternion.identity);
         flashCharge.transform.parent = _collectablesContainer.transform;
     }
-    private void SpawnBattery(float x, float y) {
+
+    /// <summary>
+    /// Spawns a battery at the specified coordinates 
+    /// </summary>
+    /// <param name="x">x coordinate for battery</param>
+    /// <param name="y">y coordinate for battery</param>
+    public void SpawnBattery(float x, float y) {
         GameObject battery = Instantiate(_batteryPrefab, new Vector3(x, y, 0), Quaternion.identity);
         battery.transform.parent = _collectablesContainer.transform;
     }

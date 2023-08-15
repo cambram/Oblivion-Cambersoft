@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6872265674530964915}
   - component: {fileID: 8204099341847320637}
   m_Layer: 0
-  m_Name: Light 2D
+  m_Name: Enemy_Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

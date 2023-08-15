@@ -55,6 +55,6 @@ public class UIManager : MonoBehaviour
 
     IEnumerator RespawnRoutine() {
         yield return new WaitForSeconds(1);
-        _gameManager.RestartGame();
+        _gameManager.RestartTutorial();
     }
 }

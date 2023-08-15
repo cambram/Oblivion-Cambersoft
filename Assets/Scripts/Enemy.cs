@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour
         _audioSource.clip = _enemyDeathClip;
         _audioSource.Play();
         _isDead = true;
+        GameObject.Find("Enemy_Eyes").SetActive(false);
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
         this.gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(DestroyGameObject(7.1f));

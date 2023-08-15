@@ -15,10 +15,6 @@ public class Collectables : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
     private void Update() {
-        if (Input.GetKeyUp(KeyCode.L) && _collectableID == 1) {
-            _audioSource.Play();
-        }
-
         switch (_collectableID) {
             case 0:
                 if (Input.GetKeyDown(KeyCode.E) && _isInProximity) {
