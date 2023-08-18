@@ -28,28 +28,16 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _leftClickAnim;
 
-    //Flash Charge Instruction Variables
+    //Left Click Instruction Variables
     [SerializeField]
-    private GameObject _flashChargeIntrcn1;
+    private GameObject _rightClick;
     [SerializeField]
-    private Animator _flashChargeIntrcn1Anim;
-    [SerializeField]
-    private GameObject _flashChargeIntrcn2;
-    [SerializeField]
-    private Animator _flashChargeIntrcn2Anim;
-    [SerializeField]
-    private GameObject _flashChargeIntrcn3;
-    [SerializeField]
-    private Animator _flashChargeIntrcn3Anim;
+    private Animator _rightClickAnim;
 
-    //Battery Instruction Variables
+    //Battery Variable
     private bool _batteryBypass = true;
-    [SerializeField]
-    private GameObject _batteryDying;
-    [SerializeField]
-    private Animator _batteryDyingAnim;
 
-    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionStart = false, _jumpInstructionComplete = false, _flash1 = false;
+    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionStart = false, _jumpInstructionComplete = false, _scareOff = false;
 
     private Player _player;
     private Camera _camera;
@@ -110,13 +98,19 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > -1 && !_jumpInstructionComplete) {
                 _jumpInstructionComplete = true;
                 _spaceAnim.SetTrigger("FadeOut");
-                _flashChargeIntrcn1.SetActive(true);
+                _leftClick.SetActive(false);
+                _leftClick.transform.position = new Vector3(17.5f, -3.8f, 0);
+                _leftClick.SetActive(true);
             }
 
-            if (_player.transform.position.x > 10 && !_flash1) {
-                _flash1 = true;
-                _flashChargeIntrcn1Anim.SetTrigger("FadeOut");
-                _flashChargeIntrcn2.SetActive(true);
+            if (_player.transform.position.x > 10 && !_scareOff) {
+                _scareOff = true;
+                _leftClickAnim.SetTrigger("FadeOut");
+                _rightClick.SetActive(true);
+            }
+
+            if (_player.transform.position.x > 33) {
+                _rightClickAnim.SetTrigger("FadeOut");
             }
         }
     }
@@ -137,10 +131,7 @@ public class TutorialManager : MonoBehaviour
         _D.SetActive(false);
         _space.SetActive(false);
         _leftClick.SetActive(false);
-        _flashChargeIntrcn1.SetActive(false);
-        _flashChargeIntrcn2.SetActive(false);
-        _flashChargeIntrcn3.SetActive(false);
-        _batteryDying.SetActive(false);
+        _rightClick.SetActive(false);
     }
 
     public Vector3 GetCheckpoint(int x) {
