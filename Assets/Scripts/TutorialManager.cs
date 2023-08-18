@@ -16,12 +16,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _DAnim;
 
-    //E Instruction Variables
-    [SerializeField]
-    private GameObject _E;
-    [SerializeField]
-    private Animator _EAnim;
-
     //Space Instruction Variables
     [SerializeField]
     private GameObject _space;
@@ -55,7 +49,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _batteryDyingAnim;
 
-    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionStart = false, _jumpInstructionComplete = false, _firstPickup = false, _firstPickupComplete = false, _flash1 = false, _secondPickupComplete = false, _flash2 = false;
+    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionStart = false, _jumpInstructionComplete = false, _flash1 = false;
 
     private Player _player;
     private Camera _camera;
@@ -101,21 +95,6 @@ public class TutorialManager : MonoBehaviour
                 _DAnim.SetTrigger("FadeOut");
             }
 
-            //First pick up show instruction for battery
-            if (_player.transform.position.x > -48 && !_firstPickup) {
-                _batteryBypass = false;
-                _batteryDying.SetActive(true);
-                _player.FlickerFlashlight();
-                _firstPickup = true;
-                _E.SetActive(true);
-            }
-            //Hide first pickup instruction
-            if (Input.GetKeyDown(KeyCode.E) && _firstPickup && !_firstPickupComplete) {
-                _firstPickupComplete = true;
-                _EAnim.SetTrigger("FadeOut");
-                _batteryDyingAnim.SetTrigger("FadeOut");
-            }
-
             //show jump instruction
             if (_player.transform.position.x > -20 && !_jumpInstructionStart) {
                 _jumpInstructionStart = true;
@@ -133,19 +112,6 @@ public class TutorialManager : MonoBehaviour
                 _flash1 = true;
                 _flashChargeIntrcn1Anim.SetTrigger("FadeOut");
                 _flashChargeIntrcn2.SetActive(true);
-                StartCoroutine(FlashChargeInstcn2());
-            }
-
-            if (_player.transform.position.x > 23.3f && Input.GetKeyDown(KeyCode.E) && !_secondPickupComplete) {
-                _secondPickupComplete = true;
-                _EAnim.SetTrigger("FadeOut");
-                _flashChargeIntrcn2Anim.SetTrigger("FadeOut");
-                _flashChargeIntrcn3.SetActive(true);
-            }
-
-            if (_secondPickupComplete && Input.GetMouseButtonDown(1) && !_flash2) { 
-                _flash2 = true;
-                _flashChargeIntrcn3Anim.SetTrigger("FadeOut");
             }
         }
     }
@@ -163,7 +129,6 @@ public class TutorialManager : MonoBehaviour
 
     private void SetAllInstructionsActiveFalse() {
         _A.SetActive(false);
-        _E.SetActive(false);
         _D.SetActive(false);
         _space.SetActive(false);
         _leftClick.SetActive(false);
@@ -183,13 +148,6 @@ public class TutorialManager : MonoBehaviour
 
     public void RespawnPlayer(Vector3 s) {
         _player.transform.position = s;
-    }
-
-    IEnumerator FlashChargeInstcn2() {
-        yield return new WaitForSeconds(1f);
-        _E.SetActive(false);
-        _E.transform.position = new Vector3(24.3f, -3.64f, 0);
-        _E.SetActive(true);
     }
 
     IEnumerator FlashlightInstruction() {
