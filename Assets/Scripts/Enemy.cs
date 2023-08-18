@@ -18,15 +18,14 @@ public class Enemy : MonoBehaviour
     bool _isDead = false, _disableNoise = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _audioSource = GetComponent<AudioSource>();
         _enemyAnim = GetComponent<Animator>();
     }
 
-    void Update(){
+    void Update() {
         if(_player != null) {
             _distance = Vector3.Distance(this.transform.position, _player.transform.position);
             Vector3 _direction = _player.transform.position - this.transform.position; 
@@ -59,9 +58,13 @@ public class Enemy : MonoBehaviour
                         KillEnemy();
                     }
                 }
-                if (_distance < 2 && !_isDead) {
-                    _player.KillPlayer();
-                }
+            }
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.tag == "Player") {
+            if (!_isDead) {
+                _player.KillPlayer();
             }
         }
     }
