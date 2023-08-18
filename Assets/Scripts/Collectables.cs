@@ -7,7 +7,6 @@ public class Collectables : MonoBehaviour
 {
     [SerializeField]
     private int _collectableID; //0 = battery; 1 = flash charge
-    private bool _isInProximity;
     private Player _player;
     private AudioSource _audioSource;
 

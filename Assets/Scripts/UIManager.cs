@@ -34,6 +34,10 @@ public class UIManager : MonoBehaviour
         _isDead = true;
     }
 
+    /// <summary>
+    /// Fades out from the game
+    /// </summary>
+    /// <param name="x">1 = fade to main menu; 2 = fade to respawn player</param>
     public void FadeOut(int x) {
         switch (x) {
             case 1:

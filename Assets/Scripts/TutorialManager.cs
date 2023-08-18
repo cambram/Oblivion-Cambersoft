@@ -37,7 +37,7 @@ public class TutorialManager : MonoBehaviour
     //Battery Variable
     private bool _batteryBypass = true;
 
-    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionStart = false, _jumpInstructionComplete = false, _scareOff = false;
+    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionShow = false, _jumpInstructionComplete = false, _scareOffEnemyInstruction = false;
 
     private Player _player;
     private Camera _camera;
@@ -88,13 +88,13 @@ public class TutorialManager : MonoBehaviour
                 _DAnim.SetTrigger("FadeOut");
             }
 
-            //show jump instruction
-            if (_player.transform.position.x > -20 && !_jumpInstructionStart) {
-                _jumpInstructionStart = true;
+            //Show jump instruction
+            if (_player.transform.position.x > -20 && !_jumpInstructionShow) {
+                _jumpInstructionShow = true;
                 _space.SetActive(true);
             }
 
-            //Get rid of jump instruction
+            //Fade out jump instruction
             if (_player.transform.position.x > -1 && !_jumpInstructionComplete) {
                 _jumpInstructionComplete = true;
                 _spaceAnim.SetTrigger("FadeOut");
@@ -103,12 +103,14 @@ public class TutorialManager : MonoBehaviour
                 _leftClick.SetActive(true);
             }
 
-            if (_player.transform.position.x > 10 && !_scareOff) {
-                _scareOff = true;
+            //Show the right click icon to kill enemy (link this with flash charge somehow)
+            if (_player.transform.position.x > 10 && !_scareOffEnemyInstruction) {
+                _scareOffEnemyInstruction = true;
                 _leftClickAnim.SetTrigger("FadeOut");
                 _rightClick.SetActive(true);
             }
 
+            //Hide right click icon
             if (_player.transform.position.x > 33) {
                 _rightClickAnim.SetTrigger("FadeOut");
             }
@@ -132,14 +134,6 @@ public class TutorialManager : MonoBehaviour
         _space.SetActive(false);
         _leftClick.SetActive(false);
         _rightClick.SetActive(false);
-    }
-
-    public Vector3 GetCheckpoint(int x) {
-        switch(x) {
-            case 1: return _checkpoint1;
-            case 2: return _checkpoint2;
-            default: return new Vector3(0,0,0);
-        }
     }
 
     public void RespawnPlayer(Vector3 s) {
