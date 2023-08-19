@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Player") {
             if (!_isDead) {
+                _enemyAnim.ResetTrigger("Walking");
                 _player.KillPlayer();
             }
         }
