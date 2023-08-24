@@ -218,7 +218,7 @@ public class Player : MonoBehaviour{
     }
 
     public void KillPlayer() {
-        _uiManager.DisplayDeath();
+        _uiManager.FadeOut(2);
         Destroy(this.gameObject);
     }
 

@@ -39,9 +39,11 @@ public class TutorialManager : MonoBehaviour
 
     private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionShow = false, _jumpInstructionComplete = false, _scareOffEnemyInstruction = false;
 
+    private bool _respawn = false;
     private Player _player;
     private Camera _camera;
     private SpawnManager _spawnManager;
+    private UIManager _uiManager;
     private Vector3 _checkpoint1, _checkpoint2;
 
     void Start() {
@@ -49,6 +51,7 @@ public class TutorialManager : MonoBehaviour
         _camera = Camera.main;
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
         _checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
         InitialisePrefabsForLevel();
@@ -70,8 +73,9 @@ public class TutorialManager : MonoBehaviour
             }
 
             //respawn player if they fall
-            if (_player.transform.position.y < -12) {
-                RespawnPlayer(_checkpoint1);
+            if (_player.transform.position.y < -12 && !_respawn) {
+                _respawn = true;
+                _uiManager.FadeOut(2);
             }
 
             //remove flashlight instruction
@@ -134,10 +138,6 @@ public class TutorialManager : MonoBehaviour
         _space.SetActive(false);
         _leftClick.SetActive(false);
         _rightClick.SetActive(false);
-    }
-
-    public void RespawnPlayer(Vector3 s) {
-        _player.transform.position = s;
     }
 
     IEnumerator FlashlightInstruction() {

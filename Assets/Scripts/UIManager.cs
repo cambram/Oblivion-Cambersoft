@@ -5,33 +5,20 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField]
-    private Text _deathText;
-    private bool _isDead;
     private Animator _fadeOutAnim;
     private GameManager _gameManager;
     private GameObject _environment;
 
     void Start(){
-        _deathText.gameObject.SetActive(false);
-        _isDead = false;
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _environment = GameObject.Find("Environment");
         _fadeOutAnim = GetComponent<Animator>();
     }
 
     private void Update() {
-        if(_isDead && Input.GetKeyDown(KeyCode.R)) {
-            FadeOut(2);        
-        }
         if(Input.GetKeyDown(KeyCode.Escape)) {
             FadeOut(1);
         }
-    }
-
-    public void DisplayDeath() {
-        _deathText.gameObject.SetActive(true);
-        _isDead = true;
     }
 
     /// <summary>
@@ -47,6 +34,7 @@ public class UIManager : MonoBehaviour
                 break;
             case 2:
                 _fadeOutAnim.SetTrigger("FadeOut");
+                _environment.GetComponent<Animator>().SetTrigger("FadeOut");
                 StartCoroutine(RespawnRoutine());
                 break;
             default: break;
