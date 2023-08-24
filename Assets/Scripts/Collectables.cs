@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Collectables : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class Collectables : MonoBehaviour
     }
 
     IEnumerator DestroyGameObject(float seconds) {
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(seconds);
         Destroy(this.gameObject);
     }
@@ -28,12 +28,14 @@ public class Collectables : MonoBehaviour
                     _player.CollectBattery();
                     _audioSource.Play();
                     this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    this.gameObject.GetComponent<Light2D>().intensity = 0f;
                     StartCoroutine(DestroyGameObject(0.46f));
                     break;
                 case 1:
                     _player.CollectFlashCharge();
                     _audioSource.Play();
                     this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    this.gameObject.GetComponent<Light2D>().intensity = 0f;
                     StartCoroutine(DestroyGameObject(0.37f));
                     break;
             }
