@@ -9,18 +9,10 @@ public class Collectables : MonoBehaviour
     private int _collectableID; //0 = battery; 1 = flash charge
     private Player _player;
     private AudioSource _audioSource;
-    [SerializeField]
-    private Animator _animator;
 
     private void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
         _audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Update() {
-        if (_player.transform.position.x > this.transform.position.x - 4 && _player.transform.position.x < this.transform.position.x + 4) {
-            _animator.SetTrigger("Glow");
-        }
     }
 
     IEnumerator DestroyGameObject(float seconds) {
