@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 594211024564369183}
   - component: {fileID: 594211024564369182}
   - component: {fileID: 4771905938194936651}
+  - component: {fileID: 6733010113242569878}
   m_Layer: 0
   m_Name: Flash_Charge
   m_TagString: Untagged
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -2124751045
-  m_SortingLayer: 2
+  m_SortingLayerID: -1200349453
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: afbe4b8892d9ca2429dc177b65092fb1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collectableID: 1
+  _animator: {fileID: 6733010113242569878}
 --- !u!82 &4771905938194936651
 AudioSource:
   m_ObjectHideFlags: 0
@@ -222,3 +224,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &6733010113242569878
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594211024564369170}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c75f702b6bb22b478e45e20499aab36, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
