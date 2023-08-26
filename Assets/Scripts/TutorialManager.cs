@@ -47,6 +47,7 @@ public class TutorialManager : MonoBehaviour
     private Vector3 _checkpoint1, _checkpoint2;
 
     void Start() {
+        _player.transform.position = new Vector3(-77, -1.7f, 0);
         Cursor.visible = false;
         _camera = Camera.main;
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();

@@ -50,7 +50,6 @@ public class Player : MonoBehaviour{
     private AudioClip _jumpTakeoffClip;
 
     private void Start() {
-        transform.position = new Vector3(-77, -1.7f, 0);
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
