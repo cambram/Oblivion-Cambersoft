@@ -103,6 +103,15 @@ public class Player : MonoBehaviour{
                     _uiManager.FadeOut(1);
                     break;
             }
+        } else if (collision.tag == "Death") {
+            switch (SceneManager.GetActiveScene().buildIndex) {
+                case 1:
+                    _uiManager.FadeOut(2);
+                    break;
+                case 2:
+                    _uiManager.FadeOut(3);
+                    break;
+            }
         }
     }
 
