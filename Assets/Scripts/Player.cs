@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour{
@@ -94,7 +95,14 @@ public class Player : MonoBehaviour{
                 _playerAnim.ResetTrigger("Jumping");
             }
         } else if(collision.tag == "Finish") {
-            _uiManager.FadeOut(1);
+            switch (SceneManager.GetActiveScene().buildIndex) {
+                case 1:
+                    _uiManager.FadeOut(3);
+                    break;
+                case 2:
+                    _uiManager.FadeOut(1);
+                    break;
+            }
         }
     }
 
@@ -217,7 +225,14 @@ public class Player : MonoBehaviour{
     }
 
     public void KillPlayer() {
-        _uiManager.FadeOut(2);
+        switch (SceneManager.GetActiveScene().buildIndex) {
+            case 1:
+                _uiManager.FadeOut(2);
+                break;
+            case 2:
+                _uiManager.FadeOut(3);
+                break;
+        }
         Destroy(this.gameObject);
     }
 

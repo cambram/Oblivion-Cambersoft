@@ -17,9 +17,9 @@ public class UIManager : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Escape)) {
+        /*if(Input.GetKeyDown(KeyCode.Escape)) {
             FadeOut(1);
-        }
+        }*/
     }
 
     //SceneManager.GetActiveScene().buildIndex
@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Fades out from the game
     /// </summary>
-    /// <param name="x">1 = fade to main menu; 2 = fade to respawn player</param>
+    /// <param name="x">1 = fade to main menu; 2 = fade to load tutorial; 3 = fade to load level 1</param>
     public void FadeOut(int x) {
         switch (x) {
             case 1:
@@ -38,7 +38,12 @@ public class UIManager : MonoBehaviour
             case 2:
                 _fadeOutAnim.SetTrigger("FadeOut");
                 _environment.GetComponent<Animator>().SetTrigger("FadeOut");
-                StartCoroutine(RespawnRoutine());
+                StartCoroutine(LoadTutorialRoutine());
+                break;
+            case 3:
+                _fadeOutAnim.SetTrigger("FadeOut");
+                _environment.GetComponent<Animator>().SetTrigger("FadeOut");
+                StartCoroutine(LoadLevelOneRoutine());
                 break;
             default: break;
         }
@@ -48,8 +53,13 @@ public class UIManager : MonoBehaviour
         _gameManager.BackToMainMenu();
     }
 
-    IEnumerator RespawnRoutine() {
+    IEnumerator LoadTutorialRoutine() {
         yield return new WaitForSeconds(1);
         _gameManager.RestartTutorial();
+    }
+
+    IEnumerator LoadLevelOneRoutine() {
+        yield return new WaitForSeconds(1);
+        _gameManager.RestartLevelOne();
     }
 }

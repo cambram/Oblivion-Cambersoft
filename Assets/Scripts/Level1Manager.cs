@@ -23,7 +23,7 @@ public class Level1Manager : MonoBehaviour
         //respawn player if they fall
         if (_player.transform.position.y < -12 && !_respawn) {
             _respawn = true;
-            _uiManager.FadeOut(2);
+            _uiManager.FadeOut(3);
         }
     }
 
