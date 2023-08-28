@@ -7,16 +7,24 @@ public class Level1Manager : MonoBehaviour
 {
     private Camera _camera;
     private Player _player;
+    private UIManager _uiManager;
+    private bool _respawn = false;
 
     void Start() {
         _camera = Camera.main;
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _player.transform.position = new Vector3(-119, -2, 0);
     }
 
-    // Update is called once per frame
     void Update() {
         ConstrainCamera();
+
+        //respawn player if they fall
+        if (_player.transform.position.y < -12 && !_respawn) {
+            _respawn = true;
+            _uiManager.FadeOut(2);
+        }
     }
 
     private void ConstrainCamera() {

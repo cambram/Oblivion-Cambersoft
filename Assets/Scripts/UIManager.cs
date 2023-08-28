@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -20,6 +21,8 @@ public class UIManager : MonoBehaviour
             FadeOut(1);
         }
     }
+
+    //SceneManager.GetActiveScene().buildIndex
 
     /// <summary>
     /// Fades out from the game

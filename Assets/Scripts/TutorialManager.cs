@@ -47,12 +47,12 @@ public class TutorialManager : MonoBehaviour
     private Vector3 _checkpoint1, _checkpoint2;
 
     void Start() {
-        _player.transform.position = new Vector3(-77, -1.7f, 0);
         Cursor.visible = false;
         _camera = Camera.main;
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _player.transform.position = new Vector3(-77, -1.7f, 0);
         _checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
         _checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
         InitialisePrefabsForLevel();
