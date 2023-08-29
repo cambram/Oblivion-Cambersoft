@@ -13704,6 +13704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flashlight: {fileID: 1944036289}
+  _lantern: {fileID: 191785041}
   _flashCamera: {fileID: 2121908763}
   _flickerAnim: {fileID: 1944036290}
   _playerAnim: {fileID: 1732633036}

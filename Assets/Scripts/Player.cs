@@ -10,7 +10,9 @@ public class Player : MonoBehaviour{
     private float _speed = 2.5f; //3.5f
     [SerializeField]
     private GameObject _flashlight;
-    private bool _isFlashlightActive = false, _isJumpActive = false, _isFlashCameraActive = false;
+    [SerializeField]
+    private GameObject _lantern;
+    private bool _isFlashlightActive = false, _isJumpActive = false, _isFlashCameraActive = false, _isLanternActive = false;
     [SerializeField]
     private GameObject _flashCamera;
     private int _flashChargeCount = 0;
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour{
     private void Start() {
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
+        _lantern.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
         _rigidbody = GetComponent<Rigidbody2D>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
@@ -153,6 +156,10 @@ public class Player : MonoBehaviour{
 
     public bool GetIsFlashCameraActive() {
         return _isFlashCameraActive;
+    }
+
+    public bool GetIsLanternActive() {
+        return _isLanternActive;
     }
 
     public void JumpSequence() {
