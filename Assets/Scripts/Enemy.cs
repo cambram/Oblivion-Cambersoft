@@ -6,66 +6,86 @@ public class Enemy : MonoBehaviour
 {
     private Player _player;
     private float _speed = 4f, _distance;
-
-    private SpriteRenderer _spriteRenderer;
-    private Animator _enemyAnim;
-
-    private AudioSource _audioSource;
     [SerializeField]
-    private AudioClip _enemySoundClip;
+    private int _enemyID; //0 = umbra; 1 = lux
+
+    private Animator _umbraAnim;
+    
     [SerializeField]
-    private AudioClip _enemyDeathClip;
+    private AudioSource _enemyNoiseSource;
+    [SerializeField]
+    private AudioSource _enemyDeathSource;
     bool _isDead = false, _disableNoise = false;
 
     // Start is called before the first frame update
     void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _audioSource = GetComponent<AudioSource>();
-        _enemyAnim = GetComponent<Animator>();
+        _umbraAnim = GetComponent<Animator>();
     }
 
     void Update() {
         if(_player != null) {
-            _distance = Vector3.Distance(this.transform.position, _player.transform.position);
-            Vector3 _direction = _player.transform.position - this.transform.position; 
-            if(!_disableNoise && _distance <= 30) {
-                _disableNoise = true;
-                PlayEnemyNoise();
+            switch (_enemyID) {
+                case 0:
+                    Umbra();
+                    break;
+                case 1:
+                    Lux();
+                    break;
             }
-            if (_distance < 22 && !_isDead) {
-                _enemyAnim.SetTrigger("Walking");
-                if (!_player.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
-                    _enemyAnim.ResetTrigger("Afraid");
+        }
+    }
+
+    private void Umbra() {
+        _distance = Vector3.Distance(this.transform.position, _player.transform.position);
+        Vector3 _direction = _player.transform.position - this.transform.position;
+        if (!_disableNoise && _distance <= 30) {
+            _disableNoise = true;
+            PlayUmbraNoise();
+        }
+        if (_distance < 22 && !_isDead) {
+            _umbraAnim.SetTrigger("Walking");
+            if (!_player.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
+                _umbraAnim.ResetTrigger("Afraid");
+                _speed = 4f;
+                this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
+                transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
+            } else { // if player flashlight is on, umbra runs away...
+                if (_direction.x < 0 && _player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
+                    _umbraAnim.SetTrigger("Afraid");
+                    _speed = 2f;
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position + new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
+                    checkIfEnemyIsMovingCorrectly();
+                } else {
+                    _umbraAnim.ResetTrigger("Afraid");
                     _speed = 4f;
-                    this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                     transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
-                } else { // if player flashlight is on, enemy runs away...
-                    if(_direction.x < 0 && _player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
-                        _enemyAnim.SetTrigger("Afraid");
-                        _speed = 2f;
-                        this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position + new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
-                        checkIfEnemyIsMovingCorrectly();
-                    } else {
-                        _enemyAnim.ResetTrigger("Afraid");
-                        _speed = 4f;
-                        transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
-                        this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
-                    }
+                    this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                 }
-                if (_distance < 13 && _player.GetIsFlashCameraActive()) { // change to 7
-                    if (_direction.x < 0 && _player.GetDirection()) {
-                        KillEnemy();
-                    }
+            }
+            if (_distance < 13 && _player.GetIsFlashCameraActive()) { // change to 7
+                if (_direction.x < 0 && _player.GetDirection()) {
+                    KillUmbra();
                 }
             }
         }
     }
+
+    private void Lux() {
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Player") {
             if (!_isDead) {
-                _enemyAnim.ResetTrigger("Walking");
-                _player.KillPlayer();
+                switch (_enemyID) {
+                    case 0:
+                        _umbraAnim.ResetTrigger("Walking");
+                        _player.KillPlayer();
+                        break;
+                    case 1:
+                        break;
+                }
             }
         }
     }
@@ -80,9 +100,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void KillEnemy() {
-        _audioSource.clip = _enemyDeathClip;
-        _audioSource.Play();
+    private void KillUmbra() {
+        _enemyDeathSource.Play();
         _isDead = true;
         GameObject.Find("Enemy_Eyes").SetActive(false);
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -90,9 +109,8 @@ public class Enemy : MonoBehaviour
         StartCoroutine(DestroyGameObject(7.1f));
     }
 
-    private void PlayEnemyNoise() {
-        _audioSource.clip = _enemySoundClip;
-        _audioSource.Play();
+    private void PlayUmbraNoise() {
+        _enemyNoiseSource.Play();
     }
 
     IEnumerator DestroyGameObject(float seconds) {
