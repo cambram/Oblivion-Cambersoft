@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemyPrefab;
+    private GameObject _umbraPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
     [SerializeField]
@@ -21,8 +21,8 @@ public class SpawnManager : MonoBehaviour
     /// <param name="x">x coordinate for umbra</param>
     /// <param name="y">y coordinate for umbra</param>
     public void SpawnUmbra(float x, float y) {
-        GameObject enemy = Instantiate(_enemyPrefab, new Vector3(x, y, 0), Quaternion.identity);
-        enemy.transform.parent = _enemyContainer.transform;
+        GameObject umbra = Instantiate(_umbraPrefab, new Vector3(x, y, 0), Quaternion.identity);
+        umbra.transform.parent = _enemyContainer.transform;
     }
 
     /// <summary>

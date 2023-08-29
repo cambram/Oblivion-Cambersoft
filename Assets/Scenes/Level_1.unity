@@ -13853,7 +13853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58af84ffd776214bac35d55aee644c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 6557023288771290415, guid: 5429d9a91f2790d4b9daa3846870a37e, type: 3}
+  _umbraPrefab: {fileID: 6557023288771290415, guid: 5429d9a91f2790d4b9daa3846870a37e, type: 3}
   _enemyContainer: {fileID: 769468143}
   _flashChargePrefab: {fileID: 594211024564369170, guid: fa2842dca343bd244af79f6f23fa737d, type: 3}
   _batteryPrefab: {fileID: 8115641364839384192, guid: 591763a806dd2014abf01b0dbd47c654, type: 3}

@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 2035108704}
   - component: {fileID: 6323930538371036591}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Umbra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
