@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Player _player;
+    private PlayerLightSources _lightSources;
     private float _speed = 4f, _distance;
     [SerializeField]
     private int _enemyID; //0 = umbra; 1 = lux
@@ -20,6 +21,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
+        _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _umbraAnim = GetComponent<Animator>();
     }
 
@@ -45,7 +47,7 @@ public class Enemy : MonoBehaviour
         }
         if (_distance < 22 && !_isDead) {
             _umbraAnim.SetTrigger("Walking");
-            if (!_player.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
+            if (!_lightSources.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
                 _umbraAnim.ResetTrigger("Afraid");
                 _speed = 4f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -63,7 +65,7 @@ public class Enemy : MonoBehaviour
                     this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                 }
             }
-            if (_distance < 13 && _player.GetIsFlashCameraActive()) { // change to 7
+            if (_distance < 13 && _lightSources.GetIsFlashCameraActive()) { // change to 7
                 if (_direction.x < 0 && _player.GetDirection()) {
                     KillUmbra();
                 }

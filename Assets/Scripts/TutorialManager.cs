@@ -41,6 +41,7 @@ public class TutorialManager : MonoBehaviour
 
     private bool _respawn = false;
     private Player _player;
+    private PlayerLightSources _lightSources;
     private Camera _camera;
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
@@ -52,6 +53,7 @@ public class TutorialManager : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _player.transform.position = new Vector3(-77, -1.7f, 0);
         _checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
         _checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
@@ -65,12 +67,12 @@ public class TutorialManager : MonoBehaviour
             ConstrainCamera();
             //battery bypass at beginning for battery dying instruction
             if (_player.transform.position.x < -48 && _batteryBypass) {
-                _player.CollectBattery();
+                _lightSources.CollectBattery();
             }
 
             if (_player.transform.position.x > -48 && _batteryBypass) {
                 _batteryBypass = false;
-                _player.FlickerFlashlight();
+                _lightSources.FlickerFlashlight();
             }
 
             //respawn player if they fall

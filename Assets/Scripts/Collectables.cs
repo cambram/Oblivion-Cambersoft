@@ -8,11 +8,11 @@ public class Collectables : MonoBehaviour
 {
     [SerializeField]
     private int _collectableID; //0 = battery; 1 = flash charge
-    private Player _player;
+    private PlayerLightSources _lightSources;
     private AudioSource _audioSource;
 
     private void Start() {
-        _player = GameObject.Find("Player").GetComponent<Player>();
+        _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -25,14 +25,14 @@ public class Collectables : MonoBehaviour
         if(collision.tag == "Player") {
             switch (_collectableID) {
                 case 0:
-                    _player.CollectBattery();
+                    _lightSources.CollectBattery();
                     _audioSource.Play();
                     this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     this.gameObject.GetComponent<Light2D>().intensity = 0f;
                     StartCoroutine(DestroyGameObject(0.46f));
                     break;
                 case 1:
-                    _player.CollectFlashCharge();
+                    _lightSources.CollectFlashCharge();
                     _audioSource.Play();
                     this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
                     this.gameObject.GetComponent<Light2D>().intensity = 0f;
