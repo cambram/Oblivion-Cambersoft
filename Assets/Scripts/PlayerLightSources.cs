@@ -46,15 +46,11 @@ public class PlayerLightSources : MonoBehaviour {
 
     private void Update() {
         if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
-            if(_currentLightSource == 0) { // means current is flashlight 
-                _currentLightSource = 1; // toggles to lantern
-            } else { // means current is lantern
-                _currentLightSource = 0; // toggles to flashlight
-            }
+            Toggle();
         }
         BatteryChecker();
         if (Input.GetMouseButtonDown(0)) {
-            if (_isFlashlightActive) { // flashlight gets turned off
+            if (_isFlashlightActive || _isLanternActive) { // flashlight gets turned off
                 Flashlight(false);
             } else { // flashlight gets turned on
                 if (_batteryCount > 0) { //this prevents light turning on when battery is flat
@@ -99,6 +95,26 @@ public class PlayerLightSources : MonoBehaviour {
         _battP3 = false;
     }
 
+    private void Toggle() {
+        if (_currentLightSource == 0) { // means current is flashlight 
+            if (_isFlashlightActive) {
+                Flashlight(false);
+                _currentLightSource = 1; // toggles to lantern
+                Flashlight(true);
+            } else {
+                _currentLightSource = 1; // toggles to lantern
+            }
+        } else { // means current is lantern
+            if (_isLanternActive) {
+                Flashlight(false);
+                _currentLightSource = 0; // toggles to flashlight
+                Flashlight(true);
+            } else {
+                _currentLightSource = 0; // toggles to flashlight
+            }
+        }
+    }
+
     public void CollectFlashCharge() {
         _flashChargeCount++;
     }
@@ -141,7 +157,7 @@ public class PlayerLightSources : MonoBehaviour {
                 if (x) StartCoroutine(BatteryCountdownRoutine());
                 break;
             case 1:
-                _isFlashlightActive = x;
+                _isLanternActive = x;
                 _lantern.SetActive(x);
                 if (x) StartCoroutine(BatteryCountdownRoutine());
                 break;
@@ -152,7 +168,7 @@ public class PlayerLightSources : MonoBehaviour {
     private void FlashCamera() {
         if (_flashChargeCount > 0) {
             _flashChargeCount--;
-            if (_isFlashlightActive) {
+            if (_isFlashlightActive || _isLanternActive) {
                 Flashlight(false);
             }
             _flashCamera.SetActive(true);
@@ -177,7 +193,7 @@ public class PlayerLightSources : MonoBehaviour {
 
     IEnumerator BatteryCountdownRoutine() {
         while (true) {
-            if (_isFlashlightActive) {
+            if (_isFlashlightActive || _isLanternActive) {
                 yield return new WaitForSeconds(0.1f);
                 _batteryCount--;
                 if (_batteryCount <= 0) { // this is where the flashlight is turned off when battery is flat
