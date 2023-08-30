@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 330256914}
   - component: {fileID: 330256915}
   m_Layer: 0
-  m_Name: Tree_light
+  m_Name: Tree_light_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11815,6 +11815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flashlight: {fileID: 2116669719}
+  _lantern: {fileID: 0}
   _flashCamera: {fileID: 576151744}
   _flickerAnim: {fileID: 2116669722}
   _flashChargeClip: {fileID: 8300000, guid: c06c7e3b822bf3d49a2fb1f4cf104c21, type: 3}

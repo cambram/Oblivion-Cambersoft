@@ -1132,7 +1132,7 @@ ParticleSystem:
     m_SpriteRenderer: {fileID: 0}
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
-    alignToDirection: 0
+    alignToDirection: 1
     m_Texture: {fileID: 0}
     m_TextureClipChannel: 3
     m_TextureClipThreshold: 0
@@ -6170,7 +6170,7 @@ ParticleSystem:
     m_SpriteRenderer: {fileID: 0}
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
-    alignToDirection: 0
+    alignToDirection: 1
     m_Texture: {fileID: 0}
     m_TextureClipChannel: 3
     m_TextureClipThreshold: 0
@@ -13831,6 +13831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flashlight: {fileID: 1944036289}
+  _lantern: {fileID: 191785041}
   _flashCamera: {fileID: 2121908763}
   _flickerAnim: {fileID: 1944036290}
   _flashChargeClip: {fileID: 8300000, guid: c06c7e3b822bf3d49a2fb1f4cf104c21, type: 3}
@@ -14920,7 +14921,7 @@ ParticleSystem:
     m_SpriteRenderer: {fileID: 0}
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
-    alignToDirection: 0
+    alignToDirection: 1
     m_Texture: {fileID: 0}
     m_TextureClipChannel: 3
     m_TextureClipThreshold: 0
@@ -18941,7 +18942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1944036290
 Animator:
   serializedVersion: 5

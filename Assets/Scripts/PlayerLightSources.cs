@@ -10,12 +10,15 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private GameObject _flashlight;
     [SerializeField]
+    private GameObject _lantern;
+    [SerializeField]
     private GameObject _flashCamera;
     [SerializeField]
     private Animator _flickerAnim;
 
     private int _flashChargeCount = 0;
-    private bool _isFlashlightActive = false, _isFlashCameraActive = false;
+    private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
+    private bool _isFlashlightActive = false, _isLanternActive = false, _isFlashCameraActive = false;
 
     //Battery Percentage Variables
     private int _batteryCount;
@@ -36,9 +39,19 @@ public class PlayerLightSources : MonoBehaviour {
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
+        if (_lantern != null) {
+            _lantern.SetActive(false);
+        }
     }
 
     private void Update() {
+        if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
+            if(_currentLightSource == 0) { // means current is flashlight 
+                _currentLightSource = 1; // toggles to lantern
+            } else { // means current is lantern
+                _currentLightSource = 0; // toggles to flashlight
+            }
+        }
         BatteryChecker();
         if (Input.GetMouseButtonDown(0)) {
             if (_isFlashlightActive) { // flashlight gets turned off
@@ -66,13 +79,13 @@ public class PlayerLightSources : MonoBehaviour {
     private void BatteryChecker() {
         if (_batteryCount > 200 && _batteryCount < 300 && !_battP1) {
             _battP1 = true;
-            FlickerFlashlight();
+            CheckFlicker();
         } else if (_batteryCount > 100 && _batteryCount < 200 && !_battP2) {
             _battP2 = true;
-            FlickerFlashlight();
+            CheckFlicker();
         } else if (_batteryCount > 0 && _batteryCount < 100 && !_battP3) {
             _battP3 = true;
-            FlickerFlashlight();
+            CheckFlicker();
         }
     }
 
@@ -96,6 +109,18 @@ public class PlayerLightSources : MonoBehaviour {
         StartCoroutine(BatteryFlickerTriggerReset());
     }
 
+    private void CheckFlicker() {
+        switch(_currentLightSource) {
+            case 0: // flashlight
+                FlickerFlashlight();
+                break;
+            case 1: // lantern
+                //FlickerLantern();
+                break;
+            default: break;
+        }
+    }
+
     public bool GetIsFlashlightActive() {
         return _isFlashlightActive;
     }
@@ -109,9 +134,19 @@ public class PlayerLightSources : MonoBehaviour {
     /// </summary>
     /// <param name="x">true = on; false = off</param>
     private void Flashlight(bool x) {
-        _isFlashlightActive = x;
-        _flashlight.SetActive(x);
-        if (x) StartCoroutine(BatteryCountdownRoutine());
+        switch (_currentLightSource) {
+            case 0:
+                _isFlashlightActive = x;
+                _flashlight.SetActive(x);
+                if (x) StartCoroutine(BatteryCountdownRoutine());
+                break;
+            case 1:
+                _isFlashlightActive = x;
+                _lantern.SetActive(x);
+                if (x) StartCoroutine(BatteryCountdownRoutine());
+                break;
+            default: break;
+        }
     }
 
     private void FlashCamera() {
