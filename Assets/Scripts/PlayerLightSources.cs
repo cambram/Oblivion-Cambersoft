@@ -98,17 +98,21 @@ public class PlayerLightSources : MonoBehaviour {
     private void Toggle() {
         if (_currentLightSource == 0) { // means current is flashlight 
             if (_isFlashlightActive) {
-                Flashlight(false);
+                _isFlashlightActive = false;
+                _flashlight.SetActive(false);
                 _currentLightSource = 1; // toggles to lantern
-                Flashlight(true);
+                _isLanternActive = true;
+                _lantern.SetActive(true);
             } else {
                 _currentLightSource = 1; // toggles to lantern
             }
         } else { // means current is lantern
             if (_isLanternActive) {
-                Flashlight(false);
+                _isLanternActive = false;
+                _lantern.SetActive(false);
                 _currentLightSource = 0; // toggles to flashlight
-                Flashlight(true);
+                _isFlashlightActive = true;
+                _flashlight.SetActive(true);
             } else {
                 _currentLightSource = 0; // toggles to flashlight
             }
