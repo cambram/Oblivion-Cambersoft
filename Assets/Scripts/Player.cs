@@ -30,7 +30,7 @@ public class Player : MonoBehaviour{
 
     private void Start() {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
     }
 
     private void Update() {

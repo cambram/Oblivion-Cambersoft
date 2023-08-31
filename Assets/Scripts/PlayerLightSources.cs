@@ -38,7 +38,7 @@ public class PlayerLightSources : MonoBehaviour {
     private UIManager _uiManager;
 
     private void Start() {
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
