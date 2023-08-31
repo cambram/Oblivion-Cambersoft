@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -19,6 +20,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private AudioMixer _mainMixer;
     private bool _paused = false;
+    [SerializeField]
+    private Light2D _globalLight;
 
     void Start(){
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -64,6 +67,19 @@ public class UIManager : MonoBehaviour
 
     public void SetVolume(float volume) {
         _mainMixer.SetFloat("masterVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetBrightness(float brightness) {
+        switch (SceneManager.GetActiveScene().buildIndex) {
+            case 0:
+                break;
+            case 1:
+                _globalLight.intensity = brightness / 20;
+                break;
+            case 2:
+                _globalLight.intensity = brightness;
+                break;
+        }
     }
 
     public bool GetIsPaused() {
