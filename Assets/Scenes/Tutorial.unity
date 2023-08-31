@@ -310,7 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda30d35eebd1ab46810343d73315bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pauseGame: {fileID: 0}
   _pauseMenu: {fileID: 975890360}
+  _optionsMenu: {fileID: 0}
+  _mainMixer: {fileID: 0}
 --- !u!114 &102963702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7443,7 +7446,7 @@ AudioSource:
   m_GameObject: {fileID: 561202936}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 69908d2d7f09b3b49a7cf1a9df099c01, type: 2}
   m_audioClip: {fileID: 8300000, guid: 623690e4dcef7c94ca963369f6a9f8d6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -12244,7 +12247,7 @@ AudioSource:
   m_GameObject: {fileID: 1457214560}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 69908d2d7f09b3b49a7cf1a9df099c01, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.7
@@ -12340,7 +12343,7 @@ AudioSource:
   m_GameObject: {fileID: 1457214560}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 69908d2d7f09b3b49a7cf1a9df099c01, type: 2}
   m_audioClip: {fileID: 8300000, guid: b4bd9a4f3817e0c4c97e7e4ae8e6e99b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
@@ -12436,7 +12439,7 @@ AudioSource:
   m_GameObject: {fileID: 1457214560}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 69908d2d7f09b3b49a7cf1a9df099c01, type: 2}
   m_audioClip: {fileID: 8300000, guid: 9c4c8739c09b1a14ebb9aa4511573e03, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.3
@@ -12553,7 +12556,7 @@ AudioSource:
   m_GameObject: {fileID: 1457214560}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 69908d2d7f09b3b49a7cf1a9df099c01, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.1

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ public class UIManager : MonoBehaviour
     private GameObject _pauseMenu;
     [SerializeField]
     private GameObject _optionsMenu;
+    [SerializeField]
+    private AudioMixer _mainMixer;
     private bool _paused = false;
 
     void Start(){
@@ -57,6 +60,10 @@ public class UIManager : MonoBehaviour
     public void Back() {
         _pauseMenu.SetActive(true);
         _optionsMenu.SetActive(false);
+    }
+
+    public void SetVolume(float volume) {
+        _mainMixer.SetFloat("masterVolume", Mathf.Log10(volume) * 20);
     }
 
     public bool GetIsPaused() {
