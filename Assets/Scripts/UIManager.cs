@@ -10,13 +10,20 @@ public class UIManager : MonoBehaviour
     private GameManager _gameManager;
     private GameObject _environment;
     [SerializeField]
+    private GameObject _pauseGame;
+    [SerializeField]
     private GameObject _pauseMenu;
+    [SerializeField]
+    private GameObject _optionsMenu;
     private bool _paused = false;
 
     void Start(){
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _environment = GameObject.Find("Environment");
         _fadeOutAnim = GetComponent<Animator>();
+        _pauseMenu.SetActive(false);
+        _pauseGame.SetActive(false);
+        _optionsMenu.SetActive(false);
     }
 
     private void Update() {
@@ -32,13 +39,24 @@ public class UIManager : MonoBehaviour
     private void Pause() {
         _paused = !_paused;
         Time.timeScale = 0f;
+        _pauseGame.SetActive(true);
         _pauseMenu.SetActive(true);
     }
 
     public void Resume() {
         _paused = !_paused;
         Time.timeScale = 1f;
+        _pauseGame.SetActive(false);
+    }
+
+    public void Options() {
         _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(true);
+    }
+
+    public void Back() {
+        _pauseMenu.SetActive(true);
+        _optionsMenu.SetActive(false);
     }
 
     public bool GetIsPaused() {
