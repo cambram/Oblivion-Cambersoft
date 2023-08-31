@@ -52,7 +52,7 @@ public class TutorialManager : MonoBehaviour
         _camera = Camera.main;
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _player.transform.position = new Vector3(-77, -1.7f, 0);
         _checkpoint1 = new Vector3(-10.4f, 2.7f, 0);

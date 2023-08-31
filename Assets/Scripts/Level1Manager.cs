@@ -17,7 +17,7 @@ public class Level1Manager : MonoBehaviour
     void Start() {
         _camera = Camera.main;
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _environment = GameObject.Find("Environment");
         _player.transform.position = new Vector3(-119, -2, 0);
     }

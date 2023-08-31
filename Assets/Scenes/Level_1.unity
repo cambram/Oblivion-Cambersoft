@@ -5829,7 +5829,7 @@ GameObject:
   - component: {fileID: 397027238}
   - component: {fileID: 397027237}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI_Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5872,7 +5872,7 @@ MonoBehaviour:
   _pauseMenu: {fileID: 615551011}
   _optionsMenu: {fileID: 1100255845}
   _mainMixer: {fileID: 24100000, guid: 69908d2d7f09b3b49a7cf1a9df099c01, type: 2}
-  _globalLight: {fileID: 798479963}
+  _globalLight: {fileID: 0}
 --- !u!114 &397027239
 MonoBehaviour:
   m_ObjectHideFlags: 0

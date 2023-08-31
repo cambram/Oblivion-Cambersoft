@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _umbraAnim = GetComponent<Animator>();
