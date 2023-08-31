@@ -34,10 +34,12 @@ public class Player : MonoBehaviour{
     }
 
     private void Update() {
-        CalculateMovement();
-        if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
-            JumpSequence();
-        }
+        if (!_uiManager.GetIsPaused()) {
+            CalculateMovement();
+            if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
+                JumpSequence();
+            }
+        }        
     }
 
     /* Play jump landing animation correctly with ground edge collider

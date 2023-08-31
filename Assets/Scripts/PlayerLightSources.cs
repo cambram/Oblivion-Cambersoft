@@ -35,7 +35,10 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private AudioSource _flashlightSource;
 
+    private UIManager _uiManager;
+
     private void Start() {
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
@@ -45,28 +48,29 @@ public class PlayerLightSources : MonoBehaviour {
     }
 
     private void Update() {
-        if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
-            Toggle();
-        }
-        BatteryChecker();
-        if (Input.GetMouseButtonDown(0)) {
-            if (_isFlashlightActive || _isLanternActive) { // flashlight gets turned off
-                Flashlight(false);
-            } else { // flashlight gets turned on
-                if (_batteryCount > 0) { //this prevents light turning on when battery is flat
-                    _flashlightSource.clip = _flashlightOnClip;
-                    _flashlightSource.Play();
-                    Flashlight(true);
+        if(!_uiManager.GetIsPaused()) {        
+            if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
+                Toggle();
+            }
+            BatteryChecker();
+            if (Input.GetMouseButtonDown(0)) {
+                if (_isFlashlightActive || _isLanternActive) { // flashlight gets turned off
+                    Flashlight(false);
+                } else { // flashlight gets turned on
+                    if (_batteryCount > 0) { //this prevents light turning on when battery is flat
+                        _flashlightSource.clip = _flashlightOnClip;
+                        _flashlightSource.Play();
+                        Flashlight(true);
+                    }
                 }
             }
-        }
-        if (Input.GetMouseButtonDown(1)) {
-            FlashCamera();
-        }
-
-        //Mouse follow action
-        /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-        _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
+            if (Input.GetMouseButtonDown(1)) {
+                FlashCamera();
+            }
+            }
+            //Mouse follow action
+            /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+            _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
     }
 
     /// <summary>

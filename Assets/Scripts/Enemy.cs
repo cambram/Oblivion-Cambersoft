@@ -18,15 +18,18 @@ public class Enemy : MonoBehaviour
     private AudioSource _enemyDeathSource;
     bool _isDead = false, _disableNoise = false;
 
+    private UIManager _uiManager;
+
     // Start is called before the first frame update
     void Start() {
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _umbraAnim = GetComponent<Animator>();
     }
 
     void Update() {
-        if(_player != null) {
+        if(_player != null && !_uiManager.GetIsPaused()) {
             switch (_enemyID) {
                 case 0:
                     Umbra();

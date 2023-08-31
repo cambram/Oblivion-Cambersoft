@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
     private Animator _fadeOutAnim;
     private GameManager _gameManager;
     private GameObject _environment;
+    [SerializeField]
+    private GameObject _pauseMenu;
+    private bool _paused = false;
 
     void Start(){
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -17,9 +20,29 @@ public class UIManager : MonoBehaviour
     }
 
     private void Update() {
-        /*if(Input.GetKeyDown(KeyCode.Escape)) {
-            FadeOut(1);
-        }*/
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            if (!_paused) {
+                Pause();
+            } else {
+                Resume();
+            }
+        }
+    }
+
+    private void Pause() {
+        _paused = !_paused;
+        Time.timeScale = 0f;
+        _pauseMenu.SetActive(true);
+    }
+
+    public void Resume() {
+        _paused = !_paused;
+        Time.timeScale = 1f;
+        _pauseMenu.SetActive(false);
+    }
+
+    public bool GetIsPaused() {
+        return _paused;
     }
 
     //SceneManager.GetActiveScene().buildIndex
