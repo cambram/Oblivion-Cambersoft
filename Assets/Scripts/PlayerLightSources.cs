@@ -153,7 +153,7 @@ public class PlayerLightSources : MonoBehaviour {
     /// Turns the players flashlight on or off. 
     /// </summary>
     /// <param name="x">true = on; false = off</param>
-    private void Flashlight(bool x) {
+    public void Flashlight(bool x) {
         switch (_currentLightSource) {
             case 0:
                 _isFlashlightActive = x;
