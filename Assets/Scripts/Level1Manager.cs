@@ -13,7 +13,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _firstEncounter = false;
+    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -63,6 +63,7 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > -75 && !_firstEncounter) {
                 _F.SetActive(true);
                 if(!_lightSources.GetIsAnyLightActive()) { 
+                    _leftClickEnabled = true;
                     _leftClick.SetActive(true); 
                 }
                 _firstEncounter = true;
@@ -72,6 +73,19 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > 13 && _player.transform.position.x < 25) {
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff1, _caveCutoff2); //y = mx + b
+            }
+
+            if(_player.transform.position.x > -65 && !_lanternComplete) {
+                _lanternComplete = true;
+                _FAnim.SetTrigger("FadeOut");
+                if(_leftClickEnabled) {
+                    _leftClickAnim.SetTrigger("FadeOut");
+                }
+            }
+
+            if( _player.transform.position.x > -17) {
+                _lightOff.SetActive(true);
+                _spawnManager.SpawnLux(-34f,-1.5f);
             }
         }
     }

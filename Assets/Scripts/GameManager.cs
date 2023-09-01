@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public void RestartTutorial() {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(1);
     }
 
     public void RestartLevelOne() {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(2);
     }
  
