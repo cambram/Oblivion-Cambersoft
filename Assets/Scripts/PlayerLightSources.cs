@@ -48,8 +48,9 @@ public class PlayerLightSources : MonoBehaviour {
     }
 
     private void Update() {
+        //cheat codes
         if (Input.GetKeyDown(KeyCode.Backspace)) {
-            Debug.Log(GetIsFlashCameraActive());
+            CollectBattery();
         }
         if (!_uiManager.GetIsPaused()) {        
             if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
