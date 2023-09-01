@@ -5872,7 +5872,7 @@ MonoBehaviour:
   _pauseMenu: {fileID: 615551011}
   _optionsMenu: {fileID: 1100255845}
   _mainMixer: {fileID: 24100000, guid: 69908d2d7f09b3b49a7cf1a9df099c01, type: 2}
-  _globalLight: {fileID: 0}
+  _globalLight: {fileID: 798479963}
 --- !u!114 &397027239
 MonoBehaviour:
   m_ObjectHideFlags: 0

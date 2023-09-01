@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
 
     private void Pause() {
         _paused = !_paused;
+        Cursor.visible = true;
         Time.timeScale = 0f;
         _pauseGame.SetActive(true);
         _pauseMenu.SetActive(true);
@@ -51,6 +52,7 @@ public class UIManager : MonoBehaviour
 
     public void Resume() {
         _paused = !_paused;
+        Cursor.visible = false;
         Time.timeScale = 1f;
         _pauseGame.SetActive(false);
     }
