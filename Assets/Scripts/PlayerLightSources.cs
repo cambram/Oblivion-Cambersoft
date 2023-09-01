@@ -149,8 +149,24 @@ public class PlayerLightSources : MonoBehaviour {
         return _isFlashlightActive;
     }
 
+    public bool GetIsLanternActive() {
+        return _isLanternActive;
+    }
+
+    public bool GetIsAnyLightActive() {
+        return _isLanternActive || _isFlashlightActive;
+    }
+
     public bool GetIsFlashCameraActive() {
         return _isFlashCameraActive;
+    }
+
+    /// <summary>
+    /// Returns the current light source
+    /// </summary>
+    /// <returns>0 = flashlight; 1 = lantern</returns>
+    public int GetCurrentLightSource() {
+        return _currentLightSource;
     }
 
     /// <summary>

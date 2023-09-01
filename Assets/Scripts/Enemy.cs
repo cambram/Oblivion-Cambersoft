@@ -50,17 +50,21 @@ public class Enemy : MonoBehaviour
         }
         if (_distance < 22 && !_isDead) {
             _umbraAnim.SetTrigger("Walking");
-            if (!_lightSources.GetIsFlashlightActive()) { // if player flashlight is off, enemy approaches
+            if (_lightSources.GetIsAnyLightActive()) { // if player flashlight is on, umbra runs away if...
+                if (_lightSources.GetCurrentLightSource() == 0) {
+                    CalculateCorrectEnemyMovementFlashlight(_direction);
+                } else {
+                    CalculateCorrectEnemyMovementLantern(_direction);
+                }
+            } else { // if player flashlight is off, enemy approaches
                 _umbraAnim.ResetTrigger("Afraid");
                 _speed = 4f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
-                if(_direction.x < 0) {
+                if (_direction.x < 0) {
                     transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
-                } else if(_direction.x >= 0) {
+                } else if (_direction.x >= 0) {
                     transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 }
-            } else { // if player flashlight is on, umbra runs away...
-                CalculateCorrectEnemyMovement(_direction);
             }
             if (_distance < 13 && _lightSources.GetIsFlashCameraActive()) { // change to 7
                 if (_direction.x < 0 && _player.GetDirection()) {
@@ -89,7 +93,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void CalculateCorrectEnemyMovement(Vector3 dir) {
+    private void CalculateCorrectEnemyMovementFlashlight(Vector3 dir) {
         if (dir.x < 0) { // if enemy is to the right of the player
             if (_player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
                 _umbraAnim.SetTrigger("Afraid");
@@ -116,6 +120,22 @@ public class Enemy : MonoBehaviour
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
             }
+        }
+    }
+
+    private void CalculateCorrectEnemyMovementLantern(Vector3 dir) {
+        if (dir.x < 0) { // if enemy is to the right of the player
+            _umbraAnim.SetTrigger("Afraid");
+            _speed = 2f;
+            this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position
+                    + new Vector3(6, transform.position.y, 0), _speed * Time.deltaTime);
+            //CorrectUmbraSpriteDirection(dir);
+        } else if (dir.x >= 0) { // if enemy is to the left of the player
+            _umbraAnim.SetTrigger("Afraid");
+            _speed = 2f;
+            this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position
+                    - new Vector3(6, transform.position.y, 0), _speed * Time.deltaTime);
+            //CorrectUmbraSpriteDirection(dir);
         }
     }
 

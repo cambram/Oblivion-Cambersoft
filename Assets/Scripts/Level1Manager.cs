@@ -14,17 +14,32 @@ public class Level1Manager : MonoBehaviour
 
     private bool _firstEncounter = false;
 
+    //A Instruction Variables
+    [SerializeField]
+    private GameObject _F;
+    [SerializeField]
+    private Animator _FAnim;
+
+    //D Instruction Variables
+    [SerializeField]
+    private GameObject _lightOff;
+    [SerializeField]
+    private Animator _lightOffAnim;
+
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
 
     void Start() {
         Cursor.visible = false;
         _camera = Camera.main;
+        _F.SetActive(false);
+        _lightOff.SetActive(false);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _environment = GameObject.Find("Environment");
         _player.transform.position = new Vector3(-119, -2, 0);
+        SlopeIntercept(_caveCutoff1, _caveCutoff2);
     }
 
     void Update() {
@@ -40,10 +55,11 @@ public class Level1Manager : MonoBehaviour
                 _firstEncounter = true;
                 _spawnManager.SpawnUmbra(-93f, 1f);
                 _spawnManager.SpawnUmbra(-57f, 1f);
+                _F.SetActive(true);
             }
 
             if (_player.transform.position.x > 13 && _player.transform.position.x < 25) {
-                _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = -1500 * _player.transform.position.x + 41500; //y = mx + b
+                _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff1, _caveCutoff2); //y = mx + b
             }
         }
     }
@@ -58,9 +74,9 @@ public class Level1Manager : MonoBehaviour
         }
     }
 
-    /*private float SlopeIntercept(Vector2 a, Vector2 c) {
-        float m = (c.y - a.y) / (c.x - a.x);
-        float b = a.y + (m * a.x);
+    private float SlopeIntercept(Vector2 one, Vector2 two) {
+        float m = (two.y - one.y) / (two.x - one.x);
+        float b = one.y + (-(m * one.x));
         return (m * _player.transform.position.x) + b;
-    }*/
+    }
 }

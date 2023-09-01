@@ -12371,6 +12371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b44d863d2867547a83bdbbc82de0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _F: {fileID: 1616246097}
+  _FAnim: {fileID: 1616246100}
+  _lightOff: {fileID: 1049851271}
+  _lightOffAnim: {fileID: 1049851274}
 --- !u!4 &1023886136
 Transform:
   m_ObjectHideFlags: 0
