@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Level1Manager : MonoBehaviour
@@ -33,6 +35,10 @@ public class Level1Manager : MonoBehaviour
     [SerializeField]
     private Animator _leftClickAnim;
 
+    //Lightning
+    [SerializeField]
+    private GameObject _lightning;
+
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
     private Vector2 _caveCutoff3 = new Vector2(76, 4000);
@@ -44,6 +50,8 @@ public class Level1Manager : MonoBehaviour
         _F.SetActive(false);
         _lightOff.SetActive(false);
         _leftClick.SetActive(false);
+        _lightning.SetActive(true);
+        _lightning.GetComponent<Light2D>().enabled = false;
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
@@ -102,6 +110,8 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > 85 && !_lightningStrike) {
                 _lightningStrike = true;
                 _lightSources.SetIsFlashCameraActive(true);
+                _lightning.GetComponent<AudioSource>().Play();
+                _lightning.GetComponent<Light2D>().enabled = true;
                 StartCoroutine(LightningRoutine());
             }
         }
@@ -135,6 +145,7 @@ public class Level1Manager : MonoBehaviour
 
     IEnumerator LightningRoutine() {
         yield return new WaitForSeconds(0.2f);
+        _lightning.GetComponent<Light2D>().enabled = false;
         _lightSources.SetIsFlashCameraActive(false);
     }
 }
