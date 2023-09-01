@@ -52,10 +52,10 @@ public class Level1Manager : MonoBehaviour
             }
 
             if (_player.transform.position.x > -75 && !_firstEncounter) {
+                _F.SetActive(true);
                 _firstEncounter = true;
                 _spawnManager.SpawnUmbra(-93f, 1f);
                 _spawnManager.SpawnUmbra(-57f, 1f);
-                _F.SetActive(true);
             }
 
             if (_player.transform.position.x > 13 && _player.transform.position.x < 25) {

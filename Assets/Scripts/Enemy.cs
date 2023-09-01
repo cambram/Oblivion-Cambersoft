@@ -97,26 +97,22 @@ public class Enemy : MonoBehaviour
         if (dir.x < 0) { // if enemy is to the right of the player
             if (_player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
                 _umbraAnim.SetTrigger("Afraid");
-                _speed = 2f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position 
                     + new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
-                CorrectUmbraSpriteDirection(dir);
+                CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
                 _umbraAnim.ResetTrigger("Afraid");
-                _speed = 4f;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
             }
         } else if (dir.x >= 0) { // if enemy is to the left of the player
             if (!_player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
                 _umbraAnim.SetTrigger("Afraid");
-                _speed = 2f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position 
                     - new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
-                CorrectUmbraSpriteDirection(dir);
+                CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
                 _umbraAnim.ResetTrigger("Afraid");
-                _speed = 4f;
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
             }
@@ -126,36 +122,40 @@ public class Enemy : MonoBehaviour
     private void CalculateCorrectEnemyMovementLantern(Vector3 dir) {
         if (dir.x < 0) { // if enemy is to the right of the player
             _umbraAnim.SetTrigger("Afraid");
-            _speed = 2f;
             this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position
                     + new Vector3(6, transform.position.y, 0), _speed * Time.deltaTime);
-            //CorrectUmbraSpriteDirection(dir);
+            CorrectUmbraSpriteDirection(dir, 5, 7);
         } else if (dir.x >= 0) { // if enemy is to the left of the player
             _umbraAnim.SetTrigger("Afraid");
-            _speed = 2f;
             this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position
                     - new Vector3(6, transform.position.y, 0), _speed * Time.deltaTime);
-            //CorrectUmbraSpriteDirection(dir);
+            CorrectUmbraSpriteDirection(dir, 5, 7);
         }
     }
 
-    private void CorrectUmbraSpriteDirection(Vector3 dir) {
+    private void CorrectUmbraSpriteDirection(Vector3 dir, int beamDistInner, int beamDistOuter) {
         if (dir.x < 0) {
-            if (this.transform.position.x > _player.transform.position.x + 12
-                    && this.transform.position.x < _player.transform.position.x + 14) { // if the enemy is on the edge of the flashlight beam
+            if (this.transform.position.x > _player.transform.position.x + beamDistInner
+                    && this.transform.position.x < _player.transform.position.x + beamDistOuter) { // if the enemy is on the edge of the flashlight beam
+                _speed = 2f;
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
-            } else if (this.transform.position.x < _player.transform.position.x + 12) { // if the enemy is within the flashlight beam
+            } else if (this.transform.position.x < _player.transform.position.x + beamDistInner) { // if the enemy is within the flashlight beam
+                _speed = 2f;
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
-            } else if (this.transform.position.x > _player.transform.position.x + 14) { // if the enemy is far right of the flashlight beam
+            } else if (this.transform.position.x > _player.transform.position.x + beamDistOuter) { // if the enemy is far right of the flashlight beam
+                _speed = 4f;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
             }
         } else if (dir.x >= 0) {
-            if (this.transform.position.x < _player.transform.position.x - 12
-                    && this.transform.position.x > _player.transform.position.x - 14) { // if the enemy is on the edge of the flashlight beam
+            if (this.transform.position.x < _player.transform.position.x - beamDistInner
+                    && this.transform.position.x > _player.transform.position.x - beamDistOuter) { // if the enemy is on the edge of the flashlight beam
+                _speed = 2f;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
-            } else if (this.transform.position.x > _player.transform.position.x - 12) { // if the enemy is within the flashlight beam
+            } else if (this.transform.position.x > _player.transform.position.x - beamDistInner) { // if the enemy is within the flashlight beam
+                _speed = 2f;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
-            } else if (this.transform.position.x < _player.transform.position.x - 14) { // if the enemy is far left of the flashlight beam
+            } else if (this.transform.position.x < _player.transform.position.x - beamDistOuter) { // if the enemy is far left of the flashlight beam
+                _speed = 4f;
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
             }
         }
