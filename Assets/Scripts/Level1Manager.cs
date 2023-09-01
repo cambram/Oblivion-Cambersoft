@@ -48,7 +48,7 @@ public class Level1Manager : MonoBehaviour
         _environment = GameObject.Find("Environment");
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _player.transform.position = new Vector3(-119, -2, 0);
-        SlopeIntercept(_caveCutoff1, _caveCutoff2);
+        InitialisePrefabsForLevel();
     }
 
     void Update() {
@@ -66,8 +66,8 @@ public class Level1Manager : MonoBehaviour
                     _leftClick.SetActive(true); 
                 }
                 _firstEncounter = true;
-                _spawnManager.SpawnUmbra(-93f, 1f);
-                _spawnManager.SpawnUmbra(-57f, 1f);
+                _spawnManager.SpawnUmbra(-54f, 2f);
+                _spawnManager.SpawnUmbra(-93f, 0.5f);
             }
 
             if (_player.transform.position.x > 13 && _player.transform.position.x < 25) {
@@ -90,5 +90,14 @@ public class Level1Manager : MonoBehaviour
         float m = (two.y - one.y) / (two.x - one.x);
         float b = one.y + (-(m * one.x));
         return (m * _player.transform.position.x) + b;
+    }
+
+    private void InitialisePrefabsForLevel() {
+        /* Enemies */
+
+        /* Collectables */
+        _spawnManager.SpawnFlashCharge(-59f, -0.15f);
+        _spawnManager.SpawnFlashCharge(-54f, 0f);
+        _spawnManager.SpawnBattery(-41f, -1.5f);
     }
 }

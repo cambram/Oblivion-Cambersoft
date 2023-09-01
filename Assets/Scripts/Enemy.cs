@@ -69,6 +69,8 @@ public class Enemy : MonoBehaviour
             if (_distance < 13 && _lightSources.GetIsFlashCameraActive()) { // change to 7
                 if (_direction.x < 0 && _player.GetDirection()) {
                     KillUmbra();
+                } else if(_direction.x > 0 && !_player.GetDirection()) {
+                    KillUmbra();
                 }
             }
         }
