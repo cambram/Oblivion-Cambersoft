@@ -39,7 +39,7 @@ public class Player : MonoBehaviour{
             if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
                 JumpSequence();
             }
-        }        
+        }
     }
 
     /* Play jump landing animation correctly with ground edge collider

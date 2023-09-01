@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     private AudioSource _enemyNoiseSource;
     [SerializeField]
     private AudioSource _enemyDeathSource;
+    [SerializeField]
+    private GameObject _enemyEyes;
     bool _isDead = false, _disableNoise = false;
 
     private UIManager _uiManager;
@@ -198,9 +200,10 @@ public class Enemy : MonoBehaviour
     private void KillEnemy() {
         _enemyDeathSource.Play();
         _isDead = true;
-        GameObject.Find("Enemy_Eyes").SetActive(false);
+        _enemyEyes.SetActive(false);
         this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
         this.gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DestroyGameObject(7.1f));
     }
 
@@ -209,7 +212,6 @@ public class Enemy : MonoBehaviour
     }
 
     IEnumerator DestroyGameObject(float seconds) {
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         yield return new WaitForSeconds(seconds);
         Destroy(this.gameObject);
     }

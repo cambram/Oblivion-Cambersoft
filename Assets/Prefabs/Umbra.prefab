@@ -255,6 +255,7 @@ MonoBehaviour:
   _enemyID: 0
   _enemyNoiseSource: {fileID: -7941394729168406621}
   _enemyDeathSource: {fileID: 42842396095811144}
+  _enemyEyes: {fileID: 2432390404943286854}
 --- !u!82 &-7941394729168406621
 AudioSource:
   m_ObjectHideFlags: 0

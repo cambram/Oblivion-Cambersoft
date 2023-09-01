@@ -48,7 +48,10 @@ public class PlayerLightSources : MonoBehaviour {
     }
 
     private void Update() {
-        if(!_uiManager.GetIsPaused()) {        
+        if (Input.GetKeyDown(KeyCode.Backspace)) {
+            Debug.Log(GetIsFlashCameraActive());
+        }
+        if (!_uiManager.GetIsPaused()) {        
             if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
                 Toggle();
             }
@@ -161,6 +164,10 @@ public class PlayerLightSources : MonoBehaviour {
         return _isFlashCameraActive;
     }
 
+    public void SetIsFlashCameraActive(bool x) {
+        _isFlashCameraActive = x;
+    }
+
     /// <summary>
     /// Returns the current light source
     /// </summary>
@@ -198,8 +205,8 @@ public class PlayerLightSources : MonoBehaviour {
             _flashCamera.SetActive(true);
             _flashlightSource.clip = _flashChargeClip;
             _flashlightSource.Play();
-            StartCoroutine(FlashCameraOffRoutine());
             _isFlashCameraActive = true;
+            StartCoroutine(FlashCameraOffRoutine());
         }
     }
 

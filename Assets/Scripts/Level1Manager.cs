@@ -99,8 +99,10 @@ public class Level1Manager : MonoBehaviour
                 _spawnManager.SpawnUmbra(15f, -3.6f);
             }
 
-            if (_player.transform.position.x > 80 && !_lightningStrike) {
+            if (_player.transform.position.x > 85 && !_lightningStrike) {
                 _lightningStrike = true;
+                _lightSources.SetIsFlashCameraActive(true);
+                StartCoroutine(LightningRoutine());
             }
         }
     }
@@ -129,5 +131,10 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(-54f, 0f);
         _spawnManager.SpawnFlashCharge(46.47f, -5.64f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
+    }
+
+    IEnumerator LightningRoutine() {
+        yield return new WaitForSeconds(0.2f);
+        _lightSources.SetIsFlashCameraActive(false);
     }
 }
