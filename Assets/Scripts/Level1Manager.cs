@@ -13,7 +13,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false;
+    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -35,6 +35,8 @@ public class Level1Manager : MonoBehaviour
 
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
+    private Vector2 _caveCutoff3 = new Vector2(76, 4000);
+    private Vector2 _caveCutoff4 = new Vector2(87, 22000);
 
     void Start() {
         Cursor.visible = false;
@@ -74,8 +76,11 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > 13 && _player.transform.position.x < 25) {
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff1, _caveCutoff2); //y = mx + b
             }
+            if (_player.transform.position.x > 76 && _player.transform.position.x < 87) {
+                _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff3, _caveCutoff4); //y = mx + b
+            }
 
-            if(_player.transform.position.x > -65 && !_lanternComplete) {
+            if (_player.transform.position.x > -65 && !_lanternComplete) {
                 _lanternComplete = true;
                 _FAnim.SetTrigger("FadeOut");
                 if(_leftClickEnabled) {
@@ -83,9 +88,19 @@ public class Level1Manager : MonoBehaviour
                 }
             }
 
-            if( _player.transform.position.x > -17) {
+            if(_player.transform.position.x > -17 && !_luxApproaches) {
+                _luxApproaches = true;
                 _lightOff.SetActive(true);
                 _spawnManager.SpawnLux(-34f,-1.5f);
+            }
+
+            if (_player.transform.position.x > 34 && !_umbraCaveApproaches) {
+                _umbraCaveApproaches = true;
+                _spawnManager.SpawnUmbra(15f, -3.6f);
+            }
+
+            if (_player.transform.position.x > 80 && !_lightningStrike) {
+                _lightningStrike = true;
             }
         }
     }
@@ -108,10 +123,11 @@ public class Level1Manager : MonoBehaviour
 
     private void InitialisePrefabsForLevel() {
         /* Enemies */
-
+        _spawnManager.SpawnUmbra(88f, -0.3f);
         /* Collectables */
         _spawnManager.SpawnFlashCharge(-59f, -0.15f);
         _spawnManager.SpawnFlashCharge(-54f, 0f);
+        _spawnManager.SpawnFlashCharge(46.47f, -5.64f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
     }
 }
