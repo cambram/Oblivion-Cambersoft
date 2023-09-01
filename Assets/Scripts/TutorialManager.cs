@@ -28,7 +28,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private Animator _leftClickAnim;
 
-    //Left Click Instruction Variables
+    //Right Click Instruction Variables
     [SerializeField]
     private GameObject _rightClick;
     [SerializeField]
@@ -45,7 +45,7 @@ public class TutorialManager : MonoBehaviour
     private Camera _camera;
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
-    private Vector3 _checkpoint1, _checkpoint2;
+    //private Vector3 _checkpoint1, _checkpoint2;
 
     void Start() {
         Cursor.visible = false;
@@ -55,8 +55,8 @@ public class TutorialManager : MonoBehaviour
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _player.transform.position = new Vector3(-77, -1.7f, 0);
-        _checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
-        _checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
+        //_checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
+        //_checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
         InitialisePrefabsForLevel();
         SetAllInstructionsActiveFalse();
         StartCoroutine(FlashlightInstruction());

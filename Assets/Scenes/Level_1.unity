@@ -6148,12 +6148,12 @@ GameObject:
   - component: {fileID: 489598103}
   - component: {fileID: 489598102}
   m_Layer: 0
-  m_Name: right_click
+  m_Name: left_click
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &489598101
 Transform:
   m_ObjectHideFlags: 0
@@ -6162,7 +6162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489598100}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76, y: -4, z: 0}
+  m_LocalPosition: {x: -74, y: -3, z: 0}
   m_LocalScale: {x: 0.105, y: 0.105, z: 0.105}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6179,7 +6179,7 @@ Animator:
   m_GameObject: {fileID: 489598100}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5e1f7f56d0bf9ea47a694d374cc3360c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2a3bbc6013757134fae9fb33adca77bc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6231,7 +6231,7 @@ SpriteRenderer:
   m_SortingLayerID: 835225117
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c9f8e3c9895be7648934caf2a0f548bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d10adf0ac435ebc4e997681418743bed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12375,6 +12375,8 @@ MonoBehaviour:
   _FAnim: {fileID: 1616246100}
   _lightOff: {fileID: 1049851271}
   _lightOffAnim: {fileID: 1049851274}
+  _leftClick: {fileID: 489598100}
+  _leftClickAnim: {fileID: 489598102}
 --- !u!4 &1023886136
 Transform:
   m_ObjectHideFlags: 0

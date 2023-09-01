@@ -10,6 +10,7 @@ public class Level1Manager : MonoBehaviour
     private UIManager _uiManager;
     private GameObject _environment;
     private SpawnManager _spawnManager;
+    private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
     private bool _firstEncounter = false;
@@ -26,6 +27,12 @@ public class Level1Manager : MonoBehaviour
     [SerializeField]
     private Animator _lightOffAnim;
 
+    //Left Click Instruction Variables
+    [SerializeField]
+    private GameObject _leftClick;
+    [SerializeField]
+    private Animator _leftClickAnim;
+
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
 
@@ -34,10 +41,12 @@ public class Level1Manager : MonoBehaviour
         _camera = Camera.main;
         _F.SetActive(false);
         _lightOff.SetActive(false);
+        _leftClick.SetActive(false);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _environment = GameObject.Find("Environment");
+        _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _player.transform.position = new Vector3(-119, -2, 0);
         SlopeIntercept(_caveCutoff1, _caveCutoff2);
     }
@@ -53,6 +62,9 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > -75 && !_firstEncounter) {
                 _F.SetActive(true);
+                if(!_lightSources.GetIsAnyLightActive()) { 
+                    _leftClick.SetActive(true); 
+                }
                 _firstEncounter = true;
                 _spawnManager.SpawnUmbra(-93f, 1f);
                 _spawnManager.SpawnUmbra(-57f, 1f);

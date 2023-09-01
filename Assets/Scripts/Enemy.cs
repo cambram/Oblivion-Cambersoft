@@ -101,6 +101,7 @@ public class Enemy : MonoBehaviour
                     + new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
                 CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
+                _speed = 4f;
                 _umbraAnim.ResetTrigger("Afraid");
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -112,6 +113,7 @@ public class Enemy : MonoBehaviour
                     - new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
                 CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
+                _speed = 4f;
                 _umbraAnim.ResetTrigger("Afraid");
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -137,7 +139,7 @@ public class Enemy : MonoBehaviour
         if (dir.x < 0) {
             if (this.transform.position.x > _player.transform.position.x + beamDistInner
                     && this.transform.position.x < _player.transform.position.x + beamDistOuter) { // if the enemy is on the edge of the flashlight beam
-                _speed = 2f;
+                _speed = 2f; //if (flashlight)
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x < _player.transform.position.x + beamDistInner) { // if the enemy is within the flashlight beam
                 _speed = 2f;
