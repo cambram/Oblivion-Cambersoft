@@ -154,6 +154,8 @@ public class Level1Manager : MonoBehaviour
     private void InitialisePrefabsForLevel() {
         /* Enemies */
         _spawnManager.SpawnUmbra(88f, -0.3f);
+        _spawnManager.SpawnUmbra(91f, -0.3f);
+        //_spawnManager.SpawnUmbra(94f, 0.36f);
         /* Collectables */
         _spawnManager.SpawnFlashCharge(-59f, -0.15f);
         _spawnManager.SpawnFlashCharge(-54f, 0f);
