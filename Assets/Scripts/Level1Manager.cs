@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Level1Manager : MonoBehaviour
 {

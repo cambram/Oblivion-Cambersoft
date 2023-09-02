@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
@@ -28,7 +29,9 @@ public class Enemy : MonoBehaviour
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
-        _level1Manager = GameObject.Find("Level_1_Manager").GetComponent<Level1Manager>();
+        if(SceneManager.GetActiveScene().buildIndex == 2 ) {
+            _level1Manager = GameObject.Find("Level_1_Manager").GetComponent<Level1Manager>();
+        }
         _enemyAnim = GetComponent<Animator>();
     }
 
