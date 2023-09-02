@@ -6,21 +6,44 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    private Animator animator;
+    private Animator _animator;
+    [SerializeField]
+    private GameObject _mainMenuButtons;
+    [SerializeField]
+    private GameObject _selectLevel;
+
     public void Start() {
+        _mainMenuButtons.SetActive(true);
+        _selectLevel.SetActive(false);
         Cursor.visible = true;
     }
 
-    public void LoadGame() {
-        animator.SetTrigger("FadeOut");
-        StartCoroutine(SceneChangeRoutine());
+    public void StartTutorial() {
+        _animator.SetTrigger("FadeOut");
+        StartCoroutine(StartGameRoutine(1));
+    }
+
+    public void StartLevelOne() {
+        _animator.SetTrigger("FadeOut");
+        StartCoroutine(StartGameRoutine(2));
     }
 
     public void QuitGame() {
         Application.Quit();
     }
-    IEnumerator SceneChangeRoutine() {
+
+    public void SelectLevelButton() {
+        _mainMenuButtons.SetActive(false);
+        _selectLevel.SetActive(true);
+    }
+
+    public void BackButton() {
+        _mainMenuButtons.SetActive(true);
+        _selectLevel.SetActive(false);
+    }
+
+    IEnumerator StartGameRoutine(int level) {
         yield return new WaitForSeconds(4.5f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(level);
     }
 }
