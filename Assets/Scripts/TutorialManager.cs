@@ -120,7 +120,7 @@ public class TutorialManager : MonoBehaviour
                 _jumpInstructionComplete = true;
                 _spaceAnim.SetTrigger("FadeOut");
                 _leftClick.SetActive(false);
-                _leftClick.transform.position = new Vector3(17.5f, -3.8f, 0);
+                _leftClick.transform.position = new Vector3(10f, -3.8f, 0);
                 _leftClick.SetActive(true);
             }
 
