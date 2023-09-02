@@ -38,6 +38,8 @@ public class Level1Manager : MonoBehaviour
     //Lightning
     [SerializeField]
     private GameObject _lightning;
+    [SerializeField]
+    private GameObject _effects;
 
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
@@ -63,6 +65,7 @@ public class Level1Manager : MonoBehaviour
 
     void Update() {
         if (_player != null) {
+            ConstrainEffects();
             ConstrainCamera();
             //respawn player if they fall
             if (_player.transform.position.y < -12 && !_respawn) {
@@ -124,6 +127,15 @@ public class Level1Manager : MonoBehaviour
             _camera.transform.position = new Vector3(110, 0, -10);
         } else {
             _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
+        }
+    }
+    private void ConstrainEffects() {
+        if(_player.transform.position.x < -14) {
+            _effects.transform.position = _camera.transform.position;
+        } else if(_player.transform.position.x >= -14 && _player.transform.position.x <= 55) {
+            _effects.transform.position = new Vector3(-9, 0, -10);
+        } else if(_player.transform.position.x > 55) {
+
         }
     }
 
