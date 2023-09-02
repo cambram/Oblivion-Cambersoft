@@ -176,7 +176,7 @@ public class Enemy : MonoBehaviour
                 _speed = 2f; //if (flashlight)
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x < _player.transform.position.x + beamDistInner) { // if the enemy is within the flashlight beam
-                _speed = 2f;
+                _speed = 4f;
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x > _player.transform.position.x + beamDistOuter) { // if the enemy is far right of the flashlight beam
                 _speed = 4f;
@@ -188,7 +188,7 @@ public class Enemy : MonoBehaviour
                 _speed = 2f;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x > _player.transform.position.x - beamDistInner) { // if the enemy is within the flashlight beam
-                _speed = 2f;
+                _speed = 4f;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x < _player.transform.position.x - beamDistOuter) { // if the enemy is far left of the flashlight beam
                 _speed = 4f;
