@@ -15,7 +15,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
+    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false, _luxApproaches1 = false, _luxApproaches2 = false, _umbraCaveApproaches = false, _lightningStrike = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -91,18 +91,17 @@ public class Level1Manager : MonoBehaviour
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff3, _caveCutoff4); //y = mx + b
             }
 
+            if(_player.transform.position.x > -17 && !_luxApproaches1) {
+                _luxApproaches1 = true;
+                _spawnManager.SpawnLux(-34f, -1.5f);
+            }
+
             if (_player.transform.position.x > -65 && !_lanternComplete) {
                 _lanternComplete = true;
                 _FAnim.SetTrigger("FadeOut");
                 if(_leftClickEnabled) {
                     _leftClickAnim.SetTrigger("FadeOut");
                 }
-            }
-
-            if(_player.transform.position.x > -17 && !_luxApproaches) {
-                _luxApproaches = true;
-                _lightOff.SetActive(true);
-                _spawnManager.SpawnLux(-34f,-1.5f);
             }
 
             if (_player.transform.position.x > 34 && !_umbraCaveApproaches) {
@@ -120,6 +119,13 @@ public class Level1Manager : MonoBehaviour
         }
     }
 
+    public void PlayLightOffInstruction() {
+        if (!_luxApproaches2) {
+            _luxApproaches2 = true;
+            _lightOff.SetActive(true);
+        }
+    }
+
     private void ConstrainCamera() {
         if (_player.transform.position.x < -113) {
             _camera.transform.position = new Vector3(-108, 0, -10);
@@ -130,13 +136,13 @@ public class Level1Manager : MonoBehaviour
         }
     }
     private void ConstrainEffects() {
-        if(_player.transform.position.x < -14) {
+        if(_player.transform.position.x < -14 || _player.transform.position.x >= 112) {
             _effects.transform.position = _camera.transform.position;
         } else if(_player.transform.position.x >= -14 && _player.transform.position.x <= 55) {
             _effects.transform.position = new Vector3(-9, 0, -10);
-        } else if(_player.transform.position.x > 55) {
-
-        }
+        } else if(_player.transform.position.x > 55 && _player.transform.position.x < 112) {
+            _effects.transform.position = new Vector3(117, 0, -10);
+        } 
     }
 
     private float SlopeIntercept(Vector2 one, Vector2 two) {

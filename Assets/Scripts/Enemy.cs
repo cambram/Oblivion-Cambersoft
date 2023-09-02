@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Player _player;
+    private Level1Manager _level1Manager;
     private PlayerLightSources _lightSources;
     private float _speed = 4f, _distance;
     [SerializeField]
@@ -27,6 +28,7 @@ public class Enemy : MonoBehaviour
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
+        _level1Manager = GameObject.Find("Level_1_Manager").GetComponent<Level1Manager>();
         _enemyAnim = GetComponent<Animator>();
     }
 
@@ -111,7 +113,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.tag == "Player") {
+        if (collision.CompareTag("Player")) {
             if (!_isDead) {
                 switch (_enemyID) {
                     case 0:
@@ -124,6 +126,8 @@ public class Enemy : MonoBehaviour
                         break;
                 }
             }
+        } else if(collision.CompareTag("Instruction") && _enemyID == 1) {
+            _level1Manager.PlayLightOffInstruction();
         }
     }
 

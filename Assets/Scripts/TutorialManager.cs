@@ -45,7 +45,13 @@ public class TutorialManager : MonoBehaviour
     private Camera _camera;
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
+    private GameObject _environment;
     //private Vector3 _checkpoint1, _checkpoint2;
+
+    private Vector2 _caveCutoff1 = new Vector2(4, 22000);
+    private Vector2 _caveCutoff2 = new Vector2(14, 1000);
+    private Vector2 _caveCutoff3 = new Vector2(30, 1000);
+    private Vector2 _caveCutoff4 = new Vector2(44, 22000);
 
     void Start() {
         Cursor.visible = false;
@@ -54,6 +60,7 @@ public class TutorialManager : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
+        _environment = GameObject.Find("Environment");
         _player.transform.position = new Vector3(-77, -1.7f, 0);
         //_checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
         //_checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
@@ -128,6 +135,13 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > 33) {
                 _rightClickAnim.SetTrigger("FadeOut");
             }
+
+            if (_player.transform.position.x >= 4 && _player.transform.position.x < 14) {
+                _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff1, _caveCutoff2); //y = mx + b
+            }
+            if (_player.transform.position.x > 30 && _player.transform.position.x < 44) {
+                _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff3, _caveCutoff4); //y = mx + b
+            }
         }
     }
 
@@ -148,6 +162,12 @@ public class TutorialManager : MonoBehaviour
         _space.SetActive(false);
         _leftClick.SetActive(false);
         _rightClick.SetActive(false);
+    }
+
+    private float SlopeIntercept(Vector2 one, Vector2 two) {
+        float m = (two.y - one.y) / (two.x - one.x);
+        float b = one.y + (-(m * one.x));
+        return (m * _player.transform.position.x) + b;
     }
 
     IEnumerator FlashlightInstruction() {

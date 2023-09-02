@@ -45,14 +45,14 @@ public class Player : MonoBehaviour{
     /* Play jump landing animation correctly with ground edge collider
      and end the level when player finishes the level */
     private void OnTriggerEnter2D(Collider2D collision) {
-        if(collision.tag == "Ground") {
+        if(collision.CompareTag("Ground")) {
             if(_isJumpActive) {
                 _jumpAudioSource.clip = _jumpLandClip;
                 _jumpAudioSource.Play();
                 _isJumpActive = false;
                 _playerAnim.ResetTrigger("Jumping");
             }
-        } else if(collision.tag == "Finish") {
+        } else if(collision.CompareTag("Finish")) {
             switch (SceneManager.GetActiveScene().buildIndex) {
                 case 1:
                     _uiManager.FadeOut(3);
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour{
                     _uiManager.FadeOut(1);
                     break;
             }
-        } else if (collision.tag == "Death") {
+        } else if (collision.CompareTag("Death")) {
             switch (SceneManager.GetActiveScene().buildIndex) {
                 case 1:
                     _uiManager.FadeOut(2);
