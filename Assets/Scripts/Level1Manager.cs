@@ -116,7 +116,7 @@ public class Level1Manager : MonoBehaviour
     public void PlayLightOffInstruction() {
         if (!_luxApproaches) {
             _luxApproaches = true;
-            _lightOff.transform.position = new Vector3(_player.transform.position.x + 2, _player.transform.position.y - 2, 0);
+            _lightOff.transform.position = new Vector3(_player.transform.position.x + 4, _player.transform.position.y - 2, 0);
             _lightOff.SetActive(true);
         }
     }

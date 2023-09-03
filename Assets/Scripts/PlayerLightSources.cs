@@ -14,13 +14,15 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private GameObject _flashCamera;
     [SerializeField]
+    private GameObject _FC;
+    [SerializeField]
     private Animator _flickerFlashlightAnim;
     [SerializeField]
     private Animator _flickerLanternAnim;
 
     private int _flashChargeCount = 0;
     private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
-    private bool _isFlashlightActive = false, _isLanternActive = false, _isFlashCameraActive = false;
+    private bool _isFlashlightActive = false, _isLanternActive = false, _isFlashCameraActive = false, _toggleFC = false;
 
     //Battery Percentage Variables
     private int _batteryCount;
@@ -43,6 +45,7 @@ public class PlayerLightSources : MonoBehaviour {
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
+        _FC.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
         if (_lantern != null) {
             _lantern.SetActive(false);
@@ -54,6 +57,8 @@ public class PlayerLightSources : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Backspace)) {
             CollectBattery();
         }
+        IndicateFlashCharge();
+
         if (!_uiManager.GetIsPaused()) {        
             if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
                 Toggle();
@@ -77,6 +82,16 @@ public class PlayerLightSources : MonoBehaviour {
             //Mouse follow action
             /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
             _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
+    }
+
+    private void IndicateFlashCharge() {
+        if (_flashChargeCount > 0 && !_toggleFC) {
+            _toggleFC = true;
+            _FC.SetActive(true);
+        } else if (_flashChargeCount <= 0 && _toggleFC) {
+            _toggleFC = false;
+            _FC.SetActive(false);
+        }
     }
 
     /// <summary>
