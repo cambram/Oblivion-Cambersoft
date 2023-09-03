@@ -12,6 +12,10 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private GameObject _lantern;
     [SerializeField]
+    private GameObject _flashlightSprite;
+    [SerializeField]
+    private GameObject _lanternSprite;
+    [SerializeField]
     private GameObject _flashCamera;
     [SerializeField]
     private GameObject _FC;
@@ -37,6 +41,8 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private AudioClip _flashlightOnClip;
     [SerializeField]
+    private AudioClip _swapClip;
+    [SerializeField]
     private AudioSource _flashlightSource;
 
     private UIManager _uiManager;
@@ -45,9 +51,11 @@ public class PlayerLightSources : MonoBehaviour {
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _flashlight.SetActive(false);
         _flashCamera.SetActive(false);
+        _flashlightSprite.SetActive(true);
         _FC.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
         if (_lantern != null) {
+            _lanternSprite.SetActive(false);
             _lantern.SetActive(false);
         }
     }
@@ -128,9 +136,15 @@ public class PlayerLightSources : MonoBehaviour {
                 _currentLightSource = 1; // toggles to lantern
                 _isLanternActive = true;
                 _lantern.SetActive(true);
+                _flashlightSprite.SetActive(false);
+                _lanternSprite.SetActive(true);
             } else {
                 _currentLightSource = 1; // toggles to lantern
+                _flashlightSprite.SetActive(false);
+                _lanternSprite.SetActive(true);
             }
+            _flashlightSource.clip = _swapClip;
+            _flashlightSource.Play();
         } else { // means current is lantern
             if (_isLanternActive) {
                 _isLanternActive = false;
@@ -138,9 +152,15 @@ public class PlayerLightSources : MonoBehaviour {
                 _currentLightSource = 0; // toggles to flashlight
                 _isFlashlightActive = true;
                 _flashlight.SetActive(true);
+                _flashlightSprite.SetActive(true);
+                _lanternSprite.SetActive(false);
             } else {
                 _currentLightSource = 0; // toggles to flashlight
+                _flashlightSprite.SetActive(true);
+                _lanternSprite.SetActive(false);
             }
+            _flashlightSource.clip = _swapClip;
+            _flashlightSource.Play();
         }
     }
 

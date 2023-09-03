@@ -91,9 +91,8 @@ public class Enemy : MonoBehaviour
             PlayEnemyNoise();
         }
         if (_distance < 30 && !_isDead) {
-            //_enemyAnim.SetTrigger("Walking");
             if (_lightSources.GetIsAnyLightActive()) { // if player flashlight is on, lux approches
-                //_enemyAnim.ResetTrigger("Afraid");
+                _enemyAnim.SetTrigger("Approach");
                 _speed = 5f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                 if (_direction.x < 0) {
@@ -102,6 +101,7 @@ public class Enemy : MonoBehaviour
                     transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 }
             } else { // if player flashlight is off, lux approaches very slowly
+                _enemyAnim.ResetTrigger("Approach");
                 _speed = 0.5f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                 if (_direction.x < 0) {
