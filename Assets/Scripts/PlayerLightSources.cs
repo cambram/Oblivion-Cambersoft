@@ -69,6 +69,7 @@ public class PlayerLightSources : MonoBehaviour {
 
         if (!_uiManager.GetIsPaused()) {        
             if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
+                _toggleFC = !_toggleFC;
                 Toggle();
             }
             BatteryChecker();
@@ -94,11 +95,21 @@ public class PlayerLightSources : MonoBehaviour {
 
     private void IndicateFlashCharge() {
         if (_flashChargeCount > 0 && !_toggleFC) {
-            _toggleFC = true;
-            _FC.SetActive(true);
+            if (_currentLightSource == 0) {
+                _toggleFC = true;
+                _FC.SetActive(true);
+            } else {
+                _toggleFC = true;
+                _FC.SetActive(false);
+            }
         } else if (_flashChargeCount <= 0 && _toggleFC) {
-            _toggleFC = false;
-            _FC.SetActive(false);
+            if (_currentLightSource == 0) {
+                _toggleFC = false;
+                _FC.SetActive(false);
+            } else {
+                _toggleFC = false;
+                _FC.SetActive(false);
+            }
         }
     }
 
