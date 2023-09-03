@@ -80,13 +80,12 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > -48 && _batteryBypass) {
                 if (_lightSources.GetIsFlashlightActive()) {
                     _batteryBypass = false;
-                    _lightSources.FlickerFlashlight();
+                    _lightSources.FlickerFlashlight(0);
                 } else {
                     _lightSources.Flashlight(true);
                     _batteryBypass = false;
-                    _lightSources.FlickerFlashlight();
-                }
-                
+                    _lightSources.FlickerFlashlight(0);
+                }                
             }
 
             //respawn player if they fall

@@ -558,7 +558,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '     < BACK'
+  m_Text: '     BACK'
 --- !u!222 &265176144
 CanvasRenderer:
   m_ObjectHideFlags: 0

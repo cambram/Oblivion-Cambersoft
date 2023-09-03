@@ -14,7 +14,9 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private GameObject _flashCamera;
     [SerializeField]
-    private Animator _flickerAnim;
+    private Animator _flickerFlashlightAnim;
+    [SerializeField]
+    private Animator _flickerLanternAnim;
 
     private int _flashChargeCount = 0;
     private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
@@ -131,19 +133,26 @@ public class PlayerLightSources : MonoBehaviour {
         _flashChargeCount++;
     }
 
-    public void FlickerFlashlight() {
-        _flickerAnim.SetTrigger("Flicker");
-        _batterySource.Play();
-        StartCoroutine(BatteryFlickerTriggerReset());
+    public void FlickerFlashlight(int light) {
+        if(light == 0) {
+            _flickerFlashlightAnim.SetTrigger("Flicker");
+            _batterySource.Play();
+            StartCoroutine(BatteryFlickerTriggerReset());
+        } else if(light == 1) {
+            _flickerLanternAnim.SetTrigger("Flicker");
+            _batterySource.Play();
+            StartCoroutine(BatteryFlickerTriggerReset());
+        }
+
     }
 
     private void CheckFlicker() {
         switch(_currentLightSource) {
             case 0: // flashlight
-                FlickerFlashlight();
+                FlickerFlashlight(0);
                 break;
             case 1: // lantern
-                //FlickerLantern();
+                FlickerFlashlight(1);
                 break;
             default: break;
         }
@@ -214,7 +223,15 @@ public class PlayerLightSources : MonoBehaviour {
     //IEnumerators
     IEnumerator BatteryFlickerTriggerReset() {
         yield return new WaitForSeconds(0.8f);
-        _flickerAnim.ResetTrigger("Flicker");
+        switch (_currentLightSource) {
+            case 0: // flashlight
+                _flickerFlashlightAnim.ResetTrigger("Flicker");
+                break;
+            case 1: // lantern
+                _flickerLanternAnim.ResetTrigger("Flicker");
+                break;
+            default: break;
+        }
     }
 
     IEnumerator FlashCameraOffRoutine() {

@@ -14,7 +14,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false, _luxApproaches1 = false, _luxApproaches2 = false, _umbraCaveApproaches = false, _lightningStrike = false;
+    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -72,7 +72,7 @@ public class Level1Manager : MonoBehaviour
                 _uiManager.FadeOut(3);
             }
 
-            if (_player.transform.position.x > -75 && !_firstEncounter) {
+            if (_player.transform.position.x > -77 && !_firstEncounter) {
                 _F.SetActive(true);
                 if(!_lightSources.GetIsAnyLightActive()) { 
                     _leftClickEnabled = true;
@@ -88,11 +88,6 @@ public class Level1Manager : MonoBehaviour
             }
             if (_player.transform.position.x > 76 && _player.transform.position.x < 87) {
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff3, _caveCutoff4); //y = mx + b
-            }
-
-            if(_player.transform.position.x > -17 && !_luxApproaches1) {
-                _luxApproaches1 = true;
-                _spawnManager.SpawnLux(-34f, -1.5f);
             }
 
             if (_player.transform.position.x > -65 && !_lanternComplete) {
@@ -119,8 +114,9 @@ public class Level1Manager : MonoBehaviour
     }
 
     public void PlayLightOffInstruction() {
-        if (!_luxApproaches2) {
-            _luxApproaches2 = true;
+        if (!_luxApproaches) {
+            _luxApproaches = true;
+            _lightOff.transform.position = new Vector3(_player.transform.position.x + 2, _player.transform.position.y - 2, 0);
             _lightOff.SetActive(true);
         }
     }
@@ -154,11 +150,13 @@ public class Level1Manager : MonoBehaviour
         /* Enemies */
         _spawnManager.SpawnUmbra(88f, -0.3f);
         _spawnManager.SpawnUmbra(91f, -0.3f);
+        _spawnManager.SpawnLux(10.6f, 3.2f);
         //_spawnManager.SpawnUmbra(94f, 0.36f);
         /* Collectables */
         _spawnManager.SpawnFlashCharge(-59f, -0.15f);
         _spawnManager.SpawnFlashCharge(-54f, 0f);
         _spawnManager.SpawnFlashCharge(46.47f, -5.64f);
+        _spawnManager.SpawnFlashCharge(-1.87f, -0.19f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
     }
 
