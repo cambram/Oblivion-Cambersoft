@@ -71,19 +71,6 @@ public class UIManager : MonoBehaviour
         _mainMixer.SetFloat("masterVolume", Mathf.Log10(volume) * 20);
     }
 
-    public void SetBrightness(float brightness) {
-        switch (SceneManager.GetActiveScene().buildIndex) {
-            case 0:
-                break;
-            case 1:
-                _globalLight.intensity = brightness / 20;
-                break;
-            case 2:
-                _globalLight.intensity = brightness;
-                break;
-        }
-    }
-
     public bool GetIsPaused() {
         return _paused;
     }
