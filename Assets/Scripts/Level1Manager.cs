@@ -14,7 +14,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _firstEncounter = false, _lanternComplete = false, _leftClickEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
+    private bool _firstEncounter = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -30,9 +30,9 @@ public class Level1Manager : MonoBehaviour
 
     //Left Click Instruction Variables
     [SerializeField]
-    private GameObject _leftClick;
+    private GameObject _K;
     [SerializeField]
-    private Animator _leftClickAnim;
+    private Animator _KAnim;
 
     //Lightning
     [SerializeField]
@@ -50,7 +50,7 @@ public class Level1Manager : MonoBehaviour
         _camera = Camera.main;
         _F.SetActive(false);
         _lightOff.SetActive(false);
-        _leftClick.SetActive(false);
+        _K.SetActive(false);
         _lightning.SetActive(true);
         _lightning.GetComponent<Light2D>().enabled = false;
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
@@ -74,9 +74,9 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > -77 && !_firstEncounter) {
                 _F.SetActive(true);
-                if(!_lightSources.GetIsAnyLightActive()) { 
-                    _leftClickEnabled = true;
-                    _leftClick.SetActive(true); 
+                if(!_lightSources.GetIsAnyLightActive()) {
+                    _kKeyEnabled = true;
+                    _K.SetActive(true); 
                 }
                 _firstEncounter = true;
                 _spawnManager.SpawnUmbra(-54f, 2f);
@@ -93,8 +93,8 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > -65 && !_lanternComplete) {
                 _lanternComplete = true;
                 _FAnim.SetTrigger("FadeOut");
-                if(_leftClickEnabled) {
-                    _leftClickAnim.SetTrigger("FadeOut");
+                if(_kKeyEnabled) {
+                    _KAnim.SetTrigger("FadeOut");
                 }
             }
 
@@ -116,7 +116,7 @@ public class Level1Manager : MonoBehaviour
     public void PlayLightOffInstruction() {
         if (!_luxApproaches) {
             _luxApproaches = true;
-            _lightOff.transform.position = new Vector3(_player.transform.position.x + 4, _player.transform.position.y - 2, 0);
+            _lightOff.transform.position = new Vector3(_player.transform.position.x + 10, _player.transform.position.y - 2, 0);
             _lightOff.SetActive(true);
         }
     }

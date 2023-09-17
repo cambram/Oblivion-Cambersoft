@@ -73,7 +73,7 @@ public class PlayerLightSources : MonoBehaviour {
                 Toggle();
             }
             BatteryChecker();
-            if (Input.GetMouseButtonDown(0)) {
+            if (Input.GetKeyDown(KeyCode.K)) {
                 if (_isFlashlightActive || _isLanternActive) { // flashlight gets turned off
                     Flashlight(false);
                 } else { // flashlight gets turned on
@@ -84,7 +84,7 @@ public class PlayerLightSources : MonoBehaviour {
                     }
                 }
             }
-            if (Input.GetMouseButtonDown(1)) {
+            if (Input.GetKeyDown(KeyCode.L)) {
                 FlashCamera();
             }
         }

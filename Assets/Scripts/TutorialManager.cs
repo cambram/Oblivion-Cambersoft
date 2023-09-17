@@ -24,15 +24,15 @@ public class TutorialManager : MonoBehaviour
 
     //Left Click Instruction Variables
     [SerializeField]
-    private GameObject _leftClick;
+    private GameObject _K;
     [SerializeField]
-    private Animator _leftClickAnim;
+    private Animator _KAnim;
 
     //Right Click Instruction Variables
     [SerializeField]
-    private GameObject _rightClick;
+    private GameObject _L;
     [SerializeField]
-    private Animator _rightClickAnim;
+    private Animator _LAnim;
 
     //Battery Variable
     private bool _batteryBypass = true;
@@ -95,9 +95,9 @@ public class TutorialManager : MonoBehaviour
             }
 
             //remove flashlight instruction
-            if (Input.GetMouseButtonDown(0) && !_flashlightInstructionComplete) {
+            if (Input.GetKeyDown(KeyCode.K) && !_flashlightInstructionComplete) {
                 _flashlightInstructionComplete = true;
-                _leftClickAnim.SetTrigger("FadeOut");
+                _KAnim.SetTrigger("FadeOut");
                 StartCoroutine(MovementInstruction());
             }
 
@@ -118,21 +118,21 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > -1 && !_jumpInstructionComplete) {
                 _jumpInstructionComplete = true;
                 _spaceAnim.SetTrigger("FadeOut");
-                _leftClick.SetActive(false);
-                _leftClick.transform.position = new Vector3(10f, -3.8f, 0);
-                _leftClick.SetActive(true);
+                _K.SetActive(false);
+                _K.transform.position = new Vector3(10f, -3.8f, 0);
+                _K.SetActive(true);
             }
 
             //Show the right click icon to kill enemy (link this with flash charge somehow)
             if (_player.transform.position.x > 10 && !_scareOffEnemyInstruction) {
                 _scareOffEnemyInstruction = true;
-                _leftClickAnim.SetTrigger("FadeOut");
-                _rightClick.SetActive(true);
+                _KAnim.SetTrigger("FadeOut");
+                _L.SetActive(true);
             }
 
             //Hide right click icon
             if (_player.transform.position.x > 33) {
-                _rightClickAnim.SetTrigger("FadeOut");
+                _LAnim.SetTrigger("FadeOut");
             }
 
             if (_player.transform.position.x >= 4 && _player.transform.position.x < 14) {
@@ -159,8 +159,8 @@ public class TutorialManager : MonoBehaviour
         _A.SetActive(false);
         _D.SetActive(false);
         _space.SetActive(false);
-        _leftClick.SetActive(false);
-        _rightClick.SetActive(false);
+        _K.SetActive(false);
+        _L.SetActive(false);
     }
 
     private float SlopeIntercept(Vector2 one, Vector2 two) {
@@ -171,7 +171,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator FlashlightInstruction() {
         yield return new WaitForSeconds(0.5f);
-        _leftClick.SetActive(true);
+        _K.SetActive(true);
     }
 
     IEnumerator MovementInstruction() {

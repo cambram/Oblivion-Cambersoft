@@ -11,6 +11,7 @@ public class Player : MonoBehaviour{
     private bool _isJumpActive = false;
     private bool _direction = true; //true is facing right and false is facing left
     private Rigidbody2D _rigidbody;
+    private Level1Manager _level1Manager;
     [SerializeField]
     private Animator _playerAnim;
 
@@ -31,6 +32,9 @@ public class Player : MonoBehaviour{
     private void Start() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+        if (SceneManager.GetActiveScene().buildIndex == 2) {
+            _level1Manager = GameObject.Find("Level_1_Manager").GetComponent<Level1Manager>();
+        }
     }
 
     private void Update() {
@@ -70,6 +74,8 @@ public class Player : MonoBehaviour{
                     _uiManager.FadeOut(3);
                     break;
             }
+        } else if (collision.CompareTag("Instruction")) {
+            _level1Manager.PlayLightOffInstruction();
         }
     }
 
