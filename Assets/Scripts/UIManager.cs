@@ -18,23 +18,30 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _optionsMenu;
     [SerializeField]
+    private GameObject _volumeMenu;
+    [SerializeField]
     private AudioMixer _mainMixer;
     private bool _paused = false;
     [SerializeField]
-    private Light2D _globalLight;
+    private Slider _master;
+
+
 
     void Start(){
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _environment = GameObject.Find("Environment");
+        SetVolumeSliders();
         _fadeOutAnim = GetComponent<Animator>();
         _pauseMenu.SetActive(false);
         _pauseGame.SetActive(false);
         _optionsMenu.SetActive(false);
-        
-        /*float currentVolume;
+    }
+
+    public IEnumerator SetVolumeSliders() {
+        yield return new WaitForEndOfFrame();
+        float currentVolume;
         _mainMixer.GetFloat("masterVolume", out currentVolume);
-        Slider slider = GameObject.Find("Volume_slider").GetComponent<Slider>();
-        slider.value = currentVolume;*/
+        _master.value = currentVolume;
     }
 
     private void Update() {
@@ -65,14 +72,28 @@ public class UIManager : MonoBehaviour
     public void Options() {
         _pauseMenu.SetActive(false);
         _optionsMenu.SetActive(true);
+        _volumeMenu.SetActive(false);
     }
 
-    public void Back() {
+    public void VolumeMenu() {
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(false);
+        _volumeMenu.SetActive(true);
+    }
+
+    public void BackFromOptions() {
         _pauseMenu.SetActive(true);
         _optionsMenu.SetActive(false);
+        _volumeMenu.SetActive(false);
     }
 
-    public void SetVolume(float volume) {
+    public void BackFromVolume() {
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(true);
+        _volumeMenu.SetActive(false);
+    }
+
+    public void SetMasterVolume(float volume) {
         _mainMixer.SetFloat("masterVolume", Mathf.Log10(volume) * 20);
     }
 
