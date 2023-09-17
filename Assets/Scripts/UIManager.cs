@@ -30,6 +30,11 @@ public class UIManager : MonoBehaviour
         _pauseMenu.SetActive(false);
         _pauseGame.SetActive(false);
         _optionsMenu.SetActive(false);
+        
+        /*float currentVolume;
+        _mainMixer.GetFloat("masterVolume", out currentVolume);
+        Slider slider = GameObject.Find("Volume_slider").GetComponent<Slider>();
+        slider.value = currentVolume;*/
     }
 
     private void Update() {
