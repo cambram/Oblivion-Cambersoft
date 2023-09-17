@@ -23,7 +23,13 @@ public class UIManager : MonoBehaviour
     private AudioMixer _mainMixer;
     private bool _paused = false;
     [SerializeField]
-    private Slider _master;
+    private Slider _masterSlider;
+    [SerializeField]
+    private Slider _environmentSlider;
+    [SerializeField]
+    private Slider _soundFXSlider;
+    [SerializeField]
+    private Slider _musicSlider;
 
 
 
@@ -37,11 +43,16 @@ public class UIManager : MonoBehaviour
         _optionsMenu.SetActive(false);
     }
 
-    public IEnumerator SetVolumeSliders() {
-        yield return new WaitForEndOfFrame();
+    public void SetVolumeSliders() {
         float currentVolume;
         _mainMixer.GetFloat("masterVolume", out currentVolume);
-        _master.value = currentVolume;
+        _masterSlider.value = Mathf.Pow(10, currentVolume/20);
+        _mainMixer.GetFloat("environmentVolume", out currentVolume);
+        _environmentSlider.value = Mathf.Pow(10, currentVolume / 20);
+        _mainMixer.GetFloat("soundFXVolume", out currentVolume);
+        _soundFXSlider.value = Mathf.Pow(10, currentVolume / 20);
+        _mainMixer.GetFloat("musicVolume", out currentVolume);
+        _musicSlider.value = Mathf.Pow(10, currentVolume / 20);
     }
 
     private void Update() {
@@ -95,6 +106,18 @@ public class UIManager : MonoBehaviour
 
     public void SetMasterVolume(float volume) {
         _mainMixer.SetFloat("masterVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetEnvironmentVolume(float volume) {
+        _mainMixer.SetFloat("environmentVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetSoundFXVolume(float volume) {
+        _mainMixer.SetFloat("soundFXVolume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetMusicFXVolume(float volume) {
+        _mainMixer.SetFloat("musicVolume", Mathf.Log10(volume) * 20);
     }
 
     public bool GetIsPaused() {
