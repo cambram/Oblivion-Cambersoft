@@ -116,7 +116,7 @@ public class UIManager : MonoBehaviour
         _mainMixer.SetFloat("soundFXVolume", Mathf.Log10(volume) * 20);
     }
 
-    public void SetMusicFXVolume(float volume) {
+    public void SetMusicVolume(float volume) {
         _mainMixer.SetFloat("musicVolume", Mathf.Log10(volume) * 20);
     }
 
