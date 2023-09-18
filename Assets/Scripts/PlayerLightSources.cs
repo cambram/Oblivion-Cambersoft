@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
@@ -23,6 +23,8 @@ public class PlayerLightSources : MonoBehaviour {
     private Animator _flickerFlashlightAnim;
     [SerializeField]
     private Animator _flickerLanternAnim;
+    [SerializeField]
+    private GameObject _batteryLife;
 
     private int _flashChargeCount = 0;
     private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
@@ -53,6 +55,8 @@ public class PlayerLightSources : MonoBehaviour {
         _flashCamera.SetActive(false);
         _flashlightSprite.SetActive(true);
         _FC.SetActive(false);
+        _batteryLife.GetComponent<Slider>().value = _BATTERY;
+        _batteryLife.SetActive(false);
         _batteryCount = _BATTERY; // 1 battery = 400 units
         if (_lantern != null) {
             _lanternSprite.SetActive(false);
@@ -117,6 +121,7 @@ public class PlayerLightSources : MonoBehaviour {
     /// Checks the players battery count and flickers the battery based on the battery level.
     /// </summary>
     private void BatteryChecker() {
+        _batteryLife.GetComponent<Slider>().value = _batteryCount;
         if (_batteryCount > 200 && _batteryCount < 300 && !_battP1) {
             _battP1 = true;
             CheckFlicker();
@@ -237,6 +242,7 @@ public class PlayerLightSources : MonoBehaviour {
     /// </summary>
     /// <param name="x">true = on; false = off</param>
     public void Flashlight(bool x) {
+        _batteryLife.SetActive(x);
         switch (_currentLightSource) {
             case 0:
                 _isFlashlightActive = x;

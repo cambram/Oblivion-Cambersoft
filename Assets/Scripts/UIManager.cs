@@ -31,8 +31,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Slider _musicSlider;
 
-
-
     void Start(){
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _environment = GameObject.Find("Environment");
