@@ -25,6 +25,8 @@ public class PlayerLightSources : MonoBehaviour {
     private Animator _flickerLanternAnim;
     [SerializeField]
     private GameObject _batteryLife;
+    [SerializeField]
+    private Animator _batteryLifeAnim;
 
     private int _flashChargeCount = 0;
     private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
@@ -243,6 +245,7 @@ public class PlayerLightSources : MonoBehaviour {
     /// <param name="x">true = on; false = off</param>
     public void Flashlight(bool x) {
         _batteryLife.SetActive(x);
+        if (!x) _batteryLifeAnim.SetTrigger("FadeOut");
         switch (_currentLightSource) {
             case 0:
                 _isFlashlightActive = x;

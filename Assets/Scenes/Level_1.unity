@@ -13477,7 +13477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.011764706}
+  m_Color: {r: 0.10980393, g: 0.10980393, b: 0.10980393, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19222,6 +19222,7 @@ MonoBehaviour:
   _flickerFlashlightAnim: {fileID: 1944036290}
   _flickerLanternAnim: {fileID: 191785043}
   _batteryLife: {fileID: 1958243853}
+  _batteryLifeAnim: {fileID: 1958243856}
   _flashChargeClip: {fileID: 8300000, guid: c06c7e3b822bf3d49a2fb1f4cf104c21, type: 3}
   _batterySource: {fileID: 1732633037}
   _flashlightOnClip: {fileID: 8300000, guid: 9aa4453183c955449b2bfda8b4f815e1, type: 3}
@@ -24822,6 +24823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1958243854}
   - component: {fileID: 1958243855}
+  - component: {fileID: 1958243856}
   m_Layer: 5
   m_Name: Battery_Life
   m_TagString: Untagged
@@ -24901,6 +24903,27 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &1958243856
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958243853}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: faeeee6ab2ee95343b3a2c8f6cae23ea, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1987088634
 GameObject:
   m_ObjectHideFlags: 0
