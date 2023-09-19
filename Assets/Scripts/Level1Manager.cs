@@ -18,9 +18,9 @@ public class Level1Manager : MonoBehaviour
 
     //A Instruction Variables
     [SerializeField]
-    private GameObject _F;
+    private GameObject _W;
     [SerializeField]
-    private Animator _FAnim;
+    private Animator _WAnim;
 
     //D Instruction Variables
     [SerializeField]
@@ -48,7 +48,7 @@ public class Level1Manager : MonoBehaviour
     void Start() {
         Cursor.visible = false;
         _camera = Camera.main;
-        _F.SetActive(false);
+        _W.SetActive(false);
         _lightOff.SetActive(false);
         _K.SetActive(false);
         _lightning.SetActive(true);
@@ -73,7 +73,7 @@ public class Level1Manager : MonoBehaviour
             }
 
             if (_player.transform.position.x > -77 && !_firstEncounter) {
-                _F.SetActive(true);
+                _W.SetActive(true);
                 if(!_lightSources.GetIsAnyLightActive()) {
                     _kKeyEnabled = true;
                     _K.SetActive(true); 
@@ -92,7 +92,7 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > -65 && !_lanternComplete) {
                 _lanternComplete = true;
-                _FAnim.SetTrigger("FadeOut");
+                _WAnim.SetTrigger("FadeOut");
                 if(_kKeyEnabled) {
                     _KAnim.SetTrigger("FadeOut");
                 }

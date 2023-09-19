@@ -74,7 +74,7 @@ public class PlayerLightSources : MonoBehaviour {
         IndicateFlashCharge();
 
         if (!_uiManager.GetIsPaused()) {        
-            if(_lantern != null && Input.GetKeyDown(KeyCode.F)) {
+            if(_lantern != null && Input.GetKeyDown(KeyCode.W)) {
                 _toggleFC = !_toggleFC;
                 Toggle();
             }
