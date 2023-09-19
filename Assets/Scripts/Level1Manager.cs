@@ -14,7 +14,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _firstEncounter = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
+    private bool _secondEncounter = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -73,14 +73,14 @@ public class Level1Manager : MonoBehaviour
                 _uiManager.FadeOut(3);
             }
 
-            if (_player.transform.position.x > -77 && !_firstEncounter) {
+            if (_player.transform.position.x > -77 && !_secondEncounter) {
                 _W.SetActive(true);
                 _lightSources.SetLanternDisabled(false);
                 if(!_lightSources.GetIsAnyLightActive()) {
                     _kKeyEnabled = true;
                     _K.SetActive(true); 
                 }
-                _firstEncounter = true;
+                _secondEncounter = true;
                 _spawnManager.SpawnUmbra(-54f, 2f);
                 _spawnManager.SpawnUmbra(-93f, 0.5f);
             }
@@ -152,13 +152,15 @@ public class Level1Manager : MonoBehaviour
         /* Enemies */
         _spawnManager.SpawnUmbra(88f, -0.3f);
         _spawnManager.SpawnUmbra(91f, -0.3f);
+        _spawnManager.SpawnUmbra(-64f, -2.2f);
         _spawnManager.SpawnLux(10.6f, 3.2f);
         //_spawnManager.SpawnUmbra(94f, 0.36f);
         /* Collectables */
         _spawnManager.SpawnFlashCharge(-59f, -0.15f);
         _spawnManager.SpawnFlashCharge(-54f, 0f);
         _spawnManager.SpawnFlashCharge(46.47f, -5.64f);
-        _spawnManager.SpawnFlashCharge(-1.87f, -0.19f);
+        _spawnManager.SpawnFlashCharge(-9.4f, -1.32f);
+        _spawnManager.SpawnFlashCharge(-92.53f, -2.67f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
     }
 
