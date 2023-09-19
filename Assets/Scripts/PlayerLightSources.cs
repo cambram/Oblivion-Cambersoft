@@ -270,18 +270,18 @@ public class PlayerLightSources : MonoBehaviour {
     private void FlashCamera() {
         if (_flashChargeCount > 0) {
             _flashChargeCount--;
-            if(_isFlashlightActive) {
+            if(_currentLightSource == 0) {
                 _flashlightChargeLight.SetActive(true);
-            } else if (_isLanternActive) {
+            } else {
                 _lanternChargeLight.SetActive(true);
             }
             if (_isFlashlightActive || _isLanternActive) {
                 Flashlight(false);
-            } // bug origin...
+            }
             _flashlightSource.clip = _flashChargeClip;
             _flashlightSource.Play();
             _isFlashCameraActive = true;
-            StartCoroutine(FlashCameraOffRoutine(_isFlashlightActive)); // ...fighting with this
+            StartCoroutine(FlashCameraOffRoutine());
         }
     }
 
@@ -299,9 +299,9 @@ public class PlayerLightSources : MonoBehaviour {
         }
     }
 
-    IEnumerator FlashCameraOffRoutine(bool flashlightActive) {
+    IEnumerator FlashCameraOffRoutine() {
         yield return new WaitForSeconds(0.2f);
-        if(flashlightActive) {
+        if(_currentLightSource == 0) {
             _flashlightChargeLight.SetActive(false);
         } else {
             _lanternChargeLight.SetActive(false);

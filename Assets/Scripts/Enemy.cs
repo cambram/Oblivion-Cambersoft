@@ -211,7 +211,7 @@ public class Enemy : MonoBehaviour
         _enemyDeathSource.Play();
         _isDead = true;
         _enemyEyes.SetActive(false);
-        this.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+        Destroy(this.gameObject.GetComponent<Rigidbody2D>());
         this.gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
         this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DestroyGameObject(7.1f));
