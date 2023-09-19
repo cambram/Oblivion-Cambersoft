@@ -16,7 +16,9 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private GameObject _lanternSprite;
     [SerializeField]
-    private GameObject _flashCamera;
+    private GameObject _flashlightChargeLight;
+    [SerializeField]
+    private GameObject _lanternChargeLight;
     [SerializeField]
     private GameObject _FC;
     [SerializeField]
@@ -54,7 +56,7 @@ public class PlayerLightSources : MonoBehaviour {
     private void Start() {
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _flashlight.SetActive(false);
-        _flashCamera.SetActive(false);
+        _flashlightChargeLight.SetActive(false);
         _flashlightSprite.SetActive(true);
         _FC.SetActive(false);
         _batteryLife.GetComponent<Slider>().value = _BATTERY;
@@ -268,14 +270,18 @@ public class PlayerLightSources : MonoBehaviour {
     private void FlashCamera() {
         if (_flashChargeCount > 0) {
             _flashChargeCount--;
+            if(_isFlashlightActive) {
+                _flashlightChargeLight.SetActive(true);
+            } else if (_isLanternActive) {
+                _lanternChargeLight.SetActive(true);
+            }
             if (_isFlashlightActive || _isLanternActive) {
                 Flashlight(false);
-            }
-            _flashCamera.SetActive(true);
+            } // bug origin...
             _flashlightSource.clip = _flashChargeClip;
             _flashlightSource.Play();
             _isFlashCameraActive = true;
-            StartCoroutine(FlashCameraOffRoutine());
+            StartCoroutine(FlashCameraOffRoutine(_isFlashlightActive)); // ...fighting with this
         }
     }
 
@@ -293,9 +299,13 @@ public class PlayerLightSources : MonoBehaviour {
         }
     }
 
-    IEnumerator FlashCameraOffRoutine() {
+    IEnumerator FlashCameraOffRoutine(bool flashlightActive) {
         yield return new WaitForSeconds(0.2f);
-        _flashCamera.SetActive(false);
+        if(flashlightActive) {
+            _flashlightChargeLight.SetActive(false);
+        } else {
+            _lanternChargeLight.SetActive(false);
+        }
         _isFlashCameraActive = false;
     }
 

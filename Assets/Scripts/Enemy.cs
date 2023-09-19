@@ -70,9 +70,13 @@ public class Enemy : MonoBehaviour
                 }
             }
             if (_distance < 13 && _lightSources.GetIsFlashCameraActive()) { // change to 7
-                if (_direction.x < 0 && _player.GetDirection()) {
-                    KillEnemy();
-                } else if(_direction.x > 0 && !_player.GetDirection()) {
+                if (_lightSources.GetCurrentLightSource() == 0) {
+                    if (_direction.x < 0 && _player.GetDirection()) {
+                        KillEnemy();
+                    } else if (_direction.x > 0 && !_player.GetDirection()) {
+                        KillEnemy();
+                    }
+                } else {
                     KillEnemy();
                 }
             }
