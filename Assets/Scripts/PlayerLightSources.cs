@@ -30,7 +30,7 @@ public class PlayerLightSources : MonoBehaviour {
 
     private int _flashChargeCount = 0;
     private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
-    private bool _isFlashlightActive = false, _isLanternActive = false, _isFlashCameraActive = false, _toggleFC = false;
+    private bool _isFlashlightActive = false, _isLanternActive = false, _isFlashCameraActive = false, _toggleFC = false, _lanternDisabled = false;
 
     //Battery Percentage Variables
     private int _batteryCount;
@@ -74,7 +74,7 @@ public class PlayerLightSources : MonoBehaviour {
         IndicateFlashCharge();
 
         if (!_uiManager.GetIsPaused()) {        
-            if(_lantern != null && Input.GetKeyDown(KeyCode.W)) {
+            if(_lantern != null && Input.GetKeyDown(KeyCode.W) && !_lanternDisabled) {
                 _toggleFC = !_toggleFC;
                 Toggle();
             }
@@ -97,6 +97,10 @@ public class PlayerLightSources : MonoBehaviour {
             //Mouse follow action
             /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
             _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
+    }
+
+    public void SetLanternDisabled(bool x) {
+        _lanternDisabled = x;
     }
 
     private void IndicateFlashCharge() {

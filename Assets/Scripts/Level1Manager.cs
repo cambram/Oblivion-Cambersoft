@@ -59,6 +59,7 @@ public class Level1Manager : MonoBehaviour
         _environment = GameObject.Find("Environment");
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _player.transform.position = new Vector3(-119, -2, 0);
+        _lightSources.SetLanternDisabled(true);
         InitialisePrefabsForLevel();
     }
 
@@ -74,6 +75,7 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > -77 && !_firstEncounter) {
                 _W.SetActive(true);
+                _lightSources.SetLanternDisabled(false);
                 if(!_lightSources.GetIsAnyLightActive()) {
                     _kKeyEnabled = true;
                     _K.SetActive(true); 
