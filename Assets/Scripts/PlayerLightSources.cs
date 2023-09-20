@@ -26,9 +26,14 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private Animator _flickerLanternAnim;
     [SerializeField]
+    private Animator _swingingLanternAnim;
+    [SerializeField]
     private GameObject _batteryLife;
     [SerializeField]
     private Animator _batteryLifeAnim;
+
+    private Player _player;
+
 
     private int _flashChargeCount = 0;
     private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
@@ -55,6 +60,7 @@ public class PlayerLightSources : MonoBehaviour {
 
     private void Start() {
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+        _player = GameObject.Find("Player").GetComponent<Player>();
         _flashlight.SetActive(false);
         _flashlightChargeLight.SetActive(false);
         _flashlightSprite.SetActive(true);
@@ -70,8 +76,14 @@ public class PlayerLightSources : MonoBehaviour {
 
     private void Update() {
         //cheat codes
-        if (Input.GetKeyDown(KeyCode.Backspace)) {
-            CollectBattery();
+        if (_player.GetMoving()) {
+            if(_currentLightSource == 1) {
+                _swingingLanternAnim.SetTrigger("Swinging");
+            }
+        } else {
+            if (_currentLightSource == 1) {
+                _swingingLanternAnim.ResetTrigger("Swinging");
+            }
         }
         IndicateFlashCharge();
 

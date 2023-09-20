@@ -10,6 +10,7 @@ public class Player : MonoBehaviour{
     private float _speed = 2.5f; //3.5f
     private bool _isJumpActive = false;
     private bool _direction = true; //true is facing right and false is facing left
+    private bool _moving = false;
     private Rigidbody2D _rigidbody;
     private Level1Manager _level1Manager;
     [SerializeField]
@@ -91,11 +92,19 @@ public class Player : MonoBehaviour{
     }
 
     /// <summary>
-    /// Determines which direction the player is facing.
+    /// Determines which direction the player is facing
     /// </summary>
-    /// <returns>false if the player is facing left and true if the player is facing right.</returns>
+    /// <returns>false if the player is facing left and true if the player is facing right</returns>
     public bool GetDirection() {
         return _direction;
+    }
+
+    /// <summary>
+    /// Determines if the player is moving
+    /// </summary>
+    /// <returns>false if the player is idle and true if the player is moving</returns>
+    public bool GetMoving() {
+        return _moving;
     }
 
     /// <summary>
@@ -109,6 +118,7 @@ public class Player : MonoBehaviour{
                 _playerAnim.SetTrigger("Walking");
             }
             _direction = false; // facing left
+            _moving = true;
             transform.localScale = new Vector3(-0.17f, 0.17f, 0.17f);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.D)) {
@@ -117,11 +127,13 @@ public class Player : MonoBehaviour{
                 _playerAnim.SetTrigger("Walking");
             }
             _direction = true; // facing right
+            _moving = true;
             transform.localScale = new Vector3(0.17f, 0.17f, 0.17f);
         }
         if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
             _footstepSource.Pause();
-            _playerAnim.ResetTrigger("Walking");        
+            _playerAnim.ResetTrigger("Walking");
+            _moving = false;
         }
 
         float horizontalInput = Input.GetAxis("Horizontal");
