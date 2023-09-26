@@ -127,7 +127,7 @@ public class Level1Manager : MonoBehaviour
         if (_player.transform.position.x < -113) {
             _camera.transform.position = new Vector3(-108, 0, -10);
         } else if (_player.transform.position.x > 275) { //105
-            _camera.transform.position = new Vector3(110, 0, -10);
+            _camera.transform.position = new Vector3(280, 0, -10);
         } else {
             _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
         }
