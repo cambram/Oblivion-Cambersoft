@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _enemyAnim = GetComponent<Animator>();
+        _enemyEyes.GetComponent<Light2D>().intensity = 0.07f;
     }
 
     void Update() {
@@ -60,6 +62,7 @@ public class Enemy : MonoBehaviour
                     CalculateCorrectEnemyMovementLantern(_direction);
                 }
             } else { // if player flashlight is off, enemy approaches
+                _enemyEyes.GetComponent<Light2D>().intensity = 9f;
                 _enemyAnim.ResetTrigger("Afraid");
                 _speed = 4f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -92,6 +95,7 @@ public class Enemy : MonoBehaviour
         }
         if (_distance < 30 && !_isDead) {
             if (_lightSources.GetIsAnyLightActive()) { // if player flashlight is on, lux approches
+                _enemyEyes.GetComponent<Light2D>().intensity = 2f;
                 _enemyAnim.SetTrigger("Approach");
                 _speed = 5f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -101,6 +105,7 @@ public class Enemy : MonoBehaviour
                     transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 }
             } else { // if player flashlight is off, lux approaches very slowly
+                _enemyEyes.GetComponent<Light2D>().intensity = 0.05f;
                 _enemyAnim.ResetTrigger("Approach");
                 _speed = 0.5f;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -140,11 +145,13 @@ public class Enemy : MonoBehaviour
     private void CalculateCorrectEnemyMovementFlashlight(Vector3 dir) {
         if (dir.x < 0) { // if enemy is to the right of the player
             if (_player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
+                _enemyEyes.GetComponent<Light2D>().intensity = 0.3f;
                 _enemyAnim.SetTrigger("Afraid");
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position 
                     + new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
                 CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
+                _enemyEyes.GetComponent<Light2D>().intensity = 9f;
                 _speed = 4f;
                 _enemyAnim.ResetTrigger("Afraid");
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
@@ -152,11 +159,13 @@ public class Enemy : MonoBehaviour
             }
         } else if (dir.x >= 0) { // if enemy is to the left of the player
             if (!_player.GetDirection()) { // ... only if the player is pointing the flashlight in the correct direction
+                _enemyEyes.GetComponent<Light2D>().intensity = 0.3f;
                 _enemyAnim.SetTrigger("Afraid");
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position 
                     - new Vector3(13, transform.position.y, 0), _speed * Time.deltaTime);
                 CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
+                _enemyEyes.GetComponent<Light2D>().intensity = 9f;
                 _speed = 4f;
                 _enemyAnim.ResetTrigger("Afraid");
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
