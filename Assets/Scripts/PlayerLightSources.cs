@@ -76,6 +76,13 @@ public class PlayerLightSources : MonoBehaviour {
 
     private void Update() {
         //cheat codes
+        if(Input.GetKeyDown(KeyCode.Alpha1)) {
+            CollectBattery();
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)) {
+            CollectFlashCharge();
+        }
+
         if (_player.GetMoving()) {
             if(_currentLightSource == 1) {
                 _swingingLanternAnim.SetTrigger("Swinging");
@@ -121,8 +128,10 @@ public class PlayerLightSources : MonoBehaviour {
         if (_flashChargeCount > 0 && !_toggleFC) {
             if (_currentLightSource == 0) {
                 _toggleFC = true;
+                //_FC.transform.position = new Vector3(_player.transform.position.x + 0.4984f, _player.transform.position.y + 0.132995f);
                 _FC.SetActive(true);
             } else {
+                //_FC.transform.position = new Vector3(2.46f, -2.47f);
                 _toggleFC = true;
                 _FC.SetActive(false);
             }
