@@ -164,7 +164,7 @@ public class Level1Manager : MonoBehaviour
         /* Enemies */
         _spawnManager.SpawnUmbra(88f, -0.3f);
         _spawnManager.SpawnUmbra(91f, -0.3f);
-        _spawnManager.SpawnUmbra(-64f, -2.2f);
+        _spawnManager.SpawnUmbra(-80f, -2.2f);
         _spawnManager.SpawnLux(10.6f, 3.2f);
         //_spawnManager.SpawnUmbra(94f, 0.36f);
         /* Collectables */
@@ -172,7 +172,7 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(-54f, 0f);
         _spawnManager.SpawnFlashCharge(46.47f, -5.64f);
         _spawnManager.SpawnFlashCharge(-9.4f, -1.32f);
-        _spawnManager.SpawnFlashCharge(-92.53f, -2.67f);
+        _spawnManager.SpawnFlashCharge(-94.04f, -2.76f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
     }
 

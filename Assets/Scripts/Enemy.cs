@@ -139,6 +139,15 @@ public class Enemy : MonoBehaviour
                         break;
                 }
             }
+        } else if (collision.CompareTag("Enemy")) {
+            //this.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-500, 500), 0));
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (collision.CompareTag("Enemy")) {
+            //Debug.Log("STAY");
+            //this.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-500, 500), 0));
         }
     }
 

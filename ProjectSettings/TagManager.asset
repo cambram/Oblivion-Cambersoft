@@ -8,6 +8,7 @@ TagManager:
   - Death
   - Instruction
   - LogImpact
+  - Enemy
   layers:
   - Default
   - TransparentFX
