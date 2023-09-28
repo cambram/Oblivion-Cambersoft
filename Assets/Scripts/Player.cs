@@ -88,7 +88,11 @@ public class Player : MonoBehaviour{
         _jumpAudioSource.Play();
         _isJumpActive = true;
         _playerAnim.SetTrigger("Jumping");
-        _rigidbody.AddForce(new Vector2(_rigidbody.velocity.x, 500));
+        if (GetDirection()) {
+            _rigidbody.AddForce(new Vector2(25, 500)); //_rigidbody.velocity.x
+        } else {
+            _rigidbody.AddForce(new Vector2(-25, 500)); //_rigidbody.velocity.x
+        }       
     }
 
     /// <summary>

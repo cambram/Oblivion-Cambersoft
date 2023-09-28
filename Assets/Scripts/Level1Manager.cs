@@ -14,7 +14,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _secondEncounter = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
+    private bool _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -39,6 +39,11 @@ public class Level1Manager : MonoBehaviour
     private GameObject _lightning;
     [SerializeField]
     private GameObject _effects;
+
+    [SerializeField]
+    private GameObject _woodLog;
+    [SerializeField]
+    private AudioClip _woodLogCrack;
 
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
@@ -71,6 +76,13 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.y < -12 && !_respawn) {
                 _respawn = true;
                 _uiManager.FadeOut(3);
+            }
+
+            if( _player.transform.position.x > -42 && !_logFallen) {
+                _logFallen = true;
+                _woodLog.GetComponent<AudioSource>().clip = _woodLogCrack;
+                _woodLog.GetComponent<AudioSource>().Play();
+                _woodLog.GetComponent<Rigidbody2D>().gravityScale = 1;
             }
 
             if (_player.transform.position.x > -77 && !_secondEncounter) {
