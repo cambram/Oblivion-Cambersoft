@@ -50,6 +50,8 @@ public class Level1Manager : MonoBehaviour
     private Vector2 _caveCutoff3 = new Vector2(76, 4000);
     private Vector2 _caveCutoff4 = new Vector2(87, 22000);
 
+    private Vector3 _checkpoint1, _checkpoint2, _checkpoint3, _checkpoint4;
+
     void Start() {
         Cursor.visible = false;
         _camera = Camera.main;
@@ -58,6 +60,10 @@ public class Level1Manager : MonoBehaviour
         _K.SetActive(false);
         _lightning.SetActive(true);
         _lightning.GetComponent<Light2D>().enabled = false;
+        _checkpoint1 = new Vector3(-52.95f, 0.7f, 0);
+        _checkpoint2 = new Vector3(15.65f, -6.5f, 0);
+        _checkpoint3 = new Vector3(89.51f, -2.25f, 0);
+        _checkpoint4 = new Vector3(191.15f, 5.9f, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
@@ -80,7 +86,7 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > 0 && !_secondLuxEncounter) {
                 _secondLuxEncounter = true;
-                _spawnManager.SpawnLux(-10.67f, 0.44f);
+                _spawnManager.SpawnLux(-18.67f, -0.26f);
                 _spawnManager.SpawnLux(-13.22f, 0.56f);
                 _spawnManager.SpawnLux(-15.8f, 0.23f);
             }
@@ -138,7 +144,7 @@ public class Level1Manager : MonoBehaviour
     public void PlayLightOffInstruction() {
         if (!_luxApproaches) {
             _luxApproaches = true;
-            _lightOff.transform.position = new Vector3(_player.transform.position.x + 10, _player.transform.position.y - 5, 0);
+            _lightOff.transform.position = new Vector3(_player.transform.position.x + 10, _player.transform.position.y - 4, 0);
             _lightOff.SetActive(true);
         }
     }
@@ -176,7 +182,15 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnUmbra(-68f, 2.2f);
         _spawnManager.SpawnUmbra(41.15f, -3.81f);
         _spawnManager.SpawnLux(10.6f, 3.2f);
-        //_spawnManager.SpawnUmbra(94f, 0.36f);
+        _spawnManager.SpawnUmbra(112.93f, 1.2f);
+        _spawnManager.SpawnUmbra(125.98f, 1.92f);
+        _spawnManager.SpawnUmbra(133.34f, 2.15f);
+        _spawnManager.SpawnUmbra(240.05f, -0.16f);
+        _spawnManager.SpawnLux(174.19f, 1.21f);
+        _spawnManager.SpawnLux(181.35f, 4.71f);
+        _spawnManager.SpawnLux(200.04f, -2.6f);
+        _spawnManager.SpawnLux(202.73f, -2.6f);
+        _spawnManager.SpawnLux(273.2f, -3.56f);
         /* Collectables */
         _spawnManager.SpawnFlashCharge(-59f, -0.15f);
         _spawnManager.SpawnFlashCharge(-54f, 0f);
@@ -184,9 +198,15 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(-9.4f, -1.32f);
         _spawnManager.SpawnFlashCharge(-94.04f, -2.76f);
         _spawnManager.SpawnFlashCharge(25.04f, -6.4f);
+        _spawnManager.SpawnFlashCharge(13.08f, -6.37f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
         _spawnManager.SpawnBattery(-74.12f, -0.85f);
         _spawnManager.SpawnBattery(75.88f, -3.55f);
+        _spawnManager.SpawnFlashCharge(178.55f, 1.66f);
+        _spawnManager.SpawnFlashCharge(158f, -0.7f);
+        _spawnManager.SpawnBattery(151.28f, -0.97f);
+        _spawnManager.SpawnFlashCharge(139.5f, -0.88f);
+        _spawnManager.SpawnFlashCharge(122f, -0.138f);
     }
 
     IEnumerator LightningRoutine() {

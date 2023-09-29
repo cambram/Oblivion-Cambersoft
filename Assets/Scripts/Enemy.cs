@@ -127,9 +127,13 @@ public class Enemy : MonoBehaviour
                 }
             }
             if (_distance < 13 && _lightSources.GetIsFlashCameraActive()) { // change to 7
-                if (_direction.x < 0 && _player.GetDirection()) {
-                    KillEnemy();
-                } else if (_direction.x > 0 && !_player.GetDirection()) {
+                if (_lightSources.GetCurrentLightSource() == 0) {
+                    if (_direction.x < 0 && _player.GetDirection()) {
+                        KillEnemy();
+                    } else if (_direction.x > 0 && !_player.GetDirection()) {
+                        KillEnemy();
+                    }
+                } else {
                     KillEnemy();
                 }
             }
@@ -150,15 +154,6 @@ public class Enemy : MonoBehaviour
                         break;
                 }
             }
-        } else if (collision.CompareTag("Enemy")) {
-            //this.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-500, 500), 0));
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision) {
-        if (collision.CompareTag("Enemy")) {
-            //Debug.Log("STAY");
-            //this.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-500, 500), 0));
         }
     }
 
@@ -247,7 +242,12 @@ public class Enemy : MonoBehaviour
     }
 
     private void PlayEnemyNoise() {
-        _enemyNoiseSource.Play();
+        int rand = (int) Random.Range(1, 4 );
+        Debug.Log(rand);
+        if(rand == 1 || rand == 2) { 
+            _enemyNoiseSource.pitch = Random.Range(0.8f, 1.1f);
+            _enemyNoiseSource.Play(); 
+        }
     }
 
     IEnumerator DestroyGameObject(float seconds) {
