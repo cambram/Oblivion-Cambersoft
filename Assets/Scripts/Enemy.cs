@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     private Player _player;
     private PlayerLightSources _lightSources;
     private float _speed = 4f, _distance;
+    private float _slowSpeed = 2f, _fastSpeed = 4f;
     [SerializeField]
     private int _enemyID; //0 = umbra; 1 = lux
 
@@ -30,7 +31,17 @@ public class Enemy : MonoBehaviour
         _player = GameObject.Find("Player").GetComponent<Player>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _enemyAnim = GetComponent<Animator>();
-        _enemyEyes.GetComponent<Light2D>().intensity = 0.07f;
+        _enemyEyes.GetComponent<Light2D>().intensity = 0.1f;
+        switch (_enemyID) {
+            case 0:
+                _slowSpeed = Random.Range(2, 4);
+                _fastSpeed = Random.Range(4, 6);
+                break;
+            case 1:
+                _slowSpeed = Random.Range(0.5f, 1f);
+                _fastSpeed = Random.Range(5, 8);
+                break;
+        }
     }
 
     void Update() {
@@ -49,7 +60,7 @@ public class Enemy : MonoBehaviour
     private void Umbra() {
         _distance = Vector3.Distance(this.transform.position, _player.transform.position);
         Vector3 _direction = _player.transform.position - this.transform.position;
-        if (!_disableNoise && _distance <= 30) {
+        if (!_disableNoise && _distance <= Random.Range(22, 31)) {
             _disableNoise = true;
             PlayEnemyNoise();
         }
@@ -64,7 +75,7 @@ public class Enemy : MonoBehaviour
             } else { // if player flashlight is off, enemy approaches
                 _enemyEyes.GetComponent<Light2D>().intensity = 9f;
                 _enemyAnim.ResetTrigger("Afraid");
-                _speed = 4f;
+                _speed = _fastSpeed;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                 if (_direction.x < 0) {
                     transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
@@ -89,15 +100,15 @@ public class Enemy : MonoBehaviour
     private void Lux() {
         _distance = Vector3.Distance(this.transform.position, _player.transform.position);
         Vector3 _direction = _player.transform.position - this.transform.position;
-        if (!_disableNoise && _distance <= 30) {
+        if (!_disableNoise && _distance <= Random.Range(22, 31)) {
             _disableNoise = true;
             PlayEnemyNoise();
         }
         if (_distance < 30 && !_isDead) {
             if (_lightSources.GetIsAnyLightActive()) { // if player flashlight is on, lux approches
-                _enemyEyes.GetComponent<Light2D>().intensity = 2f;
+                _enemyEyes.GetComponent<Light2D>().intensity = 0.1f;
                 _enemyAnim.SetTrigger("Approach");
-                _speed = 5f;
+                _speed = _fastSpeed;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                 if (_direction.x < 0) {
                     transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
@@ -105,9 +116,9 @@ public class Enemy : MonoBehaviour
                     transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 }
             } else { // if player flashlight is off, lux approaches very slowly
-                _enemyEyes.GetComponent<Light2D>().intensity = 0.05f;
+                _enemyEyes.GetComponent<Light2D>().intensity = 2f;
                 _enemyAnim.ResetTrigger("Approach");
-                _speed = 0.5f;
+                _speed = _slowSpeed;
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
                 if (_direction.x < 0) {
                     transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
@@ -161,7 +172,7 @@ public class Enemy : MonoBehaviour
                 CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
                 _enemyEyes.GetComponent<Light2D>().intensity = 9f;
-                _speed = 4f;
+                _speed = _fastSpeed;
                 _enemyAnim.ResetTrigger("Afraid");
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -175,7 +186,7 @@ public class Enemy : MonoBehaviour
                 CorrectUmbraSpriteDirection(dir, 12, 14);
             } else {
                 _enemyEyes.GetComponent<Light2D>().intensity = 9f;
-                _speed = 4f;
+                _speed = _fastSpeed;
                 _enemyAnim.ResetTrigger("Afraid");
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position, _speed * Time.deltaTime);
@@ -201,25 +212,25 @@ public class Enemy : MonoBehaviour
         if (dir.x < 0) {
             if (this.transform.position.x > _player.transform.position.x + beamDistInner
                     && this.transform.position.x < _player.transform.position.x + beamDistOuter) { // if the enemy is on the edge of the flashlight beam
-                _speed = 2f; //if (flashlight)
+                _speed = _slowSpeed; //if (flashlight)
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x < _player.transform.position.x + beamDistInner) { // if the enemy is within the flashlight beam
-                _speed = 4f;
+                _speed = _fastSpeed;
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x > _player.transform.position.x + beamDistOuter) { // if the enemy is far right of the flashlight beam
-                _speed = 4f;
+                _speed = _fastSpeed;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
             }
         } else if (dir.x >= 0) {
             if (this.transform.position.x < _player.transform.position.x - beamDistInner
                     && this.transform.position.x > _player.transform.position.x - beamDistOuter) { // if the enemy is on the edge of the flashlight beam
-                _speed = 2f;
+                _speed = _slowSpeed;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x > _player.transform.position.x - beamDistInner) { // if the enemy is within the flashlight beam
-                _speed = 4f;
+                _speed = _fastSpeed;
                 transform.localScale = new Vector3(-0.29428f, 0.29428f, 0.29428f);
             } else if (this.transform.position.x < _player.transform.position.x - beamDistOuter) { // if the enemy is far left of the flashlight beam
-                _speed = 4f;
+                _speed = _fastSpeed;
                 transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
             }
         }

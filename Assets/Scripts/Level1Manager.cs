@@ -14,7 +14,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false;
+    private bool _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -78,7 +78,14 @@ public class Level1Manager : MonoBehaviour
                 _uiManager.FadeOut(3);
             }
 
-            if( _player.transform.position.x > -42 && !_logFallen) {
+            if (_player.transform.position.x > 0 && !_secondLuxEncounter) {
+                _secondLuxEncounter = true;
+                _spawnManager.SpawnLux(-10.67f, 0.44f);
+                _spawnManager.SpawnLux(-13.22f, 0.56f);
+                _spawnManager.SpawnLux(-15.8f, 0.23f);
+            }
+
+            if ( _player.transform.position.x > -42 && !_logFallen) {
                 _logFallen = true;
                 _woodLog.GetComponent<AudioSource>().clip = _woodLogCrack;
                 _woodLog.GetComponent<AudioSource>().Play();
@@ -115,6 +122,7 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > 34 && !_umbraCaveApproaches) {
                 _umbraCaveApproaches = true;
                 _spawnManager.SpawnUmbra(15f, -3.6f);
+                _spawnManager.SpawnLux(13f, -3.6f);
             }
 
             if (_player.transform.position.x > 85 && !_lightningStrike) {
@@ -130,7 +138,7 @@ public class Level1Manager : MonoBehaviour
     public void PlayLightOffInstruction() {
         if (!_luxApproaches) {
             _luxApproaches = true;
-            _lightOff.transform.position = new Vector3(_player.transform.position.x + 10, _player.transform.position.y - 2, 0);
+            _lightOff.transform.position = new Vector3(_player.transform.position.x + 10, _player.transform.position.y - 5, 0);
             _lightOff.SetActive(true);
         }
     }
@@ -164,7 +172,9 @@ public class Level1Manager : MonoBehaviour
         /* Enemies */
         _spawnManager.SpawnUmbra(88f, -0.3f);
         _spawnManager.SpawnUmbra(91f, -0.3f);
-        _spawnManager.SpawnUmbra(-80f, -2.2f);
+        _spawnManager.SpawnUmbra(-80f, 2.2f);
+        _spawnManager.SpawnUmbra(-68f, 2.2f);
+        _spawnManager.SpawnUmbra(41.15f, -3.81f);
         _spawnManager.SpawnLux(10.6f, 3.2f);
         //_spawnManager.SpawnUmbra(94f, 0.36f);
         /* Collectables */
@@ -173,7 +183,10 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(46.47f, -5.64f);
         _spawnManager.SpawnFlashCharge(-9.4f, -1.32f);
         _spawnManager.SpawnFlashCharge(-94.04f, -2.76f);
+        _spawnManager.SpawnFlashCharge(25.04f, -6.4f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
+        _spawnManager.SpawnBattery(-74.12f, -0.85f);
+        _spawnManager.SpawnBattery(75.88f, -3.55f);
     }
 
     IEnumerator LightningRoutine() {

@@ -927,9 +927,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '     MASTER
-
-'
+  m_Text: '     MASTER'
 --- !u!222 &195007454
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1754,7 +1752,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '     LEVEL  1'
+  m_Text: '     LEVEL I'
 --- !u!222 &711300841
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1834,9 +1832,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '     MUSIC
-
-'
+  m_Text: '     MUSIC'
 --- !u!222 &715117672
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2446,9 +2442,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '     ENVIRONMENT
-
-'
+  m_Text: '     ENVIRONMENT'
 --- !u!222 &880200058
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5102,7 +5096,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
