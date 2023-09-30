@@ -13,7 +13,12 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(2);
     }
- 
+
+    public void RestartLevelTwo() {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(3);
+    }
+
     public void BackToMainMenu() {
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(0);

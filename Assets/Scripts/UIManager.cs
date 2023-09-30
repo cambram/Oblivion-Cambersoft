@@ -145,6 +145,11 @@ public class UIManager : MonoBehaviour
                 _environment.GetComponent<Animator>().SetTrigger("FadeOut");
                 StartCoroutine(LoadLevelOneRoutine());
                 break;
+            case 4:
+                _fadeOutAnim.SetTrigger("FadeOut");
+                _environment.GetComponent<Animator>().SetTrigger("FadeOut");
+                StartCoroutine(LoadLevelTwoRoutine());
+                break;
             default: break;
         }
     }
@@ -161,5 +166,10 @@ public class UIManager : MonoBehaviour
     IEnumerator LoadLevelOneRoutine() {
         yield return new WaitForSeconds(1);
         _gameManager.RestartLevelOne();
+    }
+
+    IEnumerator LoadLevelTwoRoutine() {
+        yield return new WaitForSeconds(1);
+        _gameManager.RestartLevelTwo();
     }
 }

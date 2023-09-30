@@ -141,6 +141,20 @@ public class Level1Manager : MonoBehaviour
         }
     }
 
+    private void PlayerDeath() { //call this method instead of kill player from enemy script using current build index to see which level to call the methdo on
+        if(_player.transform.position.x < _checkpoint1.x) {
+            _uiManager.FadeOut(3);
+        } else if(_player.transform.position.x >= _checkpoint1.x && _player.transform.position.x < _checkpoint2.x) {
+            _player.transform.position = _checkpoint1;
+        } else if (_player.transform.position.x >= _checkpoint2.x && _player.transform.position.x < _checkpoint3.x) {
+            _player.transform.position = _checkpoint2;
+        } else if (_player.transform.position.x >= _checkpoint3.x && _player.transform.position.x < _checkpoint4.x) {
+            _player.transform.position = _checkpoint3;
+        } else if (_player.transform.position.x >= _checkpoint4.x) {
+            _player.transform.position = _checkpoint4;
+        }  
+    }
+
     public void PlayLightOffInstruction() {
         if (!_luxApproaches) {
             _luxApproaches = true;

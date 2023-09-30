@@ -47,6 +47,11 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(StartGameRoutine(2));
     }
 
+    public void StartLevelTwo() {
+        _animator.SetTrigger("FadeOut");
+        StartCoroutine(StartGameRoutine(3));
+    }
+
     public void QuitGame() {
         Application.Quit();
     }

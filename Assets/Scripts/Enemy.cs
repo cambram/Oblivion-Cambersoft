@@ -243,7 +243,6 @@ public class Enemy : MonoBehaviour
 
     private void PlayEnemyNoise() {
         int rand = (int) Random.Range(1, 4 );
-        Debug.Log(rand);
         if(rand == 1 || rand == 2) { 
             _enemyNoiseSource.pitch = Random.Range(0.8f, 1.1f);
             _enemyNoiseSource.Play(); 
