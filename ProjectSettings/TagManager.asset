@@ -9,6 +9,7 @@ TagManager:
   - Instruction
   - LogImpact
   - Enemy
+  - EnemyNoGo
   layers:
   - Default
   - TransparentFX

@@ -154,6 +154,11 @@ public class Enemy : MonoBehaviour
                         break;
                 }
             }
+        } else if (collision.CompareTag("EnemyNoGo")) {
+            /*if (!_isDead) {
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y);
+                _enemyAnim.ResetTrigger("Walking");
+            }*/
         }
     }
 
