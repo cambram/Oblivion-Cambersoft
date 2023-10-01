@@ -13,7 +13,7 @@ public class Level2Manager : MonoBehaviour
 
     void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _player.transform.position = new Vector3(-119, -1.2f, 0);
+        _player.transform.position = new Vector3(-125, -1.2f, 0);
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _camera = Camera.main;
     }
@@ -28,8 +28,8 @@ public class Level2Manager : MonoBehaviour
     }
 
     private void ConstrainCamera() {
-        if (_player.transform.position.x < -113) {
-            _camera.transform.position = new Vector3(-108, 0, -10);
+        if (_player.transform.position.x < -121) {
+            _camera.transform.position = new Vector3(-116, 0, -10);
         } else if (_player.transform.position.x > 275) { //105
             _camera.transform.position = new Vector3(280, 0, -10);
         } else {

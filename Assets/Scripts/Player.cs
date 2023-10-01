@@ -29,6 +29,8 @@ public class Player : MonoBehaviour{
     private AudioClip _jumpLandClip;
     [SerializeField]
     private AudioClip _jumpTakeoffClip;
+    [SerializeField]
+    private GameObject _deathAudioSource;
 
     private void Start() {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -44,6 +46,7 @@ public class Player : MonoBehaviour{
             if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
                 JumpSequence();
             }
+            _deathAudioSource.transform.position = this.transform.position;
         }
     }
 
@@ -148,6 +151,7 @@ public class Player : MonoBehaviour{
     }
 
     public void KillPlayer() {
+        _deathAudioSource.GetComponent<AudioSource>().Play();
         switch (SceneManager.GetActiveScene().buildIndex) {
             case 1:
                 _uiManager.FadeOut(2);

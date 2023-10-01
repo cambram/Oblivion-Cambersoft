@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
                 _fastSpeed = Random.Range(4, 6);
                 break;
             case 1:
-                _slowSpeed = Random.Range(0.5f, 1f);
+                _slowSpeed = 0;
                 _fastSpeed = Random.Range(5, 8);
                 break;
         }
@@ -190,6 +190,7 @@ public class Enemy : MonoBehaviour
     }
 
     private void CalculateCorrectEnemyMovementLantern(Vector3 dir) {
+        _enemyEyes.GetComponent<Light2D>().intensity = 0.3f;
         if (dir.x < 0) { // if enemy is to the right of the player
             _enemyAnim.SetTrigger("Afraid");
             this.transform.position = Vector3.MoveTowards(this.transform.position, _player.transform.position

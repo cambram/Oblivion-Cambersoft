@@ -31,6 +31,10 @@ public class PlayerLightSources : MonoBehaviour {
     private GameObject _batteryLife;
     [SerializeField]
     private Animator _batteryLifeAnim;
+    [SerializeField]
+    private GameObject _flashChargeIndicator;
+    [SerializeField]
+    private GameObject [] _flashChargeHUDIcons;
 
     private Player _player;
 
@@ -67,6 +71,8 @@ public class PlayerLightSources : MonoBehaviour {
         _FC.SetActive(false);
         _batteryLife.GetComponent<Slider>().value = _BATTERY;
         _batteryLife.SetActive(false);
+        //_flashChargeIndicator.SetActive(false);
+        IndicateFlashCharges();
         _batteryCount = _BATTERY; // 1 battery = 400 units
         if (_lantern != null) {
             _lanternSprite.SetActive(false);
@@ -92,7 +98,6 @@ public class PlayerLightSources : MonoBehaviour {
                 _swingingLanternAnim.ResetTrigger("Swinging");
             }
         }
-        IndicateFlashCharge();
 
         if (!_uiManager.GetIsPaused()) {        
             if(_lantern != null && Input.GetKeyDown(KeyCode.W) && !_lanternDisabled) {
@@ -119,28 +124,6 @@ public class PlayerLightSources : MonoBehaviour {
 
     public void SetLanternDisabled(bool x) {
         _lanternDisabled = x;
-    }
-
-    private void IndicateFlashCharge() {
-        if (_flashChargeCount > 0 && !_toggleFC) {
-            if (_currentLightSource == 0) {
-                _toggleFC = true;
-                //_FC.transform.position = new Vector3(_player.transform.position.x + 0.4984f, _player.transform.position.y + 0.132995f);
-                _FC.SetActive(true);
-            } else {
-                //_FC.transform.position = new Vector3(2.46f, -2.47f);
-                _toggleFC = true;
-                _FC.SetActive(false);
-            }
-        } else if (_flashChargeCount <= 0 && _toggleFC) {
-            if (_currentLightSource == 0) {
-                _toggleFC = false;
-                _FC.SetActive(false);
-            } else {
-                _toggleFC = false;
-                _FC.SetActive(false);
-            }
-        }
     }
 
     /// <summary>
@@ -208,6 +191,7 @@ public class PlayerLightSources : MonoBehaviour {
 
     public void CollectFlashCharge() {
         _flashChargeCount++;
+        IndicateFlashCharges();
     }
 
     public void FlickerFlashlight(int light) {
@@ -269,6 +253,7 @@ public class PlayerLightSources : MonoBehaviour {
     /// <param name="x">true = on; false = off</param>
     public void Flashlight(bool x) {
         _batteryLife.SetActive(x);
+        //_flashChargeIndicator.SetActive(x);
         if (!x) _batteryLifeAnim.SetTrigger("FadeOut");
         switch (_currentLightSource) {
             case 0:
@@ -301,6 +286,7 @@ public class PlayerLightSources : MonoBehaviour {
             _isFlashCameraActive = true;
             StartCoroutine(FlashCameraOffRoutine());
         }
+        IndicateFlashCharges();
     }
 
     //IEnumerators
@@ -339,6 +325,68 @@ public class PlayerLightSources : MonoBehaviour {
             } else {
                 yield break;
             }
+        }
+    }
+
+    private void IndicateFlashCharges() {
+        switch (_flashChargeCount) {
+            case 0:
+                _flashChargeHUDIcons[0].SetActive(false);
+                _flashChargeHUDIcons[1].SetActive(false);
+                _flashChargeHUDIcons[2].SetActive(false);
+                _flashChargeHUDIcons[3].SetActive(false);
+                _flashChargeHUDIcons[4].SetActive(false);
+                _flashChargeHUDIcons[5].SetActive(false);
+                break;
+            case 1:
+                _flashChargeHUDIcons[0].SetActive(true);
+                _flashChargeHUDIcons[1].SetActive(false);
+                _flashChargeHUDIcons[2].SetActive(false);
+                _flashChargeHUDIcons[3].SetActive(false);
+                _flashChargeHUDIcons[4].SetActive(false);
+                _flashChargeHUDIcons[5].SetActive(false);
+                break;
+            case 2:
+                _flashChargeHUDIcons[0].SetActive(true);
+                _flashChargeHUDIcons[1].SetActive(true);
+                _flashChargeHUDIcons[2].SetActive(false);
+                _flashChargeHUDIcons[3].SetActive(false);
+                _flashChargeHUDIcons[4].SetActive(false);
+                _flashChargeHUDIcons[5].SetActive(false);
+                break;
+            case 3:
+                _flashChargeHUDIcons[0].SetActive(true);
+                _flashChargeHUDIcons[1].SetActive(true);
+                _flashChargeHUDIcons[2].SetActive(true);
+                _flashChargeHUDIcons[3].SetActive(false);
+                _flashChargeHUDIcons[4].SetActive(false);
+                _flashChargeHUDIcons[5].SetActive(false);
+                break;
+            case 4:
+                _flashChargeHUDIcons[0].SetActive(true);
+                _flashChargeHUDIcons[1].SetActive(true);
+                _flashChargeHUDIcons[2].SetActive(true);
+                _flashChargeHUDIcons[3].SetActive(true);
+                _flashChargeHUDIcons[4].SetActive(false);
+                _flashChargeHUDIcons[5].SetActive(false);
+                break;
+            case 5:
+                _flashChargeHUDIcons[0].SetActive(true);
+                _flashChargeHUDIcons[1].SetActive(true);
+                _flashChargeHUDIcons[2].SetActive(true);
+                _flashChargeHUDIcons[3].SetActive(true);
+                _flashChargeHUDIcons[4].SetActive(true);
+                _flashChargeHUDIcons[5].SetActive(false);
+                break;
+            case 6:
+                _flashChargeHUDIcons[0].SetActive(true);
+                _flashChargeHUDIcons[1].SetActive(true);
+                _flashChargeHUDIcons[2].SetActive(true);
+                _flashChargeHUDIcons[3].SetActive(true);
+                _flashChargeHUDIcons[4].SetActive(true);
+                _flashChargeHUDIcons[5].SetActive(true);
+                break;
+            default: break;
         }
     }
 }

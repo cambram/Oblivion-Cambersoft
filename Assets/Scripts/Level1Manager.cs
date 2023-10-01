@@ -198,8 +198,8 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnUmbra(240.05f, -0.16f);
         _spawnManager.SpawnLux(174.19f, 1.21f);
         _spawnManager.SpawnLux(181.35f, 4.71f);
-        _spawnManager.SpawnLux(200.04f, -2.6f);
-        _spawnManager.SpawnLux(202.73f, -2.6f);
+        _spawnManager.SpawnLux(203.2f, -3f);
+        _spawnManager.SpawnLux(206.84f, -3f);
         _spawnManager.SpawnLux(273.2f, -3.56f);
         /* Collectables */
         _spawnManager.SpawnFlashCharge(-59f, -0.15f);
