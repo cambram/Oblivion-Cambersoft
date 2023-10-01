@@ -46,6 +46,7 @@ public class TutorialManager : MonoBehaviour
     private SpawnManager _spawnManager;
     private UIManager _uiManager;
     private GameObject _environment;
+    private SuspenseAudioManager _suspenseAudioManager;
     //private Vector3 _checkpoint1, _checkpoint2;
 
     private Vector2 _caveCutoff1 = new Vector2(4, 22000);
@@ -61,6 +62,7 @@ public class TutorialManager : MonoBehaviour
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _environment = GameObject.Find("Environment");
+        _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
         _player.transform.position = new Vector3(-77, -1.7f, 0);
         //_checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
         //_checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
@@ -112,6 +114,7 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > -20 && !_jumpInstructionShow) {
                 _jumpInstructionShow = true;
                 _space.SetActive(true);
+                _suspenseAudioManager.PlaySuspense1();
             }
 
             //Fade out jump instruction

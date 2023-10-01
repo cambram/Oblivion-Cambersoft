@@ -15,6 +15,7 @@ public class Level1Manager : MonoBehaviour
     private bool _respawn = false;
 
     private bool _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
+    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -42,6 +43,7 @@ public class Level1Manager : MonoBehaviour
 
     [SerializeField]
     private GameObject _woodLog;
+    private SuspenseAudioManager _suspenseAudioManager;
 
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
@@ -67,6 +69,7 @@ public class Level1Manager : MonoBehaviour
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _environment = GameObject.Find("Environment");
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
+        _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
         _player.transform.position = new Vector3(-119, -2, 0);
         _lightSources.SetLanternDisabled(true);
         InitialisePrefabsForLevel();
@@ -92,6 +95,24 @@ public class Level1Manager : MonoBehaviour
             if ( _player.transform.position.x > -42 && !_logFallen) {
                 _logFallen = true;
                 _woodLog.GetComponent<Rigidbody2D>().gravityScale = 1;
+            }
+
+            if(_player.transform.position.x > -86 && !_soundEffect1) {
+                _soundEffect1 = true;
+                _suspenseAudioManager.PlaySuspense1();
+            }
+            if (_player.transform.position.x > 36 && !_soundEffect2) {
+                _soundEffect2 = true;
+                _suspenseAudioManager.PlaySuspense2();
+            }
+            if (_player.transform.position.x > 112 && !_soundEffect3) {
+                _suspenseAudioManager.transform.position = new Vector3(100, 0);
+                _soundEffect3 = true;
+                _suspenseAudioManager.PlaySuspense1();
+            }
+            if (_player.transform.position.x > 200 && !_soundEffect4) {
+                _soundEffect4 = true;
+                _suspenseAudioManager.PlaySuspense2();
             }
 
             if (_player.transform.position.x > -77 && !_secondEncounter) {

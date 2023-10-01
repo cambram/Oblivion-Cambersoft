@@ -20,8 +20,6 @@ public class PlayerLightSources : MonoBehaviour {
     [SerializeField]
     private GameObject _lanternChargeLight;
     [SerializeField]
-    private GameObject _FC;
-    [SerializeField]
     private Animator _flickerFlashlightAnim;
     [SerializeField]
     private Animator _flickerLanternAnim;
@@ -68,7 +66,6 @@ public class PlayerLightSources : MonoBehaviour {
         _flashlight.SetActive(false);
         _flashlightChargeLight.SetActive(false);
         _flashlightSprite.SetActive(true);
-        _FC.SetActive(false);
         _batteryLife.GetComponent<Slider>().value = _BATTERY;
         _batteryLife.SetActive(false);
         //_flashChargeIndicator.SetActive(false);
