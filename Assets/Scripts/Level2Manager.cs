@@ -8,7 +8,7 @@ public class Level2Manager : MonoBehaviour
 {
     private Player _player;
     private Camera _camera;
-    private bool _respawn = false, _soundEffect1 = false;
+    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false;
     private SuspenseAudioManager _suspenseAudioManager;
     private SpawnManager _spawnManager;
 
@@ -38,6 +38,20 @@ public class Level2Manager : MonoBehaviour
             _soundEffect1 = true;
             _suspenseAudioManager.PlaySuspense2();
         }
+
+        if (_player.transform.position.x > 83 && !_umbraAttack) {
+            _umbraAttack = true;
+            _suspenseAudioManager.PlaySuspense1();
+            _spawnManager.SpawnUmbra(61.67f, 2.76f);
+            _spawnManager.SpawnUmbra(63.91f, 2.55f);
+            _spawnManager.SpawnUmbra(66.17f, 2.63f);
+        }
+
+        if (_player.transform.position.x > 122 && !_surpriseAttack) {
+            _surpriseAttack = true;
+            _suspenseAudioManager.PlaySuspense1();
+            _spawnManager.SpawnUmbra(105f, 2.5f);
+        }
     }
 
     private void ConstrainCamera() {
@@ -63,6 +77,12 @@ public class Level2Manager : MonoBehaviour
         _spawnManager.SpawnLux(-58.57f, 3.88f);
         _spawnManager.SpawnLux(-64f, 3.45f);
 
+        _spawnManager.SpawnUmbra(114.06f, 2.66f);
+        _spawnManager.SpawnUmbra(111.04f, 2.33f);
+        _spawnManager.SpawnLux(103.53f, 1.32f);
+        _spawnManager.SpawnLux(118.35f, 2.12f);
+        _spawnManager.SpawnLux(116.13f, 2.32f);
+
         /* Collectables */
         _spawnManager.SpawnBattery(-12f, -2.33f);
         _spawnManager.SpawnFlashCharge(-6.46f, -2.29f);
@@ -72,5 +92,10 @@ public class Level2Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(-57.17f, 2.32f);
         _spawnManager.SpawnFlashCharge(-107.66f, -1f);
         _spawnManager.SpawnFlashCharge(51.39f, -0.21f);
+        _spawnManager.SpawnFlashCharge(-37.63f, 1.43f);
+        _spawnManager.SpawnFlashCharge(-95.1f, -3.74f);
+        _spawnManager.SpawnFlashCharge(42.45f, -0.23f);
+        _spawnManager.SpawnFlashCharge(58.18f, 0f);
+        _spawnManager.SpawnFlashCharge(44.29f, -0.22f);
     }
 }

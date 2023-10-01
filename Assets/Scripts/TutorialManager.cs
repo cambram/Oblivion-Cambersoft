@@ -47,7 +47,7 @@ public class TutorialManager : MonoBehaviour
     private UIManager _uiManager;
     private GameObject _environment;
     private SuspenseAudioManager _suspenseAudioManager;
-    //private Vector3 _checkpoint1, _checkpoint2;
+    private GameManager _gameManager;
 
     private Vector2 _caveCutoff1 = new Vector2(4, 22000);
     private Vector2 _caveCutoff2 = new Vector2(14, 1000);
@@ -63,9 +63,12 @@ public class TutorialManager : MonoBehaviour
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _environment = GameObject.Find("Environment");
         _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
-        _player.transform.position = new Vector3(-77, -1.7f, 0);
-        //_checkpoint1 = new Vector3(-10.4f, 2.7f, 0);
-        //_checkpoint2 = new Vector3(-1.84f, -1.44f, 0);
+        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        //if(_gameManager.GetCurrentCheckpoint() == Vector3.z) {
+            _player.transform.position = new Vector3(-77, -1.7f, 0);
+        //} else {
+        //    _player.transform.position = _gameManager.GetCurrentCheckpoint(); //new Vector3(-77, -1.7f, 0);
+        //}
         InitialisePrefabsForLevel();
         SetAllInstructionsActiveFalse();
         StartCoroutine(FlashlightInstruction());
