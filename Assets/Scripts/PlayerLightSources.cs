@@ -115,9 +115,6 @@ public class PlayerLightSources : MonoBehaviour {
                 FlashCamera();
             }
         }
-            //Mouse follow action
-            /*Vector3 mpos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-            _flashlight.transform.eulerAngles = new Vector3(0, 0, mpos.y*130);*/
     }
 
     public void SetLanternDisabled(bool x) {
