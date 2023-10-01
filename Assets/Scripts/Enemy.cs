@@ -149,7 +149,6 @@ public class Enemy : MonoBehaviour
                         _player.KillPlayer();
                         break;
                     case 1:
-                        //_enemyAnim.ResetTrigger("Walking");
                         _player.KillPlayer();
                         break;
                 }
