@@ -16,7 +16,6 @@ public class WoodenLog : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("LogImpact")) {
-            this.GetComponent<AudioSource>().clip = _impactClip;
             this.GetComponent<AudioSource>().Play();
             _disableDeath = true;
         } else if (collision.CompareTag("Player")) {

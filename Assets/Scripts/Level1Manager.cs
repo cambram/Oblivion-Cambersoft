@@ -42,8 +42,6 @@ public class Level1Manager : MonoBehaviour
 
     [SerializeField]
     private GameObject _woodLog;
-    [SerializeField]
-    private AudioClip _woodLogCrack;
 
     private Vector2 _caveCutoff1 = new Vector2(13, 22000);
     private Vector2 _caveCutoff2 = new Vector2(25, 4000);
@@ -93,8 +91,6 @@ public class Level1Manager : MonoBehaviour
 
             if ( _player.transform.position.x > -42 && !_logFallen) {
                 _logFallen = true;
-                _woodLog.GetComponent<AudioSource>().clip = _woodLogCrack;
-                _woodLog.GetComponent<AudioSource>().Play();
                 _woodLog.GetComponent<Rigidbody2D>().gravityScale = 1;
             }
 
@@ -196,7 +192,7 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnUmbra(-68f, 2.2f);
         _spawnManager.SpawnUmbra(41.15f, -3.81f);
         _spawnManager.SpawnLux(10.6f, 3.2f);
-        _spawnManager.SpawnUmbra(112.93f, 1.2f);
+        //_spawnManager.SpawnUmbra(112.93f, 1.2f);
         _spawnManager.SpawnUmbra(125.98f, 1.92f);
         _spawnManager.SpawnUmbra(133.34f, 2.15f);
         _spawnManager.SpawnUmbra(240.05f, -0.16f);

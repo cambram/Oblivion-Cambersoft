@@ -63,6 +63,9 @@ public class Player : MonoBehaviour{
                     _uiManager.FadeOut(3);
                     break;
                 case 2:
+                    _uiManager.FadeOut(4);
+                    break;
+                case 3:
                     _uiManager.FadeOut(1);
                     break;
             }
