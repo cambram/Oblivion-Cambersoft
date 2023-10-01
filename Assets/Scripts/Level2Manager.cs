@@ -47,10 +47,10 @@ public class Level2Manager : MonoBehaviour
             _spawnManager.SpawnUmbra(66.17f, 2.63f);
         }
 
-        if (_player.transform.position.x > 122 && !_surpriseAttack) {
+        if (_player.transform.position.x > 112 && !_surpriseAttack) {
             _surpriseAttack = true;
             _suspenseAudioManager.PlaySuspense1();
-            _spawnManager.SpawnUmbra(105f, 2.5f);
+            _spawnManager.SpawnUmbra(97f, 2.5f);
         }
     }
 
