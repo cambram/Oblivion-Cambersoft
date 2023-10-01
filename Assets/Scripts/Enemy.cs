@@ -54,6 +54,9 @@ public class Enemy : MonoBehaviour
                     Lux();
                     break;
             }
+            if(this.transform.position.y < -15) {
+                KillEnemy();
+            }
         }
     }
 
@@ -153,12 +156,7 @@ public class Enemy : MonoBehaviour
                         break;
                 }
             }
-        } else if (collision.CompareTag("EnemyNoGo")) {
-            /*if (!_isDead) {
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y);
-                _enemyAnim.ResetTrigger("Walking");
-            }*/
-        }
+        } 
     }
 
     private void CalculateCorrectEnemyMovementFlashlight(Vector3 dir) {

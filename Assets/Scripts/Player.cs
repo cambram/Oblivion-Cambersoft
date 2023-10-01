@@ -159,6 +159,9 @@ public class Player : MonoBehaviour{
             case 2:
                 _uiManager.FadeOut(3);
                 break;
+            case 3:
+                _uiManager.FadeOut(4);
+                break;
         }
         Destroy(this.gameObject);
     }

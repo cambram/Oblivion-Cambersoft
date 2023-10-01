@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Level2Manager : MonoBehaviour
 {
@@ -27,30 +25,32 @@ public class Level2Manager : MonoBehaviour
     }
 
     void Update() {
-        ConstrainCamera();
+        if (_player != null) {
+            ConstrainCamera();
 
-        if (_player.transform.position.y < -12 && !_respawn) {
-            _respawn = true;
-            _uiManager.FadeOut(4);
-        }
+            if (_player.transform.position.y < -12 && !_respawn) {
+                _respawn = true;
+                _uiManager.FadeOut(4);
+            }
 
-        if(_player.transform.position.x > -107 && !_soundEffect1) {
-            _soundEffect1 = true;
-            _suspenseAudioManager.PlaySuspense2();
-        }
+            if (_player.transform.position.x > -107 && !_soundEffect1) {
+                _soundEffect1 = true;
+                _suspenseAudioManager.PlaySuspense2();
+            }
 
-        if (_player.transform.position.x > 83 && !_umbraAttack) {
-            _umbraAttack = true;
-            _suspenseAudioManager.PlaySuspense1();
-            _spawnManager.SpawnUmbra(61.67f, 2.76f);
-            _spawnManager.SpawnUmbra(63.91f, 2.55f);
-            _spawnManager.SpawnUmbra(66.17f, 2.63f);
-        }
+            if (_player.transform.position.x > 83 && !_umbraAttack) {
+                _umbraAttack = true;
+                _suspenseAudioManager.PlaySuspense1();
+                _spawnManager.SpawnUmbra(61.67f, 2.76f);
+                _spawnManager.SpawnUmbra(63.91f, 2.55f);
+                _spawnManager.SpawnUmbra(66.17f, 2.63f);
+            }
 
-        if (_player.transform.position.x > 112 && !_surpriseAttack) {
-            _surpriseAttack = true;
-            _suspenseAudioManager.PlaySuspense1();
-            _spawnManager.SpawnUmbra(97f, 2.5f);
+            if (_player.transform.position.x > 112 && !_surpriseAttack) {
+                _surpriseAttack = true;
+                _suspenseAudioManager.PlaySuspense1();
+                _spawnManager.SpawnUmbra(97f, 2.5f);
+            }
         }
     }
 
