@@ -235,12 +235,13 @@ public class Enemy : MonoBehaviour
     }
 
     private void KillEnemy() {
+        _enemyAnim.SetTrigger("Death");
         _enemyDeathSource.Play();
         _isDead = true;
         _enemyEyes.SetActive(false);
         Destroy(this.gameObject.GetComponent<Rigidbody2D>());
         this.gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DestroyGameObject(7.1f));
     }
 

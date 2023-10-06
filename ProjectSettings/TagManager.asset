@@ -9,7 +9,7 @@ TagManager:
   - Instruction
   - LogImpact
   - Enemy
-  - EnemyNoGo
+  - PreventDeath
   layers:
   - Default
   - TransparentFX
