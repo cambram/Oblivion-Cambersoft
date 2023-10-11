@@ -24,9 +24,9 @@ public class TutorialManager : MonoBehaviour
 
     //Left Click Instruction Variables
     [SerializeField]
-    private GameObject _K;
+    private GameObject _J;
     [SerializeField]
-    private Animator _KAnim;
+    private Animator _JAnim;
 
     //Right Click Instruction Variables
     [SerializeField]
@@ -82,7 +82,6 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > -48 && _bypassBattery) {
                 _lightSources.SetBypassBattery(false);
                 _bypassBattery = false;
-                Debug.Log("called");
                 if (_lightSources.GetIsFlashlightActive()) {
                     _lightSources.Flashlight(false);
                     _lightSources.Flashlight(true);
@@ -100,10 +99,10 @@ public class TutorialManager : MonoBehaviour
             }
 
             //remove flashlight instruction
-            if (Input.GetKeyDown(KeyCode.K) && !_flashlightInstructionComplete) {
+            if (Input.GetKeyDown(KeyCode.J) && !_flashlightInstructionComplete) {
                 _player.EnableMovement();
                 _flashlightInstructionComplete = true;
-                _KAnim.SetTrigger("FadeOut");
+                _JAnim.SetTrigger("FadeOut");
                 StartCoroutine(MovementInstruction());
             }
 
@@ -126,15 +125,15 @@ public class TutorialManager : MonoBehaviour
             if (_player.transform.position.x > -1 && !_jumpInstructionComplete) {
                 _jumpInstructionComplete = true;
                 _spaceAnim.SetTrigger("FadeOut");
-                _K.SetActive(false);
-                _K.transform.position = new Vector3(10f, -3.8f, 0);
-                _K.SetActive(true);
+                _J.SetActive(false);
+                _J.transform.position = new Vector3(10f, -3.8f, 0);
+                _J.SetActive(true);
             }
 
             //Show the right click icon to kill enemy (link this with flash charge somehow)
             if (_player.transform.position.x > 10 && !_scareOffEnemyInstruction) {
                 _scareOffEnemyInstruction = true;
-                _KAnim.SetTrigger("FadeOut");
+                _JAnim.SetTrigger("FadeOut");
                 _L.SetActive(true);
             }
 
@@ -168,7 +167,7 @@ public class TutorialManager : MonoBehaviour
         _A.SetActive(false);
         _D.SetActive(false);
         _space.SetActive(false);
-        _K.SetActive(false);
+        _J.SetActive(false);
         _L.SetActive(false);
     }
 
@@ -180,7 +179,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator FlashlightInstruction() {
         yield return new WaitForSeconds(0.5f);
-        _K.SetActive(true);
+        _J.SetActive(true);
     }
 
     IEnumerator MovementInstruction() {

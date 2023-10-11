@@ -97,12 +97,12 @@ public class PlayerLightSources : MonoBehaviour {
         }
 
         if (!_uiManager.GetIsPaused()) {        
-            if(_lantern != null && Input.GetKeyDown(KeyCode.W) && !_lanternDisabled) {
+            if(_lantern != null && Input.GetKeyDown(KeyCode.I) && !_lanternDisabled) {
                 _toggleFC = !_toggleFC;
                 Toggle();
             }
             BatteryChecker();
-            if (Input.GetKeyDown(KeyCode.K)) {
+            if (Input.GetKeyDown(KeyCode.J)) {
                 if (_isFlashlightActive || _isLanternActive) { // flashlight gets turned off
                     Flashlight(false);
                 } else { // flashlight gets turned on

@@ -19,9 +19,9 @@ public class Level1Manager : MonoBehaviour
 
     //A Instruction Variables
     [SerializeField]
-    private GameObject _W;
+    private GameObject _I;
     [SerializeField]
-    private Animator _WAnim;
+    private Animator _IAnim;
 
     //D Instruction Variables
     [SerializeField]
@@ -31,9 +31,9 @@ public class Level1Manager : MonoBehaviour
 
     //Left Click Instruction Variables
     [SerializeField]
-    private GameObject _K;
+    private GameObject _J;
     [SerializeField]
-    private Animator _KAnim;
+    private Animator _JAnim;
 
     //Lightning
     [SerializeField]
@@ -55,9 +55,9 @@ public class Level1Manager : MonoBehaviour
     void Start() {
         Cursor.visible = false;
         _camera = Camera.main;
-        _W.SetActive(false);
+        _I.SetActive(false);
         _lightOff.SetActive(false);
-        _K.SetActive(false);
+        _J.SetActive(false);
         _lightning.SetActive(true);
         _lightning.GetComponent<Light2D>().enabled = false;
         _checkpoint1 = new Vector3(-52.95f, 0.7f, 0);
@@ -116,20 +116,20 @@ public class Level1Manager : MonoBehaviour
             }
 
             if (_player.transform.position.x > -106 && !_lanternInstruction) {
-                _W.SetActive(true);
+                _I.SetActive(true);
                 _lightSources.SetLanternDisabled(false);
                 if (!_lightSources.GetIsAnyLightActive()) {
                     _kKeyEnabled = true;
-                    _K.SetActive(true);
+                    _J.SetActive(true);
                 }
                 _lanternInstruction = true;
             }
 
             if (_player.transform.position.x > -77 && !_secondEncounter) {
                 if(_lightSources.GetCurrentLightSource() == 0) {
-                    _W.SetActive(false);
-                    _W.transform.position = new Vector3(-74, -3);
-                    _W.SetActive(true);
+                    _I.SetActive(false);
+                    _I.transform.position = new Vector3(-74, -3);
+                    _I.SetActive(true);
                 }
                 _secondEncounter = true;
                 _spawnManager.SpawnUmbra(-54f, 2f);
@@ -146,9 +146,9 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > -65 && !_lanternComplete) {
                 _lanternComplete = true;
-                _WAnim.SetTrigger("FadeOut");
+                _IAnim.SetTrigger("FadeOut");
                 if(_kKeyEnabled) {
-                    _KAnim.SetTrigger("FadeOut");
+                    _JAnim.SetTrigger("FadeOut");
                 }
             }
 
