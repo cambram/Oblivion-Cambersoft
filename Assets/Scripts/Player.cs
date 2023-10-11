@@ -11,6 +11,7 @@ public class Player : MonoBehaviour{
     private bool _isJumpActive = false;
     private bool _direction = true; //true is facing right and false is facing left
     private bool _moving = false;
+    private bool _disableJump = false, _disableMovement = false;
     private Rigidbody2D _rigidbody;
     private Level1Manager _level1Manager;
     [SerializeField]
@@ -35,17 +36,18 @@ public class Player : MonoBehaviour{
     private void Start() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
-        if (SceneManager.GetActiveScene().buildIndex == 2) {
+        if (SceneManager.GetActiveScene().buildIndex == 1) {
+            _disableJump = true; 
+            _disableMovement = true;
+        } else if (SceneManager.GetActiveScene().buildIndex == 2) {
             _level1Manager = GameObject.Find("Level_1_Manager").GetComponent<Level1Manager>();
         }
-    }
+    } 
 
     private void Update() {
         if (!_uiManager.GetIsPaused()) {
-            CalculateMovement();
-            if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive) {
-                JumpSequence();
-            }
+            if (!_disableMovement) { CalculateMovement(); }            
+            if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive && !_disableJump) { JumpSequence(); }              
             _deathAudioSource.transform.position = this.transform.position;
         }
     }
@@ -84,6 +86,13 @@ public class Player : MonoBehaviour{
         } else if (collision.CompareTag("Instruction")) {
             _level1Manager.PlayLightOffInstruction();
         }
+    }
+
+    public void EnableJump() {
+        _disableJump = false;
+    }  
+    public void EnableMovement() {
+        _disableMovement = false;
     }
 
     public void JumpSequence() {

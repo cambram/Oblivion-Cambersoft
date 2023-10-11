@@ -35,7 +35,7 @@ public class TutorialManager : MonoBehaviour
     private Animator _LAnim;
 
     //Battery Variable
-    private bool _batteryBypass = true;
+    private bool _bypassBattery = true;
 
     private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionShow = false, _jumpInstructionComplete = false, _scareOffEnemyInstruction = false;
 
@@ -64,6 +64,7 @@ public class TutorialManager : MonoBehaviour
         _environment = GameObject.Find("Environment");
         _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _lightSources.SetBypassBattery(true);
         //if(_gameManager.GetCurrentCheckpoint() == Vector3.z) {
             _player.transform.position = new Vector3(-77, -1.7f, 0);
         //} else {
@@ -77,18 +78,17 @@ public class TutorialManager : MonoBehaviour
     void Update() {
         if (_player != null) {
             ConstrainCamera();
-            //battery bypass at beginning for battery dying instruction
-            if (_player.transform.position.x < -48 && _batteryBypass) {
-                _lightSources.CollectBattery();
-            }
 
-            if (_player.transform.position.x > -48 && _batteryBypass) {
+            if (_player.transform.position.x > -48 && _bypassBattery) {
+                _lightSources.SetBypassBattery(false);
+                _bypassBattery = false;
+                Debug.Log("called");
                 if (_lightSources.GetIsFlashlightActive()) {
-                    _batteryBypass = false;
+                    _lightSources.Flashlight(false);
+                    _lightSources.Flashlight(true);
                     _lightSources.FlickerFlashlight(0);
                 } else {
                     _lightSources.Flashlight(true);
-                    _batteryBypass = false;
                     _lightSources.FlickerFlashlight(0);
                 }                
             }
@@ -101,6 +101,7 @@ public class TutorialManager : MonoBehaviour
 
             //remove flashlight instruction
             if (Input.GetKeyDown(KeyCode.K) && !_flashlightInstructionComplete) {
+                _player.EnableMovement();
                 _flashlightInstructionComplete = true;
                 _KAnim.SetTrigger("FadeOut");
                 StartCoroutine(MovementInstruction());
@@ -116,6 +117,7 @@ public class TutorialManager : MonoBehaviour
             //Show jump instruction
             if (_player.transform.position.x > -20 && !_jumpInstructionShow) {
                 _jumpInstructionShow = true;
+                _player.EnableJump();
                 _space.SetActive(true);
                 _suspenseAudioManager.PlaySuspense1();
             }
@@ -156,9 +158,10 @@ public class TutorialManager : MonoBehaviour
         _spawnManager.SpawnUmbra(74f, 0.5f);
         _spawnManager.SpawnUmbra(69f, 1f);
         /* Collectables */
-        _spawnManager.SpawnFlashCharge(24.3f, -1.87f);
-        _spawnManager.SpawnFlashCharge(46.4f, -0.4f);
-        _spawnManager.SpawnBattery(-30.1f, -0.7f);
+        _spawnManager.SpawnFlashCharge(24.3f, -2.18f);
+        _spawnManager.SpawnFlashCharge(46.4f, -0.77f);
+        _spawnManager.SpawnFlashCharge(58.85f, -2.34f);
+        _spawnManager.SpawnBattery(-29.8f, -1.17f);
     }
 
     private void SetAllInstructionsActiveFalse() {

@@ -40,6 +40,7 @@ public class PlayerLightSources : MonoBehaviour {
     private int _flashChargeCount = 0;
     private int _currentLightSource = 0; //0 = flashlight, 1 = lantern;
     private bool _isFlashlightActive = false, _isLanternActive = false, _isFlashCameraActive = false, _toggleFC = false, _lanternDisabled = false;
+    private bool _bypassBattery = false;
 
     //Battery Percentage Variables
     private int _batteryCount;
@@ -68,7 +69,6 @@ public class PlayerLightSources : MonoBehaviour {
         _flashlightSprite.SetActive(true);
         _batteryLife.GetComponent<Slider>().value = _BATTERY;
         _batteryLife.SetActive(false);
-        //_flashChargeIndicator.SetActive(false);
         IndicateFlashCharges();
         _batteryCount = _BATTERY; // 1 battery = 400 units
         if (_lantern != null) {
@@ -117,6 +117,10 @@ public class PlayerLightSources : MonoBehaviour {
                 FlashCamera();
             }
         }
+    }
+
+    public void SetBypassBattery(bool x) {
+        _bypassBattery = x;
     }
 
     public void SetLanternDisabled(bool x) {
@@ -249,19 +253,17 @@ public class PlayerLightSources : MonoBehaviour {
     /// </summary>
     /// <param name="x">true = on; false = off</param>
     public void Flashlight(bool x) {
-        _batteryLife.SetActive(x);
-        //_flashChargeIndicator.SetActive(x);
-        if (!x) _batteryLifeAnim.SetTrigger("FadeOut");
+        if (!_bypassBattery) { _batteryLife.SetActive(x); }        
         switch (_currentLightSource) {
             case 0:
                 _isFlashlightActive = x;
                 _flashlight.SetActive(x);
-                if (x) StartCoroutine(BatteryCountdownRoutine());
+                if (x && !_bypassBattery) StartCoroutine(BatteryCountdownRoutine());
                 break;
             case 1:
                 _isLanternActive = x;
                 _lantern.SetActive(x);
-                if (x) StartCoroutine(BatteryCountdownRoutine());
+                if (x && !_bypassBattery) StartCoroutine(BatteryCountdownRoutine());
                 break;
             default: break;
         }
