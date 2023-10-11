@@ -14,7 +14,7 @@ public class Level1Manager : MonoBehaviour
     private PlayerLightSources _lightSources;
     private bool _respawn = false;
 
-    private bool _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
+    private bool _lanternInstruction = false, _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
     private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false;
 
     //A Instruction Variables
@@ -115,16 +115,26 @@ public class Level1Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense2();
             }
 
-            if (_player.transform.position.x > -77 && !_secondEncounter) {
+            if (_player.transform.position.x > -106 && !_lanternInstruction) {
                 _W.SetActive(true);
                 _lightSources.SetLanternDisabled(false);
-                if(!_lightSources.GetIsAnyLightActive()) {
+                if (!_lightSources.GetIsAnyLightActive()) {
                     _kKeyEnabled = true;
-                    _K.SetActive(true); 
+                    _K.SetActive(true);
+                }
+                _lanternInstruction = true;
+            }
+
+            if (_player.transform.position.x > -77 && !_secondEncounter) {
+                if(_lightSources.GetCurrentLightSource() == 0) {
+                    _W.SetActive(false);
+                    _W.transform.position = new Vector3(-74, -3);
+                    _W.SetActive(true);
                 }
                 _secondEncounter = true;
                 _spawnManager.SpawnUmbra(-54f, 2f);
                 _spawnManager.SpawnUmbra(-93f, 0.5f);
+                _spawnManager.SpawnUmbra(-95f, 1f);
             }
 
             if (_player.transform.position.x > 13 && _player.transform.position.x < 25) {
@@ -195,11 +205,9 @@ public class Level1Manager : MonoBehaviour
         /* Enemies */
         _spawnManager.SpawnUmbra(88f, -0.3f);
         _spawnManager.SpawnUmbra(91f, -0.3f);
-        _spawnManager.SpawnUmbra(-80f, 2.2f);
         _spawnManager.SpawnUmbra(-68f, 2.2f);
         _spawnManager.SpawnUmbra(41.15f, -3.81f);
         _spawnManager.SpawnLux(10.6f, 3.2f);
-        //_spawnManager.SpawnUmbra(112.93f, 1.2f);
         _spawnManager.SpawnUmbra(125.98f, 1.92f);
         _spawnManager.SpawnUmbra(133.34f, 2.15f);
         _spawnManager.SpawnUmbra(240.05f, -0.16f);
