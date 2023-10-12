@@ -30,6 +30,9 @@ public class UIManager : MonoBehaviour
     private Slider _soundFXSlider;
     [SerializeField]
     private Slider _musicSlider;
+    //private float _audioFeedbackVolume = 0;
+    [SerializeField]
+    private GameObject _feedbackVolume;
 
     void Start(){
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -122,8 +125,6 @@ public class UIManager : MonoBehaviour
         return _paused;
     }
 
-    //SceneManager.GetActiveScene().buildIndex
-
     /// <summary>
     /// Fades out from the game
     /// </summary>
@@ -171,5 +172,25 @@ public class UIManager : MonoBehaviour
     IEnumerator LoadLevelTwoRoutine() {
         yield return new WaitForSeconds(1);
         _gameManager.RestartLevelTwo();
+    }
+
+    public void MouseUpMasterVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _masterSlider.value/1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
+    }
+
+    public void MouseUpEnvironmentVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _environmentSlider.value / 1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
+    }
+
+    public void MouseUpSoundFXVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _soundFXSlider.value / 1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
+    }
+
+    public void MouseUpMusicVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _musicSlider.value / 1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
     }
 }
