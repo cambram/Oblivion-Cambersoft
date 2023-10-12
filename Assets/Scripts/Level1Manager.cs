@@ -12,6 +12,8 @@ public class Level1Manager : MonoBehaviour
     private GameObject _environment;
     private SpawnManager _spawnManager;
     private PlayerLightSources _lightSources;
+    [SerializeField]
+    private GameObject _caveDrips;
     private bool _respawn = false;
 
     private bool _lanternInstruction = false, _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
@@ -139,9 +141,11 @@ public class Level1Manager : MonoBehaviour
 
             if (_player.transform.position.x > 13 && _player.transform.position.x < 25) {
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff1, _caveCutoff2); //y = mx + b
+                _caveDrips.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(13, 0), new Vector2(25, 0.65f));
             }
             if (_player.transform.position.x > 76 && _player.transform.position.x < 87) {
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff3, _caveCutoff4); //y = mx + b
+                _caveDrips.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(76, 0.65f), new Vector2(87, 0));
             }
 
             if (_player.transform.position.x > -65 && !_lanternComplete) {
