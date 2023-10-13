@@ -27,6 +27,8 @@ public class MainMenu : MonoBehaviour
     private Slider _soundFXSlider;
     [SerializeField]
     private Slider _musicSlider;
+    [SerializeField]
+    private GameObject _feedbackVolume;
 
     public void Start() {
         _mainMenuButtons.SetActive(true);
@@ -123,4 +125,25 @@ public class MainMenu : MonoBehaviour
         _mainMixer.GetFloat("musicVolume", out currentVolume);
         _musicSlider.value = Mathf.Pow(10, currentVolume / 20);
     }
+
+    public void MouseUpMasterVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _masterSlider.value / 2f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
+    }
+
+    public void MouseUpEnvironmentVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _environmentSlider.value / 2f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
+    }
+
+    public void MouseUpSoundFXVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _soundFXSlider.value / 2f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
+    }
+
+    public void MouseUpMusicVolume() {
+        _feedbackVolume.GetComponent<AudioSource>().volume = _musicSlider.value / 2f;
+        _feedbackVolume.GetComponent<AudioSource>().Play();
+    }
 }
+

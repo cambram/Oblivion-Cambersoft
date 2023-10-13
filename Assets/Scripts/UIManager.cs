@@ -175,22 +175,22 @@ public class UIManager : MonoBehaviour
     }
 
     public void MouseUpMasterVolume() {
-        _feedbackVolume.GetComponent<AudioSource>().volume = _masterSlider.value/1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().volume = _masterSlider.value / 2f;
         _feedbackVolume.GetComponent<AudioSource>().Play();
     }
 
     public void MouseUpEnvironmentVolume() {
-        _feedbackVolume.GetComponent<AudioSource>().volume = _environmentSlider.value / 1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().volume = _environmentSlider.value / 2f;
         _feedbackVolume.GetComponent<AudioSource>().Play();
     }
 
     public void MouseUpSoundFXVolume() {
-        _feedbackVolume.GetComponent<AudioSource>().volume = _soundFXSlider.value / 1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().volume = _soundFXSlider.value / 2f;
         _feedbackVolume.GetComponent<AudioSource>().Play();
     }
 
     public void MouseUpMusicVolume() {
-        _feedbackVolume.GetComponent<AudioSource>().volume = _musicSlider.value / 1.667f;
+        _feedbackVolume.GetComponent<AudioSource>().volume = _musicSlider.value / 2f;
         _feedbackVolume.GetComponent<AudioSource>().Play();
     }
 }
