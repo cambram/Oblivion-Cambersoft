@@ -120,10 +120,10 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > -106 && !_lanternInstruction) {
                 _I.SetActive(true);
                 _lightSources.SetLanternDisabled(false);
-                if (!_lightSources.GetIsAnyLightActive()) {
+                /*if (!_lightSources.GetIsAnyLightActive()) {
                     _kKeyEnabled = true;
                     _J.SetActive(true);
-                }
+                }*/
                 _lanternInstruction = true;
             }
 
@@ -214,7 +214,7 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnLux(10.6f, 3.2f);
         _spawnManager.SpawnUmbra(125.98f, 1.92f);
         _spawnManager.SpawnUmbra(133.34f, 2.15f);
-        _spawnManager.SpawnUmbra(240.05f, -0.16f);
+        _spawnManager.SpawnUmbra(254.05f, -3.2f);
         _spawnManager.SpawnLux(174.19f, 1.21f);
         _spawnManager.SpawnLux(181.35f, 4.71f);
         _spawnManager.SpawnLux(203.2f, -3f);
