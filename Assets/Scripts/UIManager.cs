@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
     private Slider _soundFXSlider;
     [SerializeField]
     private Slider _musicSlider;
-    //private float _audioFeedbackVolume = 0;
     [SerializeField]
     private GameObject _feedbackVolume;
 

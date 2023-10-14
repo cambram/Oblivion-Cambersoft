@@ -16,7 +16,7 @@ public class WoodenLog : MonoBehaviour
 
     private void Update() {
         if(_player != null && _player.transform.position.x >= -119 && _player.transform.position.x <= -44) {
-            this.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(-119, 0.01f), new Vector2(-44, 1));
+            this.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(-122, 0.01f), new Vector2(-44, 1));
         }
     }
 

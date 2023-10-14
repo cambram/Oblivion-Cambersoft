@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Checkpoints : MonoBehaviour
 {
-    /*private GameManager _gameManager;
+    private CheckpointManager _checkpointManager;
 
     private void Start() {
-        _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if(collision.CompareTag("Player")) {
-            _gameManager.SetCurrentCheckpoint(this.transform.position);
+            _checkpointManager.SetCurrentCheckpoint(this.transform.position);
+            Debug.Log("hello");
         }
-    }*/
+    }
 }

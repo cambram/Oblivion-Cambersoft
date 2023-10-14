@@ -52,7 +52,8 @@ public class Level1Manager : MonoBehaviour
     private Vector2 _caveCutoff3 = new Vector2(76, 4000);
     private Vector2 _caveCutoff4 = new Vector2(87, 22000);
 
-    private Vector3 _checkpoint1, _checkpoint2, _checkpoint3, _checkpoint4;
+    private CheckpointManager _checkpointManager;
+
 
     void Start() {
         Cursor.visible = false;
@@ -62,10 +63,6 @@ public class Level1Manager : MonoBehaviour
         _J.SetActive(false);
         _lightning.SetActive(true);
         _lightning.GetComponent<Light2D>().enabled = false;
-        _checkpoint1 = new Vector3(-52.95f, 0.7f, 0);
-        _checkpoint2 = new Vector3(15.65f, -6.5f, 0);
-        _checkpoint3 = new Vector3(89.51f, -2.25f, 0);
-        _checkpoint4 = new Vector3(191.15f, 5.9f, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _player = GameObject.Find("Player").GetComponent<Player>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
@@ -74,6 +71,14 @@ public class Level1Manager : MonoBehaviour
         _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
         _player.transform.position = new Vector3(-119, -2, 0);
         _lightSources.SetLanternDisabled(true);
+        _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
+
+        if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
+            _player.transform.position = new Vector3(-119, -2f, 0);
+        } else {
+            _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
+        }
+
         InitialisePrefabsForLevel();
     }
 
