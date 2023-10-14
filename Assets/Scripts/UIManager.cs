@@ -193,4 +193,8 @@ public class UIManager : MonoBehaviour
         _feedbackVolume.GetComponent<AudioSource>().volume = _musicSlider.value / 2f;
         _feedbackVolume.GetComponent<AudioSource>().Play();
     }
+
+    public void Fullscreen(bool fullscreen) {
+        Screen.fullScreen = fullscreen;
+    }
 }
