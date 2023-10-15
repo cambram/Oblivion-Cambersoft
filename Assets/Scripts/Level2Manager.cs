@@ -21,6 +21,12 @@ public class Level2Manager : MonoBehaviour
         _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _camera = Camera.main;
+
+        /*if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
+            _checkpointManager.SetCurrentCheckpoint(new Vector3(-125, -1.2f, 0));
+        }
+        _player.transform.position = _checkpointManager.GetCurrentCheckpoint();*/
+
         InitialisePrefabsForLevel();
     }
 
@@ -30,7 +36,7 @@ public class Level2Manager : MonoBehaviour
 
             if (_player.transform.position.y < -12 && !_respawn) {
                 _respawn = true;
-                _uiManager.FadeOut(4);
+                _uiManager.FadeOut(4, false);
             }
 
             if (_player.transform.position.x > -107 && !_soundEffect1) {

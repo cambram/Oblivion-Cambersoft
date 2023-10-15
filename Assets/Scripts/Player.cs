@@ -65,23 +65,24 @@ public class Player : MonoBehaviour{
         } else if(collision.CompareTag("Finish")) {
             switch (SceneManager.GetActiveScene().buildIndex) {
                 case 1:
-                    _uiManager.FadeOut(3);
+                    _uiManager.FadeOut(3, true);
                     break;
                 case 2:
-                    _uiManager.FadeOut(4);
+                    _uiManager.FadeOut(4, true);
                     break;
                 case 3:
-                    _uiManager.FadeOut(1);
+                    _uiManager.FadeOut(1, true);
                     break;
             }
         } else if (collision.CompareTag("Death")) {
             switch (SceneManager.GetActiveScene().buildIndex) {
                 case 1:
-                    _uiManager.FadeOut(2);
+                    _uiManager.FadeOut(2, true);
                     break;
                 case 2:
-                    _uiManager.FadeOut(3);
+                    _uiManager.FadeOut(3, true);
                     break;
+                default: break;
             }
         } else if (collision.CompareTag("Instruction")) {
             _level1Manager.PlayLightOffInstruction();
@@ -163,13 +164,13 @@ public class Player : MonoBehaviour{
         _deathAudioSource.GetComponent<AudioSource>().Play();
         switch (SceneManager.GetActiveScene().buildIndex) {
             case 1:
-                _uiManager.FadeOut(2);
+                _uiManager.FadeOut(2, false);
                 break;
             case 2:
-                _uiManager.FadeOut(3);
+                _uiManager.FadeOut(3, false);
                 break;
             case 3:
-                _uiManager.FadeOut(4);
+                _uiManager.FadeOut(4, false);
                 break;
         }
         Destroy(this.gameObject);

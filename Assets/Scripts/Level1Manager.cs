@@ -69,15 +69,13 @@ public class Level1Manager : MonoBehaviour
         _environment = GameObject.Find("Environment");
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
-        _player.transform.position = new Vector3(-119, -2, 0);
         _lightSources.SetLanternDisabled(true);
         _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
 
         if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
-            _player.transform.position = new Vector3(-119, -2f, 0);
-        } else {
-            _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
+            _checkpointManager.SetCurrentCheckpoint(new Vector3(-119, -2f, 0));
         }
+        _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
 
         InitialisePrefabsForLevel();
     }
@@ -89,7 +87,7 @@ public class Level1Manager : MonoBehaviour
             //respawn player if they fall
             if (_player.transform.position.y < -12 && !_respawn) {
                 _respawn = true;
-                _uiManager.FadeOut(3);
+                _uiManager.FadeOut(3, false);
             }
 
             if (_player.transform.position.x > 0 && !_secondLuxEncounter) {

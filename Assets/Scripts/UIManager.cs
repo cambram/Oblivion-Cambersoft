@@ -128,7 +128,8 @@ public class UIManager : MonoBehaviour
     /// Fades out from the game
     /// </summary>
     /// <param name="x">1 = fade to main menu; 2 = fade to load tutorial; 3 = fade to load level 1</param>
-    public void FadeOut(int x) {
+    /// <param name="y">true = restart, false = respawn</param>
+    public void FadeOut(int x, bool y) {
         switch (x) {
             case 1:
                 _fadeOutAnim.SetTrigger("FadeOut");
@@ -138,17 +139,17 @@ public class UIManager : MonoBehaviour
             case 2:
                 _fadeOutAnim.SetTrigger("FadeOut");
                 _environment.GetComponent<Animator>().SetTrigger("FadeOut");
-                StartCoroutine(LoadTutorialRoutine());
+                StartCoroutine(LoadTutorialRoutine(y));
                 break;
             case 3:
                 _fadeOutAnim.SetTrigger("FadeOut");
                 _environment.GetComponent<Animator>().SetTrigger("FadeOut");
-                StartCoroutine(LoadLevelOneRoutine());
+                StartCoroutine(LoadLevelOneRoutine(y));
                 break;
             case 4:
                 _fadeOutAnim.SetTrigger("FadeOut");
                 _environment.GetComponent<Animator>().SetTrigger("FadeOut");
-                StartCoroutine(LoadLevelTwoRoutine());
+                StartCoroutine(LoadLevelTwoRoutine(y));
                 break;
             default: break;
         }
@@ -158,19 +159,31 @@ public class UIManager : MonoBehaviour
         _gameManager.BackToMainMenu();
     }
 
-    IEnumerator LoadTutorialRoutine() {
+    IEnumerator LoadTutorialRoutine(bool y) {
         yield return new WaitForSeconds(1);
-        _gameManager.RestartTutorial();
+        if (y) {
+            _gameManager.RestartTutorial();
+        } else {
+            _gameManager.RespawnTutorial();
+        }
     }
 
-    IEnumerator LoadLevelOneRoutine() {
+    IEnumerator LoadLevelOneRoutine(bool y) {
         yield return new WaitForSeconds(1);
-        _gameManager.RestartLevelOne();
+        if (y) {
+            _gameManager.RestartLevelOne();
+        } else {
+            _gameManager.RespawnLevelOne();
+        }
     }
 
-    IEnumerator LoadLevelTwoRoutine() {
+    IEnumerator LoadLevelTwoRoutine(bool y) {
         yield return new WaitForSeconds(1);
-        _gameManager.RestartLevelTwo();
+        if (y) {
+            _gameManager.RestartLevelTwo();
+        } else {
+            _gameManager.RespawnLevelTwo();
+        }
     }
 
     public void MouseUpMasterVolume() {

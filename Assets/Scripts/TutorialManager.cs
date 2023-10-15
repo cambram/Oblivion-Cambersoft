@@ -39,7 +39,7 @@ public class TutorialManager : MonoBehaviour
 
     private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionShow = false, _jumpInstructionComplete = false, _scareOffEnemyInstruction = false;
 
-    private bool _respawn = false;
+    private bool _respawn = false, _batteryBypassRespawn = true;
     private Player _player;
     private PlayerLightSources _lightSources;
     private Camera _camera;
@@ -54,6 +54,9 @@ public class TutorialManager : MonoBehaviour
     private Vector2 _caveCutoff3 = new Vector2(30, 1000);
     private Vector2 _caveCutoff4 = new Vector2(44, 22000);
 
+    private Vector3 checkpoint1 = new Vector3(-9, 5, 0);
+    private Vector3 checkpoint2 = new Vector3(42, 3, 0);
+
     void Start() {
         Cursor.visible = false;
         _camera = Camera.main;
@@ -67,10 +70,9 @@ public class TutorialManager : MonoBehaviour
         _lightSources.SetBypassBattery(true);
 
         if(_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
-            _player.transform.position = new Vector3(-77, -1.7f, 0);
-        } else {
-            _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
+            _checkpointManager.SetCurrentCheckpoint(new Vector3(-77, -1.7f, 0));
         }
+        _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
 
         InitialisePrefabsForLevel();
         SetAllInstructionsActiveFalse();
@@ -81,7 +83,13 @@ public class TutorialManager : MonoBehaviour
         if (_player != null) {
             ConstrainCamera();
 
-            if (_player.transform.position.x > -48 && _bypassBattery) {
+            //respawn player if they fall
+            if (_player.transform.position.y < -12 && !_respawn) {
+                _respawn = true;
+                _uiManager.FadeOut(2, false);
+            }
+
+            if (_player.transform.position.x > -48 && _player.transform.position.x < -45 && _bypassBattery) {
                 _lightSources.SetBypassBattery(false);
                 _bypassBattery = false;
                 if (_lightSources.GetIsFlashlightActive()) {
@@ -92,16 +100,13 @@ public class TutorialManager : MonoBehaviour
                     _lightSources.Flashlight(true);
                     _lightSources.FlickerFlashlight(0);
                 }                
-            }
-
-            //respawn player if they fall
-            if (_player.transform.position.y < -12 && !_respawn) {
-                _respawn = true;
-                _uiManager.FadeOut(2);
+            } else if(_player.transform.position.x >= -45 && _batteryBypassRespawn && _bypassBattery) {
+                _batteryBypassRespawn = false;
+                _lightSources.SetBypassBattery(false);
             }
 
             //remove flashlight instruction
-            if (Input.GetKeyDown(KeyCode.J) && !_flashlightInstructionComplete) {
+            if (FlashlightInstructionBool()) {               
                 _player.EnableMovement();
                 _flashlightInstructionComplete = true;
                 _JAnim.SetTrigger("FadeOut");
@@ -113,7 +118,7 @@ public class TutorialManager : MonoBehaviour
                 _movementInstructionComplete = true;
                 _AAnim.SetTrigger("FadeOut");
                 _DAnim.SetTrigger("FadeOut");
-            }
+            } 
 
             //Show jump instruction
             if (_player.transform.position.x > -20 && !_jumpInstructionShow) {
@@ -198,5 +203,11 @@ public class TutorialManager : MonoBehaviour
         } else {
             _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
         }
+    }
+
+    private bool FlashlightInstructionBool() {
+        return (_checkpointManager.GetCurrentCheckpoint() == checkpoint1 && !_flashlightInstructionComplete) 
+            || (_checkpointManager.GetCurrentCheckpoint() == checkpoint2 && !_flashlightInstructionComplete) 
+            || (Input.GetKeyDown(KeyCode.J) && !_flashlightInstructionComplete);
     }
 }
