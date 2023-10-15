@@ -90,7 +90,7 @@ public class Level1Manager : MonoBehaviour
                 _uiManager.FadeOut(3, false);
             }
 
-            if (_player.transform.position.x > 0 && !_secondLuxEncounter) {
+            if (_player.transform.position.x > 0 && _player.transform.position.x < 2 && !_secondLuxEncounter) {
                 _secondLuxEncounter = true;
                 _spawnManager.SpawnLux(-18.67f, -0.26f);
                 _spawnManager.SpawnLux(-13.22f, 0.56f);
@@ -130,7 +130,7 @@ public class Level1Manager : MonoBehaviour
                 _lanternInstruction = true;
             }
 
-            if (_player.transform.position.x > -77 && !_secondEncounter) {
+            if (_player.transform.position.x > -77 && _player.transform.position.x < -75 && !_secondEncounter) {
                 if(_lightSources.GetCurrentLightSource() == 0) {
                     _I.SetActive(false);
                     _I.transform.position = new Vector3(-74, -3);
@@ -159,7 +159,7 @@ public class Level1Manager : MonoBehaviour
                 }
             }
 
-            if (_player.transform.position.x > 34 && !_umbraCaveApproaches) {
+            if (_player.transform.position.x > 34 && _player.transform.position.x < 36 && !_umbraCaveApproaches) {
                 _umbraCaveApproaches = true;
                 _spawnManager.SpawnUmbra(15f, -3.6f);
                 _spawnManager.SpawnLux(13f, -3.6f);

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour{
     private float _speed = 2.5f; //3.5f
@@ -41,6 +42,12 @@ public class Player : MonoBehaviour{
             _disableMovement = true;
         } else if (SceneManager.GetActiveScene().buildIndex == 2) {
             _level1Manager = GameObject.Find("Level_1_Manager").GetComponent<Level1Manager>();
+        }
+
+        for(int i = 0; i < Object.FindObjectsOfType<Enemy>().Length; i++) {
+            if (Vector3.Distance(this.transform.position, Object.FindObjectsOfType<Enemy>()[i].transform.position) < 22) {
+                Destroy(Object.FindObjectsOfType<Enemy>()[i].gameObject);
+            }
         }
     } 
 
