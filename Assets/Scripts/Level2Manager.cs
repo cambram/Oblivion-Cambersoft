@@ -10,24 +10,27 @@ public class Level2Manager : MonoBehaviour
     private SuspenseAudioManager _suspenseAudioManager;
     private SpawnManager _spawnManager;
 
-
     private UIManager _uiManager;
+    private CheckpointManager _checkpointManager;
+
 
     void Start() {
         Cursor.visible = false;
         _player = GameObject.Find("Player").GetComponent<Player>();
-        _player.transform.position = new Vector3(-125, -1.2f, 0);
+        _player.transform.position = new Vector3(-125, 1.2f, 0);
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
         _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _camera = Camera.main;
+        _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
+
 
         /*if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
             _checkpointManager.SetCurrentCheckpoint(new Vector3(-125, -1.2f, 0));
         }
         _player.transform.position = _checkpointManager.GetCurrentCheckpoint();*/
 
-        InitialisePrefabsForLevel();
+        //InitialisePrefabsForLevel();
     }
 
     void Update() {
@@ -57,14 +60,21 @@ public class Level2Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense1();
                 _spawnManager.SpawnUmbra(97f, 2.5f);
             }
+
+            //mid point of these zones is where a lux should be attracted to with the attarction zone being turned on and off according to the flicker
+            /*if((_player.transform.position.x > -3.8f && _player.transform.position.x < 3.8f) || (_player.transform.position.x > 10.2f && _player.transform.position.x < 17.2f) || (_player.transform.position.x > 25.3f && _player.transform.position.x < 33.2f)) {
+                //lux zone
+            } else {
+                //no lux zone
+            }*/
         }
     }
 
     private void ConstrainCamera() {
         if (_player.transform.position.x < -121) {
             _camera.transform.position = new Vector3(-116, 0, -10);
-        } else if (_player.transform.position.x > 112) {
-            _camera.transform.position = new Vector3(117, 0, -10);
+        } else if (_player.transform.position.x > 275) {
+            _camera.transform.position = new Vector3(280, 0, -10);
         } else {
             _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
         }

@@ -97,25 +97,25 @@ public class Level1Manager : MonoBehaviour
                 _spawnManager.SpawnLux(-15.8f, 0.23f);
             }
 
-            if ( _player.transform.position.x > -42 && !_logFallen) {
+            if (_player.transform.position.x > -42 && _player.transform.position.x < -20 && !_logFallen) {
                 _logFallen = true;
                 _woodLog.GetComponent<Rigidbody2D>().gravityScale = 1;
             }
 
-            if(_player.transform.position.x > -86 && !_soundEffect1) {
+            if(_player.transform.position.x > -86 && _player.transform.position.x < -84 && !_soundEffect1) {
                 _soundEffect1 = true;
                 _suspenseAudioManager.PlaySuspense1();
             }
-            if (_player.transform.position.x > 36 && !_soundEffect2) {
+            if (_player.transform.position.x > 36 && _player.transform.position.x < 38 && !_soundEffect2) {
                 _soundEffect2 = true;
                 _suspenseAudioManager.PlaySuspense2();
             }
-            if (_player.transform.position.x > 112 && !_soundEffect3) {
+            if (_player.transform.position.x > 112 && _player.transform.position.x < 114 && !_soundEffect3) {
                 _suspenseAudioManager.transform.position = new Vector3(100, 0);
                 _soundEffect3 = true;
                 _suspenseAudioManager.PlaySuspense1();
             }
-            if (_player.transform.position.x > 200 && !_soundEffect4) {
+            if (_player.transform.position.x > 200 && _player.transform.position.x < 202 && !_soundEffect4) {
                 _soundEffect4 = true;
                 _suspenseAudioManager.PlaySuspense2();
             }
@@ -123,10 +123,6 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > -106 && !_lanternInstruction) {
                 _I.SetActive(true);
                 _lightSources.SetLanternDisabled(false);
-                /*if (!_lightSources.GetIsAnyLightActive()) {
-                    _kKeyEnabled = true;
-                    _J.SetActive(true);
-                }*/
                 _lanternInstruction = true;
             }
 
@@ -165,7 +161,7 @@ public class Level1Manager : MonoBehaviour
                 _spawnManager.SpawnLux(13f, -3.6f);
             }
 
-            if (_player.transform.position.x > 85 && !_lightningStrike) {
+            if (_player.transform.position.x > 85 && _player.transform.position.x < 87 && !_lightningStrike) {
                 _lightningStrike = true;
                 _lightSources.SetIsFlashCameraActive(true);
                 _lightning.GetComponent<AudioSource>().Play();
@@ -239,6 +235,10 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnBattery(151.28f, -0.97f);
         _spawnManager.SpawnFlashCharge(139.5f, -0.88f);
         _spawnManager.SpawnFlashCharge(122f, -0.138f);
+
+        _spawnManager.SpawnFlashCharge(263, -4.8f);
+        _spawnManager.SpawnFlashCharge(206, -5.2f);
+        _spawnManager.SpawnFlashCharge(238.1f, 3.6f);
     }
 
     IEnumerator LightningRoutine() {
