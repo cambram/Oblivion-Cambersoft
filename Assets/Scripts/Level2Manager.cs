@@ -6,7 +6,9 @@ public class Level2Manager : MonoBehaviour
 {
     private Player _player;
     private Camera _camera;
-    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false;
+    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false;
+    [SerializeField]
+    private GameObject _cliff;
     private SuspenseAudioManager _suspenseAudioManager;
     private SpawnManager _spawnManager;
 
@@ -60,6 +62,16 @@ public class Level2Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense1();
                 _spawnManager.SpawnUmbra(97f, 2.5f);
             }
+
+            if(_player.transform.position.x >= 72 && !_cliffFall) {
+                _cliffFall = true;
+                _cliff.GetComponent<AudioSource>().Play();
+                _cliff.GetComponent<Rigidbody2D>().gravityScale = 1;
+            }
+            /*if player gets to this x
+             play the cliff crack sound 
+            and trigger the cliff to fall after a delay
+            */
 
             //mid point of these zones is where a lux should be attracted to with the attarction zone being turned on and off according to the flicker
             /*if((_player.transform.position.x > -3.8f && _player.transform.position.x < 3.8f) || (_player.transform.position.x > 10.2f && _player.transform.position.x < 17.2f) || (_player.transform.position.x > 25.3f && _player.transform.position.x < 33.2f)) {
