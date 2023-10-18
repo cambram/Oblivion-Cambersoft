@@ -51,7 +51,7 @@ public class Level2Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense2();
             }
 
-            if (_player.transform.position.x > 51 && _player.transform.position.x < 53 && !_umbraAttack) {
+            if (_player.transform.position.x > 48 && _player.transform.position.x < 50 && !_umbraAttack) {
                 _umbraAttack = true;
                 _suspenseAudioManager.PlaySuspense1();
                 _spawnManager.SpawnUmbra(34.89f, 2.49f);
@@ -132,7 +132,10 @@ public class Level2Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(44.29f, -0.438f);
         _spawnManager.SpawnFlashCharge(88.05f, -0.71f);
         _spawnManager.SpawnFlashCharge(100.27f, 0.18f);
+        _spawnManager.SpawnFlashCharge(103.515f, -0.743f);
         _spawnManager.SpawnBattery(133.89f, -0.62f);
+        _spawnManager.SpawnFlashCharge(137.44f, -0.557f);
+        _spawnManager.SpawnFlashCharge(158.608f, -0.764f);
         _spawnManager.SpawnFlashCharge(172.96f, 1.53f);
         _spawnManager.SpawnFlashCharge(198.484f, 6.801f, 38.072f);
         _spawnManager.SpawnFlashCharge(208.52f, -3.96f);
