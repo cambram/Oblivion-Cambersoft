@@ -84,13 +84,13 @@ public class Player : MonoBehaviour{
         } else if (collision.CompareTag("Death")) {
             switch (SceneManager.GetActiveScene().buildIndex) {
                 case 1:
-                    _uiManager.FadeOut(2, true);
+                    _uiManager.FadeOut(2, false);
                     break;
                 case 2:
-                    _uiManager.FadeOut(3, true);
+                    _uiManager.FadeOut(3, false);
                     break;
                 case 3:
-                    _uiManager.FadeOut(4, true);
+                    _uiManager.FadeOut(4, false);
                     _deathAudioSource.GetComponent<AudioSource>().Play();
                     break;
                 default: break;

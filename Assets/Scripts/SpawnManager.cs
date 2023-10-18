@@ -48,6 +48,16 @@ public class SpawnManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Spawns a flash charge at the specified coordinates with z rotation axis overload
+    /// </summary>
+    /// <param name="x">x coordinate for flash charge</param>
+    /// <param name="y">y coordinate for flash charge</param>
+    public void SpawnFlashCharge(float x, float y, float z) {
+        GameObject flashCharge = Instantiate(_flashChargePrefab, new Vector3(x, y, 0), Quaternion.Euler(0,0,z));
+        flashCharge.transform.parent = _collectablesContainer.transform;
+    }
+
+    /// <summary>
     /// Spawns a battery at the specified coordinates 
     /// </summary>
     /// <param name="x">x coordinate for battery</param>

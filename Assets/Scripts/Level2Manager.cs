@@ -51,18 +51,16 @@ public class Level2Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense2();
             }
 
-            if (_player.transform.position.x > 83 && _player.transform.position.x < 85 && !_umbraAttack) {
+            if (_player.transform.position.x > 51 && _player.transform.position.x < 53 && !_umbraAttack) {
                 _umbraAttack = true;
                 _suspenseAudioManager.PlaySuspense1();
-                //_spawnManager.SpawnUmbra(61.67f, 2.76f);
-                //_spawnManager.SpawnUmbra(63.91f, 2.55f);
-                //_spawnManager.SpawnUmbra(66.17f, 2.63f);
+                _spawnManager.SpawnUmbra(34.89f, 2.49f);
             }
 
             if (_player.transform.position.x > 112 && _player.transform.position.x < 114 && !_surpriseAttack) {
                 _surpriseAttack = true;
                 _suspenseAudioManager.PlaySuspense1();
-                _spawnManager.SpawnUmbra(97f, 2.5f);
+                _spawnManager.SpawnUmbra(99f, 2.5f);
             }
 
             if(_player.transform.position.x >= 72 && _player.transform.position.x < 74 && !_cliffFall) {
@@ -102,29 +100,49 @@ public class Level2Manager : MonoBehaviour
         _spawnManager.SpawnLux(3.83f, -0.68f);
         _spawnManager.SpawnLux(16.5f, -0.3f);
         _spawnManager.SpawnLux(25.11f, 0f);
+        _spawnManager.SpawnLux(60.5f, 3.7f);
         _spawnManager.SpawnUmbra(76f, 4.6f);
         _spawnManager.SpawnLux(105.4f, 2.4f);
         _spawnManager.SpawnUmbra(111f, 2.4f);
         _spawnManager.SpawnUmbra(115.8f, 2.4f);
         _spawnManager.SpawnLux(120.4f, 2.4f);
         _spawnManager.SpawnLux(126.4f, 2.4f);
+        _spawnManager.SpawnLux(146f, 1f);
+        _spawnManager.SpawnUmbra(151f, 2f);
+        _spawnManager.SpawnLux(162.2f, 1.47f);
+        _spawnManager.SpawnUmbra(178.87f, 5.7f);
+        _spawnManager.SpawnLux(194.56f, 6.4f);
+        _spawnManager.SpawnLux(207.62f, -2.4f);
+        _spawnManager.SpawnUmbra(210.43f, -1.2f);
+        _spawnManager.SpawnUmbra(238.63f, 2.4f);
+        _spawnManager.SpawnLux(251.44f, 5.1f);
+        _spawnManager.SpawnUmbra(264.45f, 0.1f);
 
         /* Collectables */
-        _spawnManager.SpawnFlashCharge(-107.66f, -1f);
-        _spawnManager.SpawnFlashCharge(-95.1f, -3.74f);
-        _spawnManager.SpawnFlashCharge(-91.2f, -3.78f);
-        _spawnManager.SpawnFlashCharge(-57.17f, 2.32f);
-        _spawnManager.SpawnFlashCharge(-37.63f, 1.43f);
+        _spawnManager.SpawnFlashCharge(-107.66f, -1f, -14.747f);
+        _spawnManager.SpawnFlashCharge(-95.1f, -3.9f);
+        _spawnManager.SpawnFlashCharge(-91.2f, -3.91f);
+        _spawnManager.SpawnFlashCharge(-57.17f, 2.38f);
+        _spawnManager.SpawnFlashCharge(-37.63f, 1.04f);
         _spawnManager.SpawnBattery(-12f, -2.33f);
-        _spawnManager.SpawnFlashCharge(-6.46f, -2.29f);
-        _spawnManager.SpawnFlashCharge(0.85f, -2.3f);
-        _spawnManager.SpawnFlashCharge(35.16f, -0.2f);
-        _spawnManager.SpawnFlashCharge(42.45f, -0.23f);
-        _spawnManager.SpawnFlashCharge(44.29f, -0.22f);
+        _spawnManager.SpawnFlashCharge(-6.46f, -2.367f);
+        _spawnManager.SpawnFlashCharge(0.85f, -2.44f);
+        _spawnManager.SpawnFlashCharge(35.16f, -0.443f);
+        _spawnManager.SpawnFlashCharge(42.45f, -0.375f);
+        _spawnManager.SpawnFlashCharge(44.29f, -0.438f);
+        _spawnManager.SpawnFlashCharge(88.05f, -0.71f);
+        _spawnManager.SpawnFlashCharge(100.27f, 0.18f);
+        _spawnManager.SpawnBattery(133.89f, -0.62f);
+        _spawnManager.SpawnFlashCharge(172.96f, 1.53f);
+        _spawnManager.SpawnFlashCharge(198.484f, 6.801f, 38.072f);
+        _spawnManager.SpawnFlashCharge(208.52f, -3.96f);
+        _spawnManager.SpawnFlashCharge(215.0061f, -3.483238f);
+        _spawnManager.SpawnFlashCharge(255.11f, 2.86f, -33.02f);
     }
 
     IEnumerator CliffFall() {
         yield return new WaitForSeconds(1f);
+        _spawnManager.SpawnLux(100.88f, 3.22f);
         _cliff.GetComponent<Rigidbody2D>().gravityScale = 0.1f;
         yield return new WaitForSeconds(0.5f);
         _cliff.GetComponent<Rigidbody2D>().gravityScale = 0.8f;

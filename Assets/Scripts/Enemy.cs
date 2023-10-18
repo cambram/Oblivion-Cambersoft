@@ -156,7 +156,11 @@ public class Enemy : MonoBehaviour
                         break;
                 }
             }
-        } 
+        } else if (collision.CompareTag("Death")) {
+            if (!_isDead) {
+                KillEnemy();
+            }
+        }
     }
 
     private void CalculateCorrectEnemyMovementFlashlight(Vector3 dir) {
