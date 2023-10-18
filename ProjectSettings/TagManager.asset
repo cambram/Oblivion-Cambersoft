@@ -53,6 +53,9 @@ TagManager:
   - name: Collectables
     uniqueID: 3094617843
     locked: 0
+  - name: SpecialGround
+    uniqueID: 50498841
+    locked: 0
   - name: Middleground
     uniqueID: 2170216251
     locked: 0
@@ -61,7 +64,4 @@ TagManager:
     locked: 0
   - name: UIGround
     uniqueID: 835225117
-    locked: 0
-  - name: SpecialGround
-    uniqueID: 50498841
     locked: 0

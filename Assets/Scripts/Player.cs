@@ -89,6 +89,10 @@ public class Player : MonoBehaviour{
                 case 2:
                     _uiManager.FadeOut(3, true);
                     break;
+                case 3:
+                    _uiManager.FadeOut(4, true);
+                    _deathAudioSource.GetComponent<AudioSource>().Play();
+                    break;
                 default: break;
             }
         } else if (collision.CompareTag("Instruction")) {

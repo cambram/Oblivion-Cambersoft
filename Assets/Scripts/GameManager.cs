@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void RestartLevelTwo() {
-        _checkpointManager.SetCurrentCheckpoint(new Vector3(-125, -1.2f, 0));
+        _checkpointManager.SetCurrentCheckpoint(new Vector3(-125, 1.2f, 0));
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(3);
     }
