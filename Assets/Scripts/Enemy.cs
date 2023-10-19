@@ -21,9 +21,11 @@ public class Enemy : MonoBehaviour
     private AudioSource _enemyDeathSource;
     [SerializeField]
     private GameObject _enemyEyes;
-    bool _isDead = false, _disableNoise = false;
+    bool _isDead = false, _disableNoise = false, _isJumpActive = false;
 
     private UIManager _uiManager;
+    private Vector3 _direction;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -32,6 +34,7 @@ public class Enemy : MonoBehaviour
         _lightSources = GameObject.Find("Player").GetComponent<PlayerLightSources>();
         _enemyAnim = GetComponent<Animator>();
         _enemyEyes.GetComponent<Light2D>().intensity = 0.1f;
+        _direction = _player.transform.position - this.transform.position;
         switch (_enemyID) {
             case 0:
                 _slowSpeed = Random.Range(2, 4);
@@ -46,6 +49,7 @@ public class Enemy : MonoBehaviour
 
     void Update() {
         if(_player != null && !_uiManager.GetIsPaused()) {
+            _direction = _player.transform.position - this.transform.position;
             switch (_enemyID) {
                 case 0:
                     Umbra();
@@ -62,7 +66,6 @@ public class Enemy : MonoBehaviour
 
     private void Umbra() {
         _distance = Vector3.Distance(this.transform.position, _player.transform.position);
-        Vector3 _direction = _player.transform.position - this.transform.position;
         if (!_disableNoise && _distance <= Random.Range(22, 31)) {
             _disableNoise = true;
             PlayEnemyNoise();
@@ -102,13 +105,12 @@ public class Enemy : MonoBehaviour
 
     private void Lux() {
         _distance = Vector3.Distance(this.transform.position, _player.transform.position);
-        Vector3 _direction = _player.transform.position - this.transform.position;
         if (!_disableNoise && _distance <= Random.Range(22, 31)) {
             _disableNoise = true;
             PlayEnemyNoise();
         }
         if (_distance < 30 && !_isDead) {
-            if (_lightSources.GetIsAnyLightActive()) { // if player flashlight is on, lux approches
+            if (_lightSources.GetIsAnyLightActive() || _player.GetAttraction()) { // if player flashlight is on, lux approches
                 _enemyEyes.GetComponent<Light2D>().intensity = 0.1f;
                 _enemyAnim.SetTrigger("Approach");
                 _speed = _fastSpeed;
@@ -118,7 +120,7 @@ public class Enemy : MonoBehaviour
                 } else if (_direction.x >= 0) {
                     transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 }
-            } else { // if player flashlight is off, lux approaches very slowly
+            } else { // if player flashlight is off, lux stands still
                 _enemyEyes.GetComponent<Light2D>().intensity = 2f;
                 _enemyAnim.ResetTrigger("Approach");
                 _speed = _slowSpeed;
@@ -160,8 +162,37 @@ public class Enemy : MonoBehaviour
             if (!_isDead) {
                 KillEnemy();
             }
+        } 
+    }
+
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (collision.CompareTag("Jump")) {
+            if (!_isDead && !_isJumpActive) {
+                _isJumpActive = true;
+                if (_direction.x <= 0) {
+                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(25, 500)); //_rigidbody.velocity.x
+                } else {
+                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-25, 500)); //_rigidbody.velocity.x
+                }
+                StartCoroutine(EnableJump());
+            }
         }
     }
+
+    //Could be used primarily for gap jumps
+    /*private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("Jump")) {
+            if (!_isDead && !_isJumpActive) {
+                _isJumpActive = true;
+                if (_direction.x <= 0) {
+                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(25, 500)); //_rigidbody.velocity.x
+                } else {
+                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-25, 500)); //_rigidbody.velocity.x
+                }
+                StartCoroutine(EnableJump());
+            }
+        }
+    }*/
 
     private void CalculateCorrectEnemyMovementFlashlight(Vector3 dir) {
         if (dir.x < 0) { // if enemy is to the right of the player
@@ -260,5 +291,10 @@ public class Enemy : MonoBehaviour
     IEnumerator DestroyGameObject(float seconds) {
         yield return new WaitForSeconds(seconds);
         Destroy(this.gameObject);
+    }
+
+    IEnumerator EnableJump() {
+        yield return new WaitForSeconds(1);
+        _isJumpActive = false;
     }
 }

@@ -4,15 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour{
     private float _speed = 2.5f; //3.5f
     private bool _isJumpActive = false;
     private bool _direction = true; //true is facing right and false is facing left
     private bool _moving = false;
-    private bool _disableJump = false, _disableMovement = false;
+    private bool _disableJump = false, _disableMovement = false, _attraction = false;
     private Rigidbody2D _rigidbody;
     private Level1Manager _level1Manager;
     [SerializeField]
@@ -97,7 +95,19 @@ public class Player : MonoBehaviour{
             }
         } else if (collision.CompareTag("Instruction")) {
             _level1Manager.PlayLightOffInstruction();
+        } else if (collision.CompareTag("LampSpace")) {
+            _attraction = true;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("LampSpace")) {
+            _attraction = false;
+        }
+    }
+
+    public bool GetAttraction() {
+        return _attraction;
     }
 
     public void EnableJump() {
