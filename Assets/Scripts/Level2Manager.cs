@@ -6,7 +6,7 @@ public class Level2Manager : MonoBehaviour
 {
     private Player _player;
     private Camera _camera;
-    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false;
+    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false, _openMassiveDoors = false;
     [SerializeField]
     private GameObject _cliff;
     [SerializeField]
@@ -16,6 +16,8 @@ public class Level2Manager : MonoBehaviour
 
     private UIManager _uiManager;
     private CheckpointManager _checkpointManager;
+    [SerializeField]
+    private Animator _massiveDoorsAnim;
 
 
     void Start() {
@@ -81,21 +83,18 @@ public class Level2Manager : MonoBehaviour
                 StartCoroutine(CliffFall());
             }
 
-
-            //mid point of these zones is where a lux should be attracted to with the attarction zone being turned on and off according to the flicker
-            /*if((_player.transform.position.x > -3.8f && _player.transform.position.x < 3.8f) || (_player.transform.position.x > 10.2f && _player.transform.position.x < 17.2f) || (_player.transform.position.x > 25.3f && _player.transform.position.x < 33.2f)) {
-                //lux zone
-            } else {
-                //no lux zone
-            }*/
+            if(_player.transform.position.x > 277 && !_openMassiveDoors) {
+                _openMassiveDoors = true;
+                _massiveDoorsAnim.SetTrigger("Open");                
+            }
         }
     }
 
     private void ConstrainCamera() {
         if (_player.transform.position.x < -121) {
             _camera.transform.position = new Vector3(-116, 0, -10);
-        } else if (_player.transform.position.x > 275) {
-            _camera.transform.position = new Vector3(280, 0, -10);
+        } else if (_player.transform.position.x > 274) {
+            _camera.transform.position = new Vector3(279, 0, -10);
         } else {
             _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
         }
