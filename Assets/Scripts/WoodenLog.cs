@@ -12,11 +12,12 @@ public class WoodenLog : MonoBehaviour
     private void Start() {
         _player = GameObject.Find("Player").GetComponent<Player>();
         this.GetComponent<AudioSource>().loop = true;
+        this.GetComponent<AudioSource>().volume = 0;
     }
 
     private void Update() {
-        if(_player != null && _player.transform.position.x >= -119 && _player.transform.position.x <= -44) {
-            this.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(-122, 0.01f), new Vector2(-44, 1));
+        if(_player != null && _player.transform.position.x >= -90 && _player.transform.position.x <= -44) {
+            this.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(-90, 0.01f), new Vector2(-44, 1));
         }
     }
 

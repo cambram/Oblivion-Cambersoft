@@ -162,7 +162,15 @@ public class Enemy : MonoBehaviour
             if (!_isDead) {
                 KillEnemy();
             }
-        } 
+        } else if (collision.CompareTag("Enemy")) {
+            if (collision.gameObject.GetComponent<Enemy>().GetEnemyID() == 1 && this.GetEnemyID() != 1) {
+                Physics2D.IgnoreCollision(collision, this.GetComponent<Collider2D>());
+            }
+        }
+    }
+
+    public int GetEnemyID() {
+        return _enemyID;
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
