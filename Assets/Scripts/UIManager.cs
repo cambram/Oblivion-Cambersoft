@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _feedbackVolume;
 
+    private WaitForSeconds _delay;
+
     void Start(){
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
         _environment = GameObject.Find("Environment");
@@ -41,6 +43,7 @@ public class UIManager : MonoBehaviour
         _pauseMenu.SetActive(false);
         _pauseGame.SetActive(false);
         _optionsMenu.SetActive(false);
+        _delay = new WaitForSeconds(1);
     }
 
     public void SetVolumeSliders() {
@@ -155,12 +158,12 @@ public class UIManager : MonoBehaviour
         }
     }
     IEnumerator BackToMainRoutine() {
-        yield return new WaitForSeconds(1);
+        yield return _delay;
         _gameManager.BackToMainMenu();
     }
 
     IEnumerator LoadTutorialRoutine(bool y) {
-        yield return new WaitForSeconds(1);
+        yield return _delay;
         if (y) {
             _gameManager.RestartTutorial();
         } else {
@@ -169,7 +172,7 @@ public class UIManager : MonoBehaviour
     }
 
     IEnumerator LoadLevelOneRoutine(bool y) {
-        yield return new WaitForSeconds(1);
+        yield return _delay;
         if (y) {
             _gameManager.RestartLevelOne();
         } else {
@@ -178,7 +181,7 @@ public class UIManager : MonoBehaviour
     }
 
     IEnumerator LoadLevelTwoRoutine(bool y) {
-        yield return new WaitForSeconds(1);
+        yield return _delay;
         if (y) {
             _gameManager.RestartLevelTwo();
         } else {

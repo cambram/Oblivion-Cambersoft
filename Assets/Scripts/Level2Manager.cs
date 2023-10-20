@@ -6,7 +6,7 @@ public class Level2Manager : MonoBehaviour
 {
     private Player _player;
     private Camera _camera;
-    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false;
+    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false;
     [SerializeField]
     private GameObject _cliff;
     [SerializeField]
@@ -51,6 +51,17 @@ public class Level2Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense2();
             }
 
+            if (_player.transform.position.x > 10 && _player.transform.position.x < 12 && !_luxAttack1) {
+                _luxAttack1 = true;
+                _spawnManager.SpawnLux(-6.56f, -0.4f);
+            }
+
+            if (_player.transform.position.x > 12 && _player.transform.position.x < 14 && !_luxAttack2) {
+                _luxAttack2 = true;
+                _spawnManager.SpawnLux(-4f, -0.4f);
+                _spawnManager.SpawnLux(-6.56f, -0.4f);
+            }
+
             if (_player.transform.position.x > 48 && _player.transform.position.x < 50 && !_umbraAttack) {
                 _umbraAttack = true;
                 _suspenseAudioManager.PlaySuspense1();
@@ -67,9 +78,9 @@ public class Level2Manager : MonoBehaviour
                 _cliffFall = true;
                 _cliff.GetComponent<AudioSource>().Play();
                 _cliff.GetComponent<Rigidbody2D>().gravityScale = 0.05f;
-
                 StartCoroutine(CliffFall());
             }
+
 
             //mid point of these zones is where a lux should be attracted to with the attarction zone being turned on and off according to the flicker
             /*if((_player.transform.position.x > -3.8f && _player.transform.position.x < 3.8f) || (_player.transform.position.x > 10.2f && _player.transform.position.x < 17.2f) || (_player.transform.position.x > 25.3f && _player.transform.position.x < 33.2f)) {
