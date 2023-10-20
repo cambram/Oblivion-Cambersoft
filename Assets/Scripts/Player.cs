@@ -117,6 +117,20 @@ public class Player : MonoBehaviour{
         _disableMovement = false;
     }
 
+    public void DisableJump() {
+        _disableJump = true;
+        if (_isJumpActive) {
+            _isJumpActive = false;
+            _playerAnim.ResetTrigger("Jumping");
+        }
+    }
+    public void DisableMovement() {
+        _disableMovement = true;
+        _footstepSource.Pause();
+        _playerAnim.ResetTrigger("Walking");
+        _moving = false;
+    }
+
     public void JumpSequence() {
         if (_footstepSource.isPlaying) {
             _footstepSource.Pause();

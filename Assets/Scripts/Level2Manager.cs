@@ -83,11 +83,20 @@ public class Level2Manager : MonoBehaviour
                 StartCoroutine(CliffFall());
             }
 
-            if(_player.transform.position.x > 277 && !_openMassiveDoors) {
+            if(_player.transform.position.x > 276 && !_openMassiveDoors) {
                 _openMassiveDoors = true;
-                _massiveDoorsAnim.SetTrigger("Open");                
+                _massiveDoorsAnim.SetTrigger("Open");
+                _player.DisableJump();
+                _player.DisableMovement();
+                StartCoroutine(ReenablePlayer());
             }
         }
+    }
+
+    IEnumerator ReenablePlayer() {
+        yield return new WaitForSeconds(8);
+        _player.EnableJump();
+        _player.EnableMovement();
     }
 
     private void ConstrainCamera() {
