@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _volumeMenu;
     [SerializeField]
+    private GameObject _controlsMenu;
+    [SerializeField]
     private AudioMixer _mainMixer;
     private bool _paused = false;
     [SerializeField]
@@ -43,6 +45,8 @@ public class UIManager : MonoBehaviour
         _pauseMenu.SetActive(false);
         _pauseGame.SetActive(false);
         _optionsMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
+        _pauseGame.SetActive(false);
         _delay = new WaitForSeconds(1);
     }
 
@@ -87,24 +91,41 @@ public class UIManager : MonoBehaviour
         _pauseMenu.SetActive(false);
         _optionsMenu.SetActive(true);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void VolumeMenu() {
         _pauseMenu.SetActive(false);
         _optionsMenu.SetActive(false);
         _volumeMenu.SetActive(true);
+        _controlsMenu.SetActive(false);
+    }
+
+    public void ControlsMenu() {
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(false);
+        _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(true);
+    }
+    public void BackFromControlsMenu() {
+        _pauseMenu.SetActive(false);
+        _optionsMenu.SetActive(true);
+        _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void BackFromOptions() {
         _pauseMenu.SetActive(true);
         _optionsMenu.SetActive(false);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void BackFromVolume() {
         _pauseMenu.SetActive(false);
         _optionsMenu.SetActive(true);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void SetMasterVolume(float volume) {
