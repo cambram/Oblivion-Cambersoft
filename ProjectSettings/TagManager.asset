@@ -12,6 +12,7 @@ TagManager:
   - PreventDeath
   - Jump
   - LampSpace
+  - JumpGap
   layers:
   - Default
   - TransparentFX

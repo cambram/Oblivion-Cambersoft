@@ -6,7 +6,7 @@ public class Level2Manager : MonoBehaviour
 {
     private Player _player;
     private Camera _camera;
-    private bool _respawn = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false, _openMassiveDoors = false;
+    private bool _respawn = false, _umbraAttack1 = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false, _openMassiveDoors = false;
     [SerializeField]
     private GameObject _cliff;
     [SerializeField]
@@ -46,6 +46,11 @@ public class Level2Manager : MonoBehaviour
             if (_player.transform.position.y < -12 && !_respawn) {
                 _respawn = true;
                 _uiManager.FadeOut(4, false);
+            }
+
+            if (_player.transform.position.x > -93 && _player.transform.position.x < -91 && !_umbraAttack1) {
+                _umbraAttack1 = true;
+                _spawnManager.SpawnUmbra(-109.23f, 2.7f);
             }
 
             if (_player.transform.position.x > -107 && _player.transform.position.x < -105 && !_soundEffect1) {
@@ -141,6 +146,7 @@ public class Level2Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(-107.66f, -1f, -14.747f);
         _spawnManager.SpawnFlashCharge(-95.1f, -3.9f);
         _spawnManager.SpawnFlashCharge(-91.2f, -3.91f);
+        _spawnManager.SpawnFlashCharge(-64.47f, 1.49f);
         _spawnManager.SpawnFlashCharge(-57.17f, 2.38f);
         _spawnManager.SpawnFlashCharge(-37.63f, 1.04f);
         _spawnManager.SpawnBattery(-12f, -2.33f);

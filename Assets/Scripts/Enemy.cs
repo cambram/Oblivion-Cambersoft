@@ -37,8 +37,8 @@ public class Enemy : MonoBehaviour
         _direction = _player.transform.position - this.transform.position;
         switch (_enemyID) {
             case 0:
-                _slowSpeed = Random.Range(2, 4);
-                _fastSpeed = Random.Range(4, 6);
+                _slowSpeed = Random.Range(3, 5);
+                _fastSpeed = Random.Range(5, 7);
                 break;
             case 1:
                 _slowSpeed = 0;
@@ -188,8 +188,8 @@ public class Enemy : MonoBehaviour
     }
 
     //Could be used primarily for gap jumps
-    /*private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.CompareTag("Jump")) {
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("JumpGap")) {
             if (!_isDead && !_isJumpActive) {
                 _isJumpActive = true;
                 if (_direction.x <= 0) {
@@ -200,7 +200,7 @@ public class Enemy : MonoBehaviour
                 StartCoroutine(EnableJump());
             }
         }
-    }*/
+    }
 
     private void CalculateCorrectEnemyMovementFlashlight(Vector3 dir) {
         if (dir.x < 0) { // if enemy is to the right of the player
