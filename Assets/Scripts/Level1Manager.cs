@@ -17,7 +17,7 @@ public class Level1Manager : MonoBehaviour
     private bool _respawn = false;
 
     private bool _lanternInstruction = false, _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
-    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false;
+    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false, _suspenseDrone = false, _umbraLogAttack = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -106,15 +106,23 @@ public class Level1Manager : MonoBehaviour
                 _soundEffect1 = true;
                 _suspenseAudioManager.PlaySuspense1();
             }
+
+            if (_player.transform.position.x > -33 && _player.transform.position.x < -31 && !_umbraLogAttack) {
+                _umbraLogAttack = true;
+                _spawnManager.SpawnUmbra(-44.30f, 1.91f);
+            }
+
             if (_player.transform.position.x > 36 && _player.transform.position.x < 38 && !_soundEffect2) {
                 _soundEffect2 = true;
                 _suspenseAudioManager.PlaySuspense2();
             }
+
             if (_player.transform.position.x > 112 && _player.transform.position.x < 114 && !_soundEffect3) {
                 _suspenseAudioManager.transform.position = new Vector3(100, 0);
                 _soundEffect3 = true;
                 _suspenseAudioManager.PlaySuspense1();
             }
+
             if (_player.transform.position.x > 200 && _player.transform.position.x < 202 && !_soundEffect4) {
                 _soundEffect4 = true;
                 _suspenseAudioManager.PlaySuspense2();
@@ -124,6 +132,11 @@ public class Level1Manager : MonoBehaviour
                 _I.SetActive(true);
                 _lightSources.SetLanternDisabled(false);
                 _lanternInstruction = true;
+            }
+
+            if (_player.transform.position.x > 6 && _player.transform.position.x < 8 && !_suspenseDrone) {
+                _suspenseDrone = true;
+                _suspenseAudioManager.PlaySuspenseDrone1();
             }
 
             if (_player.transform.position.x > -77 && _player.transform.position.x < -75 && !_secondEncounter) {
@@ -219,26 +232,27 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnLux(203.2f, -3f);
         _spawnManager.SpawnLux(206.84f, -3f);
         _spawnManager.SpawnLux(273.2f, -3.56f);
+        
         /* Collectables */
-        _spawnManager.SpawnFlashCharge(-59f, -0.15f);
-        _spawnManager.SpawnFlashCharge(-54f, 0f);
-        _spawnManager.SpawnFlashCharge(46.47f, -5.64f);
-        _spawnManager.SpawnFlashCharge(-9.4f, -1.32f);
         _spawnManager.SpawnFlashCharge(-94.04f, -2.76f);
-        _spawnManager.SpawnFlashCharge(25.04f, -6.4f);
-        _spawnManager.SpawnFlashCharge(13.08f, -6.37f);
-        _spawnManager.SpawnBattery(-41f, -1.5f);
         _spawnManager.SpawnBattery(-74.12f, -0.85f);
+        _spawnManager.SpawnFlashCharge(-59f, -0.38f);
+        _spawnManager.SpawnFlashCharge(-54f, -0.33f);
+        _spawnManager.SpawnBattery(-41f, -1.5f);
+        _spawnManager.SpawnFlashCharge(-16.436f, -1.935f);
+        _spawnManager.SpawnFlashCharge(-9.4f, -1.58f);
+        _spawnManager.SpawnFlashCharge(13.08f, -6.37f);
+        _spawnManager.SpawnFlashCharge(25.04f, -6.67f);
+        _spawnManager.SpawnFlashCharge(46.47f, -6.04f);
         _spawnManager.SpawnBattery(75.88f, -3.55f);
-        _spawnManager.SpawnFlashCharge(178.55f, 1.66f);
-        _spawnManager.SpawnFlashCharge(158f, -0.7f);
+        _spawnManager.SpawnFlashCharge(122f, -0.87f);
+        _spawnManager.SpawnFlashCharge(139.5f, -1.1f);
         _spawnManager.SpawnBattery(151.28f, -0.97f);
-        _spawnManager.SpawnFlashCharge(139.5f, -0.88f);
-        _spawnManager.SpawnFlashCharge(122f, -0.138f);
-
-        _spawnManager.SpawnFlashCharge(263, -4.8f);
+        _spawnManager.SpawnFlashCharge(158f, -0.99f);
+        _spawnManager.SpawnFlashCharge(178.55f, 1.48f);
         _spawnManager.SpawnFlashCharge(206, -5.2f);
         _spawnManager.SpawnFlashCharge(238.1f, 3.6f);
+        _spawnManager.SpawnFlashCharge(263, -4.8f);
     }
 
     IEnumerator LightningRoutine() {
