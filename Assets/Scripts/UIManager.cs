@@ -78,12 +78,19 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         _pauseGame.SetActive(true);
         _pauseMenu.SetActive(true);
+        _optionsMenu.SetActive(false);
+        _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void Resume() {
         _paused = !_paused;
         Cursor.visible = false;
         Time.timeScale = 1f;
+        _pauseMenu.SetActive(true);
+        _optionsMenu.SetActive(false);
+        _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
         _pauseGame.SetActive(false);
     }
 
