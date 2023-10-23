@@ -10,6 +10,8 @@ public class Level2Manager : MonoBehaviour
     [SerializeField]
     private GameObject _cliff;
     [SerializeField]
+    private ParticleSystem _cliffSmoke;
+    [SerializeField]
     private GameObject _electricDeath;
     private SuspenseAudioManager _suspenseAudioManager;
     private SpawnManager _spawnManager;
@@ -29,14 +31,14 @@ public class Level2Manager : MonoBehaviour
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _camera = Camera.main;
         _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
-
+        _cliffSmoke.Pause();
 
         if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
             _checkpointManager.SetCurrentCheckpoint(new Vector3(-125, 1.2f, 0));
         }
         _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
 
-        InitialisePrefabsForLevel();
+        //InitialisePrefabsForLevel();
     }
 
     void Update() {
@@ -174,5 +176,9 @@ public class Level2Manager : MonoBehaviour
         _cliff.GetComponent<Rigidbody2D>().gravityScale = 0.1f;
         yield return new WaitForSeconds(0.5f);
         _cliff.GetComponent<Rigidbody2D>().gravityScale = 0.8f;
+        yield return new WaitForSeconds(2.7f);
+        _cliffSmoke.Play();
+        yield return new WaitForSeconds(4f);
+        _cliffSmoke.Pause();
     }
 }
