@@ -17,7 +17,7 @@ public class Level1Manager : MonoBehaviour
     private bool _respawn = false;
 
     private bool _lanternInstruction = false, _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
-    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false, _suspenseDrone = false, _umbraLogAttack = false;
+    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false, _suspenseDrone = false, _umbraLogAttack = false, _umbraCaveOut = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -115,6 +115,11 @@ public class Level1Manager : MonoBehaviour
             if (_player.transform.position.x > 36 && _player.transform.position.x < 38 && !_soundEffect2) {
                 _soundEffect2 = true;
                 _suspenseAudioManager.PlaySuspense2();
+            }
+
+            if (_player.transform.position.x > 101 && _player.transform.position.x < 103 && !_umbraCaveOut) {
+                _umbraCaveOut = true;
+                _spawnManager.SpawnUmbra(85.94f, -0.49f);
             }
 
             if (_player.transform.position.x > 112 && _player.transform.position.x < 114 && !_soundEffect3) {
