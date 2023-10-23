@@ -38,7 +38,7 @@ public class Level2Manager : MonoBehaviour
         }
         _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
 
-        //InitialisePrefabsForLevel();
+        InitialisePrefabsForLevel();
     }
 
     void Update() {

@@ -30,11 +30,18 @@ public class Player : MonoBehaviour{
     [SerializeField]
     private AudioClip _jumpTakeoffClip;
     [SerializeField]
-    private GameObject _deathAudioSource;
+    private GameObject _deathHandler;
+
+    private Vector3 _deathPos, _facingLeft, _facingRight;
 
     private void Start() {
         _rigidbody = GetComponent<Rigidbody2D>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+
+        _deathPos = new Vector3(0,0,0);
+        _facingLeft = new Vector3(-0.17f, 0.17f, 0.17f);
+        _facingRight = new Vector3(0.17f, 0.17f, 0.17f);
+
         if (SceneManager.GetActiveScene().buildIndex == 1) {
             _disableJump = true; 
             _disableMovement = true;
@@ -52,8 +59,10 @@ public class Player : MonoBehaviour{
     private void Update() {
         if (!_uiManager.GetIsPaused()) {
             if (!_disableMovement) { CalculateMovement(); }            
-            if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive && !_disableJump) { JumpSequence(); }              
-            _deathAudioSource.transform.position = this.transform.position;
+            if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive && !_disableJump) { JumpSequence(); }
+            _deathPos.x = this.transform.position.x + 1.183f;
+            _deathPos.y = this.transform.position.y - 0.049f;
+            _deathHandler.transform.position = _deathPos;
         }
     }
 
@@ -89,7 +98,8 @@ public class Player : MonoBehaviour{
                     break;
                 case 3:
                     _uiManager.FadeOut(4, false);
-                    _deathAudioSource.GetComponent<AudioSource>().Play();
+                    _deathHandler.GetComponent<AudioSource>().Play();
+                    _deathHandler.GetComponent<Animator>().SetTrigger("Death");
                     break;
                 default: break;
             }
@@ -174,7 +184,8 @@ public class Player : MonoBehaviour{
             }
             _direction = false; // facing left
             _moving = true;
-            transform.localScale = new Vector3(-0.17f, 0.17f, 0.17f);
+            transform.localScale = _facingLeft;
+            _deathHandler.transform.localScale = _facingLeft;
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKey(KeyCode.D)) {
             if(!_footstepSource.isPlaying && !_isJumpActive) {
@@ -183,9 +194,10 @@ public class Player : MonoBehaviour{
             }
             _direction = true; // facing right
             _moving = true;
-            transform.localScale = new Vector3(0.17f, 0.17f, 0.17f);
+            transform.localScale = _facingRight;
+            _deathHandler.transform.localScale = _facingRight;
         }
-        if(Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
+        if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) {
             _footstepSource.Pause();
             _playerAnim.ResetTrigger("Walking");
             _moving = false;
@@ -196,7 +208,8 @@ public class Player : MonoBehaviour{
     }
 
     public void KillPlayer() {
-        _deathAudioSource.GetComponent<AudioSource>().Play();
+        _deathHandler.GetComponent<AudioSource>().Play();
+        _deathHandler.GetComponent<Animator>().SetTrigger("Death");
         switch (SceneManager.GetActiveScene().buildIndex) {
             case 1:
                 _uiManager.FadeOut(2, false);
