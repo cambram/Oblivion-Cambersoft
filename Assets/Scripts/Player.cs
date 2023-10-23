@@ -31,6 +31,8 @@ public class Player : MonoBehaviour{
     private AudioClip _jumpTakeoffClip;
     [SerializeField]
     private GameObject _deathHandler;
+    [SerializeField]
+    private GameObject _playerGlowLight;
 
     private Vector3 _deathPos, _facingLeft, _facingRight;
 
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour{
             _deathPos.x = this.transform.position.x + 1.183f;
             _deathPos.y = this.transform.position.y - 0.049f;
             _deathHandler.transform.position = _deathPos;
+            _playerGlowLight.transform.position = this.transform.position;
         }
     }
 
