@@ -6,7 +6,7 @@ public class Level2Manager : MonoBehaviour
 {
     private Player _player;
     private Camera _camera;
-    private bool _respawn = false, _umbraAttack1 = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false, _openMassiveDoors = false;
+    private bool _respawn = false, _umbraAttack1 = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false, _openMassiveDoors = false, _moveSuspense = false, _soundEffect2 = false;
     [SerializeField]
     private GameObject _cliff;
     [SerializeField]
@@ -65,6 +65,11 @@ public class Level2Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense2();
             }
 
+            if (_player.transform.position.x > -25 && _player.transform.position.x < -23 && !_soundEffect2) {
+                _soundEffect2 = true;
+                _suspenseAudioManager.PlaySuspenseDrone2();
+            }
+
             if (_player.transform.position.x > 10 && _player.transform.position.x < 12 && !_luxAttack1) {
                 _luxAttack1 = true;
                 _spawnManager.SpawnLux(-6.56f, -0.4f);
@@ -95,11 +100,17 @@ public class Level2Manager : MonoBehaviour
                 StartCoroutine(CliffFall());
             }
 
-            if(_player.transform.position.x > 276 && !_openMassiveDoors) {
+            if (_player.transform.position.x > 260 && _player.transform.position.x < 262 && !_moveSuspense) {
+                _moveSuspense = true;
+                _suspenseAudioManager.transform.position = new Vector3(280, 1.7f, 0);
+            }
+
+            if (_player.transform.position.x > 276 && !_openMassiveDoors) {
                 _openMassiveDoors = true;
                 _massiveDoorsAnim.SetTrigger("Open");
                 _player.DisableJump();
                 _player.DisableMovement();
+                _suspenseAudioManager.PlaySuspenseEndingTones();
                 StartCoroutine(ReenablePlayer());
             }
         }
