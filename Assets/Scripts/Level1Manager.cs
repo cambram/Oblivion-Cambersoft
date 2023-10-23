@@ -54,6 +54,8 @@ public class Level1Manager : MonoBehaviour
 
     private CheckpointManager _checkpointManager;
 
+    private Vector3 _cameraLeftBounds, _cameraRightBounds, _cameraPlayerBounds, _effectsBounds1, _effectsBounds2;
+
 
     void Start() {
         Cursor.visible = false;
@@ -71,6 +73,12 @@ public class Level1Manager : MonoBehaviour
         _suspenseAudioManager = GameObject.Find("Suspense_Audio_Manager").GetComponent<SuspenseAudioManager>();
         _lightSources.SetLanternDisabled(true);
         _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
+
+        _cameraLeftBounds = new Vector3(-108, 0, -10);
+        _cameraRightBounds = new Vector3(280, 0, -10);
+        _cameraPlayerBounds = new Vector3(_player.transform.position.x + 5, 0, -10);
+        _effectsBounds1 = new Vector3(-9, 0, -10);
+        _effectsBounds2 = new Vector3(117, 0, -10);
 
         if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
             _checkpointManager.SetCurrentCheckpoint(new Vector3(-119, -2f, 0));
@@ -107,7 +115,7 @@ public class Level1Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense1();
             }
 
-            if (_player.transform.position.x > -33 && _player.transform.position.x < -31 && !_umbraLogAttack) {
+            if (_player.transform.position.x > -27 && _player.transform.position.x < -25 && !_umbraLogAttack) {
                 _umbraLogAttack = true;
                 _spawnManager.SpawnUmbra(-44.30f, 1.91f);
             }
@@ -199,20 +207,21 @@ public class Level1Manager : MonoBehaviour
 
     private void ConstrainCamera() {
         if (_player.transform.position.x < -113) {
-            _camera.transform.position = new Vector3(-108, 0, -10);
-        } else if (_player.transform.position.x > 275) { //105
-            _camera.transform.position = new Vector3(280, 0, -10);
+            _camera.transform.position = _cameraLeftBounds;
+        } else if (_player.transform.position.x > 275) {
+            _camera.transform.position = _cameraRightBounds;
         } else {
-            _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
+            _cameraPlayerBounds.x = _player.transform.position.x + 5;
+            _camera.transform.position = _cameraPlayerBounds;
         }
     }
     private void ConstrainEffects() {
         if(_player.transform.position.x < -14 || _player.transform.position.x >= 112) {
             _effects.transform.position = _camera.transform.position;
         } else if(_player.transform.position.x >= -14 && _player.transform.position.x <= 55) {
-            _effects.transform.position = new Vector3(-9, 0, -10);
+            _effects.transform.position = _effectsBounds1;
         } else if(_player.transform.position.x > 55 && _player.transform.position.x < 112) {
-            _effects.transform.position = new Vector3(117, 0, -10);
+            _effects.transform.position = _effectsBounds2;
         } 
     }
 

@@ -21,6 +21,7 @@ public class Level2Manager : MonoBehaviour
     [SerializeField]
     private Animator _massiveDoorsAnim;
 
+    private Vector3 _cameraLeftBounds, _cameraRightBounds, _cameraPlayerBounds;
 
     void Start() {
         Cursor.visible = false;
@@ -32,6 +33,10 @@ public class Level2Manager : MonoBehaviour
         _camera = Camera.main;
         _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
         _cliffSmoke.Pause();
+
+        _cameraLeftBounds = new Vector3(-116, 0, -10);
+        _cameraRightBounds = new Vector3(279, 0, -10);
+        _cameraPlayerBounds = new Vector3(_player.transform.position.x + 5, 0, -10);
 
         if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
             _checkpointManager.SetCurrentCheckpoint(new Vector3(-125, 1.2f, 0));
@@ -108,11 +113,12 @@ public class Level2Manager : MonoBehaviour
 
     private void ConstrainCamera() {
         if (_player.transform.position.x < -121) {
-            _camera.transform.position = new Vector3(-116, 0, -10);
+            _camera.transform.position = _cameraLeftBounds;
         } else if (_player.transform.position.x > 274) {
-            _camera.transform.position = new Vector3(279, 0, -10);
+            _camera.transform.position = _cameraRightBounds;
         } else {
-            _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
+            _cameraPlayerBounds.x = _player.transform.position.x + 5;
+            _camera.transform.position = _cameraPlayerBounds;
         }
     }
 

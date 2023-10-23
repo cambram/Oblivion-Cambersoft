@@ -57,6 +57,8 @@ public class TutorialManager : MonoBehaviour
     private Vector3 checkpoint1 = new Vector3(-9, 5, 0);
     private Vector3 checkpoint2 = new Vector3(42, 3, 0);
 
+    private Vector3 _cameraLeftBounds, _cameraRightBounds, _cameraPlayerBounds;
+
     void Start() {
         Cursor.visible = false;
         _camera = Camera.main;
@@ -69,7 +71,11 @@ public class TutorialManager : MonoBehaviour
         _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
         _lightSources.SetBypassBattery(true);
 
-        if(_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
+        _cameraLeftBounds = new Vector3(-66, 0, -10);
+        _cameraRightBounds = new Vector3(65.3f, 0, -10);
+        _cameraPlayerBounds = new Vector3(_player.transform.position.x + 5, 0, -10);
+
+        if (_checkpointManager.GetCurrentCheckpoint() == Vector3.zero) {
             _checkpointManager.SetCurrentCheckpoint(new Vector3(-77, -1.7f, 0));
         }
         _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
@@ -197,11 +203,12 @@ public class TutorialManager : MonoBehaviour
 
     private void ConstrainCamera() {
         if (_player.transform.position.x < -71) {
-            _camera.transform.position = new Vector3(-66, 0, -10);
+            _camera.transform.position = _cameraLeftBounds;
         } else if (_player.transform.position.x > 60.3f) {
-            _camera.transform.position = new Vector3(65.3f, 0, -10);
+            _camera.transform.position = _cameraRightBounds;
         } else {
-            _camera.transform.position = new Vector3(_player.transform.position.x + 5, 0, -10);
+            _cameraPlayerBounds.x = _player.transform.position.x + 5;
+            _camera.transform.position = _cameraPlayerBounds;
         }
     }
 
