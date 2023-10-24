@@ -187,7 +187,8 @@ public class UIManager : MonoBehaviour
     }
 
     public void SpecialLevel2Fade() {
-        _gameManager.BackToMainMenu();
+        _environment.GetComponent<Animator>().SetTrigger("FadeOut");
+        StartCoroutine(BackToMainRoutine());
     }
 
     IEnumerator BackToMainRoutine() {

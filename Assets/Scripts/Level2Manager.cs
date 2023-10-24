@@ -46,7 +46,7 @@ public class Level2Manager : MonoBehaviour
         }
         _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
 
-        //InitialisePrefabsForLevel();
+        InitialisePrefabsForLevel();
     }
 
     void Update() {
@@ -227,11 +227,12 @@ public class Level2Manager : MonoBehaviour
         _credits.SetActive(true);
         _player.DisableMovement();
         _player.DisableJump();
+        _suspenseAudioManager.GetComponent<Animator>().SetTrigger("FadeOut");
         StartCoroutine(FinishLevel());
     }
 
     IEnumerator FinishLevel() {
-        yield return new WaitForSeconds(13f);
+        yield return new WaitForSeconds(15f);
         _uiManager.SpecialLevel2Fade();
     }
 }
