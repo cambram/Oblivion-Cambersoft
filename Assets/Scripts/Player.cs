@@ -13,6 +13,7 @@ public class Player : MonoBehaviour{
     private bool _disableJump = false, _disableMovement = false, _attraction = false;
     private Rigidbody2D _rigidbody;
     private Level1Manager _level1Manager;
+    private Level2Manager _level2Manager;
     [SerializeField]
     private Animator _playerAnim;
 
@@ -49,9 +50,11 @@ public class Player : MonoBehaviour{
             _disableMovement = true;
         } else if (SceneManager.GetActiveScene().buildIndex == 2) {
             _level1Manager = GameObject.Find("Level_1_Manager").GetComponent<Level1Manager>();
+        } else if (SceneManager.GetActiveScene().buildIndex == 3) {
+            _level2Manager = GameObject.Find("Level_2_Manager").GetComponent<Level2Manager>();
         }
 
-        for(int i = 0; i < Object.FindObjectsOfType<Enemy>().Length; i++) {
+        for (int i = 0; i < Object.FindObjectsOfType<Enemy>().Length; i++) {
             if (Vector3.Distance(this.transform.position, Object.FindObjectsOfType<Enemy>()[i].transform.position) < 22) {
                 Destroy(Object.FindObjectsOfType<Enemy>()[i].gameObject);
             }
@@ -93,7 +96,7 @@ public class Player : MonoBehaviour{
                     _uiManager.FadeOut(4, true);
                     break;
                 case 3:
-                    _uiManager.FadeOut(1, true);
+                    _level2Manager.PlayCredits();
                     break;
             }
         } else if (collision.CompareTag("Death")) {

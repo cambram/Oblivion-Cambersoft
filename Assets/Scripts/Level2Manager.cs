@@ -10,6 +10,8 @@ public class Level2Manager : MonoBehaviour
     [SerializeField]
     private GameObject _cliff;
     [SerializeField]
+    private GameObject _credits;
+    [SerializeField]
     private ParticleSystem _cliffSmoke;
     [SerializeField]
     private GameObject _electricDeath;
@@ -33,6 +35,7 @@ public class Level2Manager : MonoBehaviour
         _camera = Camera.main;
         _checkpointManager = GameObject.Find("Checkpoint_Manager").GetComponent<CheckpointManager>();
         _cliffSmoke.Pause();
+        _credits.SetActive(false);
 
         _cameraLeftBounds = new Vector3(-116, 0, -10);
         _cameraRightBounds = new Vector3(279, 0, -10);
@@ -43,7 +46,7 @@ public class Level2Manager : MonoBehaviour
         }
         _player.transform.position = _checkpointManager.GetCurrentCheckpoint();
 
-        InitialisePrefabsForLevel();
+        //InitialisePrefabsForLevel();
     }
 
     void Update() {
@@ -218,5 +221,17 @@ public class Level2Manager : MonoBehaviour
         _cliffSmoke.Play();
         yield return new WaitForSeconds(4f);
         _cliffSmoke.Pause();
+    }
+
+    public void PlayCredits() {
+        _credits.SetActive(true);
+        _player.DisableMovement();
+        _player.DisableJump();
+        StartCoroutine(FinishLevel());
+    }
+
+    IEnumerator FinishLevel() {
+        yield return new WaitForSeconds(13f);
+        _uiManager.SpecialLevel2Fade();
     }
 }

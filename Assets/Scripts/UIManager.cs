@@ -185,6 +185,11 @@ public class UIManager : MonoBehaviour
             default: break;
         }
     }
+
+    public void SpecialLevel2Fade() {
+        _gameManager.BackToMainMenu();
+    }
+
     IEnumerator BackToMainRoutine() {
         yield return _delay;
         _gameManager.BackToMainMenu();
