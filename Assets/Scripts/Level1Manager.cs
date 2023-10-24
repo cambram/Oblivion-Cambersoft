@@ -17,7 +17,7 @@ public class Level1Manager : MonoBehaviour
     private bool _respawn = false;
 
     private bool _lanternInstruction = false, _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
-    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false, _suspenseDrone = false, _umbraLogAttack = false, _umbraCaveOut = false;
+    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false, _suspenseDrone = false, _umbraCaveOut = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -115,11 +115,6 @@ public class Level1Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense1();
             }
 
-            if (_player.transform.position.x > -27 && _player.transform.position.x < -25 && !_umbraLogAttack) {
-                _umbraLogAttack = true;
-                _spawnManager.SpawnUmbra(-44.30f, 1.91f);
-            }
-
             if (_player.transform.position.x > 36 && _player.transform.position.x < 38 && !_soundEffect2) {
                 _soundEffect2 = true;
                 _suspenseAudioManager.PlaySuspense2();
@@ -136,9 +131,9 @@ public class Level1Manager : MonoBehaviour
                 _suspenseAudioManager.PlaySuspense1();
             }
 
-            if (_player.transform.position.x > 200 && _player.transform.position.x < 202 && !_soundEffect4) {
+            if (_player.transform.position.x > 160 && _player.transform.position.x < 162 && !_soundEffect4) {
                 _soundEffect4 = true;
-                _suspenseAudioManager.PlaySuspense2();
+                _suspenseAudioManager.PlaySuspenseDrone2();
             }
 
             if (_player.transform.position.x > -106 && !_lanternInstruction) {
