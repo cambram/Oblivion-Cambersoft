@@ -187,6 +187,7 @@ public class Level1Manager : MonoBehaviour
                 _spawnManager.SpawnLux(13f, -3.6f);
             }
 
+            //lightning strike
             if (_player.transform.position.x > 85 && _player.transform.position.x < 87 && !_lightningStrike) {
                 _lightningStrike = true;
                 _lightSources.SetIsFlashCameraActive(true);

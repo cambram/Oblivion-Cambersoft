@@ -89,15 +89,19 @@ public class Enemy : MonoBehaviour
                     transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 }
             }
-            if (_distance < 13 && _lightSources.GetIsFlashCameraActive()) { // change to 7
+            if (_lightSources.GetIsFlashCameraActive()) {
                 if (_lightSources.GetCurrentLightSource() == 0) {
-                    if (_direction.x < 0 && _player.GetDirection()) {
-                        KillEnemy();
-                    } else if (_direction.x > 0 && !_player.GetDirection()) {
-                        KillEnemy();
+                    if(_distance <= 13) {
+                        if (_direction.x < 0 && _player.GetDirection()) {
+                            KillEnemy();
+                        } else if (_direction.x > 0 && !_player.GetDirection()) {
+                            KillEnemy();
+                        }
                     }
                 } else {
-                    KillEnemy();
+                    if (_distance <= 6.5) {
+                        KillEnemy();
+                    }
                 }
             }
         }
@@ -131,15 +135,19 @@ public class Enemy : MonoBehaviour
                     transform.localScale = new Vector3(0.29428f, 0.29428f, 0.29428f);
                 }
             }
-            if (_distance < 13 && _lightSources.GetIsFlashCameraActive()) { // change to 7
+            if (_lightSources.GetIsFlashCameraActive()) {
                 if (_lightSources.GetCurrentLightSource() == 0) {
-                    if (_direction.x < 0 && _player.GetDirection()) {
-                        KillEnemy();
-                    } else if (_direction.x > 0 && !_player.GetDirection()) {
-                        KillEnemy();
+                    if (_distance <= 13) {
+                        if (_direction.x < 0 && _player.GetDirection()) {
+                            KillEnemy();
+                        } else if (_direction.x > 0 && !_player.GetDirection()) {
+                            KillEnemy();
+                        }
                     }
                 } else {
-                    KillEnemy();
+                    if (_distance <= 6.5) {
+                        KillEnemy();
+                    }
                 }
             }
         }

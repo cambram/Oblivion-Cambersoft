@@ -62,8 +62,13 @@ public class Player : MonoBehaviour{
         if (!_uiManager.GetIsPaused()) {
             if (!_disableMovement) { CalculateMovement(); }            
             if (Input.GetKeyDown(KeyCode.Space) && !_isJumpActive && !_disableJump) { JumpSequence(); }
-            _deathPos.x = this.transform.position.x + 1.183f;
-            _deathPos.y = this.transform.position.y - 0.049f;
+            if (GetDirection()) {
+                _deathPos.x = this.transform.position.x + 1.183f;
+                _deathPos.y = this.transform.position.y - 0.049f;
+            } else {
+                _deathPos.x = this.transform.position.x - 1.183f;
+                _deathPos.y = this.transform.position.y - 0.049f;
+            }
             _deathHandler.transform.position = _deathPos;
             _playerGlowLight.transform.position = this.transform.position;
         }
