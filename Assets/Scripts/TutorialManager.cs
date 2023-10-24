@@ -37,7 +37,7 @@ public class TutorialManager : MonoBehaviour
     //Battery Variable
     private bool _bypassBattery = true;
 
-    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionShow = false, _jumpInstructionComplete = false, _scareOffEnemyInstruction = false;
+    private bool _flashlightInstructionComplete = false, _movementInstructionComplete = false, _jumpInstructionShow = false, _jumpInstructionComplete = false, _scareOffEnemyInstruction = false, _playSuspenseDrone = false;
 
     private bool _respawn = false, _batteryBypassRespawn = true;
     private Player _player;
@@ -92,6 +92,7 @@ public class TutorialManager : MonoBehaviour
             //respawn player if they fall
             if (_player.transform.position.y < -12 && !_respawn) {
                 _respawn = true;
+                _player.KillPlayer();
                 _uiManager.FadeOut(2, false);
             }
 
@@ -153,6 +154,11 @@ public class TutorialManager : MonoBehaviour
             //Hide right click icon
             if (_player.transform.position.x > 33) {
                 _LAnim.SetTrigger("FadeOut");
+            }
+
+            if (_player.transform.position.x > 8 && _player.transform.position.x < 10 && !_playSuspenseDrone) {
+                _playSuspenseDrone = true;
+                _suspenseAudioManager.PlaySuspenseDrone1();
             }
 
             if (_player.transform.position.x >= 4 && _player.transform.position.x < 14) {

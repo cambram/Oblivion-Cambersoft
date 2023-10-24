@@ -6,7 +6,7 @@ public class Level2Manager : MonoBehaviour
 {
     private Player _player;
     private Camera _camera;
-    private bool _respawn = false, _umbraAttack1 = false, _soundEffect1 = false, _umbraAttack = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false, _openMassiveDoors = false, _moveSuspense = false, _soundEffect2 = false;
+    private bool _respawn = false, _umbraAttack1 = false, _soundEffect1 = false, _umbraAttack = false, _umbraAttack2 = false, _surpriseAttack = false, _cliffFall = false, _luxAttack1 = false, _luxAttack2 = false, _luxAttack3 = false, _luxAttack4 = false, _luxAttack5 = false, _openMassiveDoors = false, _moveSuspense = false, _soundEffect2 = false;
     [SerializeField]
     private GameObject _cliff;
     [SerializeField]
@@ -52,12 +52,18 @@ public class Level2Manager : MonoBehaviour
 
             if (_player.transform.position.y < -12 && !_respawn) {
                 _respawn = true;
+                _player.KillPlayer();
                 _uiManager.FadeOut(4, false);
             }
 
             if (_player.transform.position.x > -93 && _player.transform.position.x < -91 && !_umbraAttack1) {
                 _umbraAttack1 = true;
                 _spawnManager.SpawnUmbra(-109.23f, 2.7f);
+            }
+
+            if (_player.transform.position.x > -40 && _player.transform.position.x < -38 && !_umbraAttack2) {
+                _umbraAttack2 = true;
+                _spawnManager.SpawnUmbra(-58.59f, 5.34f);
             }
 
             if (_player.transform.position.x > -107 && _player.transform.position.x < -105 && !_soundEffect1) {
@@ -75,10 +81,24 @@ public class Level2Manager : MonoBehaviour
                 _spawnManager.SpawnLux(-6.56f, -0.4f);
             }
 
+            if (_player.transform.position.x > 2 && _player.transform.position.x < 4 && !_luxAttack3) {
+                _luxAttack3 = true;
+                _spawnManager.SpawnLux(-12.09f, -0.4f);
+            }
+
             if (_player.transform.position.x > 12 && _player.transform.position.x < 14 && !_luxAttack2) {
                 _luxAttack2 = true;
-                _spawnManager.SpawnLux(-4f, -0.4f);
                 _spawnManager.SpawnLux(-6.56f, -0.4f);
+            }
+
+            if (_player.transform.position.x > 14 && _player.transform.position.x < 16 && !_luxAttack4) {
+                _luxAttack4 = true;
+                _spawnManager.SpawnLux(0f, -0.4f);
+            }
+
+            if (_player.transform.position.x > 218 && _player.transform.position.x < 220 && !_luxAttack5) {
+                _luxAttack5 = true;
+                _spawnManager.SpawnLux(207.3657f, -1.84f);
             }
 
             if (_player.transform.position.x > 48 && _player.transform.position.x < 50 && !_umbraAttack) {
@@ -154,7 +174,7 @@ public class Level2Manager : MonoBehaviour
         _spawnManager.SpawnUmbra(151f, 2f);
         _spawnManager.SpawnLux(162.2f, 1.47f);
         _spawnManager.SpawnUmbra(178.87f, 5.7f);
-        _spawnManager.SpawnLux(194.56f, 6.4f);
+        _spawnManager.SpawnLux(182.42f, 4.2f);
         _spawnManager.SpawnLux(207.62f, -2.4f);
         _spawnManager.SpawnUmbra(210.43f, -1.2f);
         _spawnManager.SpawnUmbra(238.63f, 2.4f);
@@ -174,6 +194,7 @@ public class Level2Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(35.16f, -0.443f);
         _spawnManager.SpawnFlashCharge(42.45f, -0.375f);
         _spawnManager.SpawnFlashCharge(44.29f, -0.438f);
+        _spawnManager.SpawnFlashCharge(67.99f, 0.75f);
         _spawnManager.SpawnFlashCharge(88.05f, -0.71f);
         _spawnManager.SpawnFlashCharge(100.27f, 0.18f);
         _spawnManager.SpawnFlashCharge(103.515f, -0.743f);

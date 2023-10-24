@@ -17,7 +17,7 @@ public class Level1Manager : MonoBehaviour
     private bool _respawn = false;
 
     private bool _lanternInstruction = false, _secondEncounter = false, _logFallen = false, _lanternComplete = false, _kKeyEnabled = false, _luxApproaches = false, _umbraCaveApproaches = false, _lightningStrike = false, _secondLuxEncounter = false;
-    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false, _suspenseDrone = false, _umbraCaveOut = false;
+    private bool _soundEffect1 = false, _soundEffect2 = false, _soundEffect3 = false, _soundEffect4 = false, _suspenseDrone = false, _umbraCaveOut = false, _umbraApproach1 = false;
 
     //A Instruction Variables
     [SerializeField]
@@ -95,6 +95,7 @@ public class Level1Manager : MonoBehaviour
             //respawn player if they fall
             if (_player.transform.position.y < -12 && !_respawn) {
                 _respawn = true;
+                _player.KillPlayer();
                 _uiManager.FadeOut(3, false);
             }
 
@@ -189,6 +190,11 @@ public class Level1Manager : MonoBehaviour
                 _lightning.GetComponent<AudioSource>().Play();
                 _lightning.GetComponent<Light2D>().enabled = true;
                 StartCoroutine(LightningRoutine());
+            }
+
+            if (_player.transform.position.x > 267 && _player.transform.position.x < 269 && !_umbraApproach1) {
+                _umbraApproach1 = true;
+                _spawnManager.SpawnUmbra(247.89f, 0f);
             }
         }
     }
