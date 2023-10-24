@@ -18,6 +18,10 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject _volumeMenu;
     [SerializeField]
+    private GameObject _controlsMenu;
+    [SerializeField]
+    private GameObject _titleText;
+    [SerializeField]
     private AudioMixer _mainMixer;
     [SerializeField]
     private Slider _masterSlider;
@@ -32,9 +36,11 @@ public class MainMenu : MonoBehaviour
 
     public void Start() {
         _mainMenuButtons.SetActive(true);
+        _titleText.SetActive(true);
         _selectLevel.SetActive(false);
         _optionsMenu.SetActive(false);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
         SetVolumeSliders();
         Cursor.visible = true;
     }
@@ -60,38 +66,65 @@ public class MainMenu : MonoBehaviour
 
     public void SelectLevelButton() {
         _mainMenuButtons.SetActive(false);
+        _titleText.SetActive(true);
         _selectLevel.SetActive(true);
         _optionsMenu.SetActive(false);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void BackButton() {
         _mainMenuButtons.SetActive(true);
+        _titleText.SetActive(true);
         _selectLevel.SetActive(false);
         _optionsMenu.SetActive(false);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void BackFromVolumeButton() {
         _mainMenuButtons.SetActive(false);
+        _titleText.SetActive(true);
         _selectLevel.SetActive(false);
         _optionsMenu.SetActive(true);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void OptionsButton() {
         _mainMenuButtons.SetActive(false);
+        _titleText.SetActive(true);
         _selectLevel.SetActive(false);
         _optionsMenu.SetActive(true);
         _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
     }
 
     public void VolumeButton() {
         _mainMenuButtons.SetActive(false);
+        _titleText.SetActive(true);
         _selectLevel.SetActive(false);
         _optionsMenu.SetActive(false);
         _volumeMenu.SetActive(true);
+        _controlsMenu.SetActive(false);
     }
+    public void ControlsMenu() {
+        _mainMenuButtons.SetActive(false);
+        _titleText.SetActive(false);
+        _selectLevel.SetActive(false);
+        _optionsMenu.SetActive(false);
+        _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(true);
+    }
+    public void BackFromControlsMenu() {
+        _mainMenuButtons.SetActive(false);
+        _titleText.SetActive(true);
+        _selectLevel.SetActive(false);
+        _optionsMenu.SetActive(true);
+        _volumeMenu.SetActive(false);
+        _controlsMenu.SetActive(false);
+    }
+
 
     IEnumerator StartGameRoutine(int level) {
         yield return new WaitForSeconds(4.5f);
