@@ -164,6 +164,9 @@ public class Level1Manager : MonoBehaviour
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff1, _caveCutoff2); //y = mx + b
                 _caveDrips.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(13, 0), new Vector2(25, 0.65f));
             }
+            if (_player.transform.position.x >= 25 && _player.transform.position.x <= 76) {
+                _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = 4000.2f;
+            }
             if (_player.transform.position.x > 76 && _player.transform.position.x < 87) {
                 _environment.GetComponent<AudioLowPassFilter>().cutoffFrequency = SlopeIntercept(_caveCutoff3, _caveCutoff4); //y = mx + b
                 _caveDrips.GetComponent<AudioSource>().volume = SlopeIntercept(new Vector2(76, 0.65f), new Vector2(87, 0));
@@ -202,7 +205,7 @@ public class Level1Manager : MonoBehaviour
     public void PlayLightOffInstruction() {
         if (!_luxApproaches) {
             _luxApproaches = true;
-            _lightOff.transform.position = new Vector3(_player.transform.position.x + 10, _player.transform.position.y - 4, 0);
+            _lightOff.transform.position = new Vector3(_player.transform.position.x + 10, _player.transform.position.y - 5, 0);
             _lightOff.SetActive(true);
         }
     }
@@ -256,7 +259,6 @@ public class Level1Manager : MonoBehaviour
         _spawnManager.SpawnFlashCharge(-54f, -0.33f);
         _spawnManager.SpawnBattery(-41f, -1.5f);
         _spawnManager.SpawnFlashCharge(-16.436f, -1.935f);
-        _spawnManager.SpawnFlashCharge(-9.4f, -1.58f);
         _spawnManager.SpawnFlashCharge(13.08f, -6.37f);
         _spawnManager.SpawnFlashCharge(25.04f, -6.67f);
         _spawnManager.SpawnFlashCharge(46.47f, -6.04f);
