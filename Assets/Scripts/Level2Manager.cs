@@ -86,7 +86,7 @@ public class Level2Manager : MonoBehaviour
 
             if (_player.transform.position.x > 2 && _player.transform.position.x < 4 && !_luxAttack3) {
                 _luxAttack3 = true;
-                _spawnManager.SpawnLux(-12.09f, -0.4f);
+                _spawnManager.SpawnLux(-10.27f, -0.31f);
             }
 
             if (_player.transform.position.x > 12 && _player.transform.position.x < 14 && !_luxAttack2) {
@@ -96,12 +96,12 @@ public class Level2Manager : MonoBehaviour
 
             if (_player.transform.position.x > 14 && _player.transform.position.x < 16 && !_luxAttack4) {
                 _luxAttack4 = true;
-                _spawnManager.SpawnLux(0f, -0.4f);
+                _spawnManager.SpawnLux(2.02f, 0.09f);
             }
 
             if (_player.transform.position.x > 218 && _player.transform.position.x < 220 && !_luxAttack5) {
                 _luxAttack5 = true;
-                _spawnManager.SpawnLux(207.3657f, -1.84f);
+                _spawnManager.SpawnLux(205.3657f, -1.6f);
             }
 
             if (_player.transform.position.x > 48 && _player.transform.position.x < 50 && !_umbraAttack) {
@@ -232,7 +232,7 @@ public class Level2Manager : MonoBehaviour
     }
 
     IEnumerator FinishLevel() {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(22.5f);
         _uiManager.SpecialLevel2Fade();
     }
 }
