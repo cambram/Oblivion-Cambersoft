@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour{
-    private float _speed = 2.5f; //3.5f
+    private float _speed = 3f; //3.5f
     private bool _isJumpActive = false;
     private bool _direction = true; //true is facing right and false is facing left
     private bool _moving = false;
@@ -36,6 +36,7 @@ public class Player : MonoBehaviour{
     private GameObject _playerGlowLight;
 
     private Vector3 _deathPos, _facingLeft, _facingRight;
+    private WaitForSeconds _jumpDelay;
 
     private void Start() {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour{
         _deathPos = new Vector3(0,0,0);
         _facingLeft = new Vector3(-0.17f, 0.17f, 0.17f);
         _facingRight = new Vector3(0.17f, 0.17f, 0.17f);
+        _jumpDelay = new WaitForSeconds(0.04f);
 
         if (SceneManager.GetActiveScene().buildIndex == 1) {
             _disableJump = true; 
@@ -84,8 +86,8 @@ public class Player : MonoBehaviour{
             if(_isJumpActive) {
                 _jumpAudioSource.clip = _jumpLandClip;
                 _jumpAudioSource.Play();
-                _isJumpActive = false;
                 _playerAnim.ResetTrigger("Jumping");
+                StartCoroutine(JumpDelay());
             }
         } else if(collision.CompareTag("Finish")) {
             switch (SceneManager.GetActiveScene().buildIndex) {
@@ -233,5 +235,10 @@ public class Player : MonoBehaviour{
                 break;
         }
         Destroy(this.gameObject);
+    }
+
+    IEnumerator JumpDelay() {
+        yield return _jumpDelay;
+        _isJumpActive = false;
     }
 }
